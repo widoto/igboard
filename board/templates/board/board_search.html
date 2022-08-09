@@ -1,0 +1,96 @@
+<div>검색</div>
+<form action="{% url 'board:board_search' %}" method="POST"> 
+    {% csrf_token %}
+    <input type="search" placeholder="Search" aria-label="Search" name="q" value="{{q}}">
+    <button input type="submit">Search</button>
+</form>    
+
+    <div style="border: 1px black solid; margin: 20px 0px;"></div>
+
+    <div class="board">
+        <div class="pb-board">
+            <table style="text-align:center; border:1px solid black;">
+                <p>일반인 게시판</p>
+                <div>
+                    <a href="{% url 'board:board_public_write' %}"><button>글쓰기</button></a>
+                    <a href="{% url 'board:board_public_list' %}"><button>게시판 이동</button></a>
+                </div>
+                <br>
+                <thead>
+                    <tr class="header">
+                        <th scope="col">제목</th>
+                        <th scope="col">작성자</th>
+                        <th scope="col">글 작성일</th>
+                    </tr>
+                </thead>
+        
+                <tbody>
+                    {% for board in pb_boards %}
+                    {% if board %}
+                    <tr>
+                        <th scope="row">{{ board.title }}</th>
+                        <td>{{ board.writer }}</td>
+                        <td>{{ board.write_dttm }}</td>
+                        <td><a href="/board/public/detail/{{ board.id }}" target="_self"><button>상세보기</button></a></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td>작성된 게시글이 없습니다.</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="sc-board">
+            <table style="text-align:center; border:1px solid black;">
+                <p>과학자 게시판</p>
+                <div>
+                    <a href="{% url 'board:board_science_write' %}"><button>글쓰기</button></a>
+                    <a href="{% url 'board:board_science_list' %}"><button>게시판 이동</button></a>
+                </div>
+                <br>
+                <thead>
+                    <tr class="header">
+                        <th scope="col">제목</th>
+                        <th scope="col">작성자</th>
+                        <th scope="col">글 작성일</th>
+                    </tr>
+                </thead>
+        
+                <tbody>
+                    {% for board in sc_boards %}
+                    {% if board %}
+                    <tr>
+                        <th scope="row">{{ board.title }}</th>
+                        <td>{{ board.writer }}</td>
+                        <td>{{ board.write_dttm }}</td>
+                        <td><a href="/board/science/detail/{{ board.id }}" target="_self"><button>상세보기</button></a></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td>작성된 게시글이 없습니다.</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <style>
+        .board {
+            display: flex;
+        }
+
+        .pb-board {
+            width: 50%;
+            padding-left: 25px;
+        }
+
+        .sc-board {
+            width: 50%;
+            border-left: 2px black double;
+            padding-left: 25px;
+        }
+    </style>

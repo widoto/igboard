@@ -28,6 +28,21 @@ def file_download(request):
     response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(file_path)
     return response
 
+# 검색
+def board_search(request):
+    pb_boards = Board.objects.filter(board_name='Public').order_by('id')
+    sc_boards = Board.objects.filter(board_name='Science').order_by('-id')
+
+    q = request.POST.get('q', "") 
+
+    if q:
+        pb_boards = pb_boards.filter(sentence__icontains=q)
+        sc_boards = sc_boards.filter(sentence__icontains=q)
+        return render(request, 'board/board_search.html', {'pb_boards' : pb_boards,'sc_boards' : sc_boards, 'q' : q})
+    
+    else:
+        return render(request, 'board/board_search.html')
+
 #### 일반인 ####
 #게시판 목록
 def board_public_list(request):
@@ -124,6 +139,19 @@ def board_public_modify(request, pk):
                     context['error'] = value
             return render(request, 'board_public/board_public_modify.html', context)
 
+# 검색
+def board_public_search(request):
+    boards = Board.objects.filter(board_name='Public').order_by('-id')
+
+    q = request.POST.get('q', "") 
+
+    if q:
+        boards = boards.filter(sentence__icontains=q)
+        return render(request, 'board_public/board_public_search.html', {'boards' : boards, 'q' : q})
+    
+    else:
+        return render(request, 'board_public/board_public_search.html')
+
 
 #### 과학자 ####
 #게시판 목록
@@ -219,3 +247,16 @@ def board_science_modify(request, pk):
                 for value in write_form.errors.values():
                     context['error'] = value
             return render(request, 'board_science/board_science_modify.html', context)
+
+# 검색
+def board_science_search(request):
+    boards = Board.objects.filter(board_name='Science').order_by('-id')
+
+    q = request.POST.get('q', "") 
+
+    if q:
+        boards = boards.filter(sentence__icontains=q)
+        return render(request, 'board_science/board_science_search.html', {'boards' : boards, 'q' : q})
+    
+    else:
+        return render(request, 'board_science/board_science_search.html')

@@ -1,6 +1,13 @@
 {% block contents %}
 <div>과학자 게시판</div>
 <div><a href="{% url 'board:board_list' %}"><button>전체 게시판으로 이동</button></a></div>
+<div>검색</div>
+<form action="{% url 'board:board_science_search' %}" method="POST"> 
+    {% csrf_token %}
+    <input type="search" placeholder="Search" aria-label="Search" name="q" value="{{q}}">
+    <button input type="submit">Search</button>
+</form>
+
 <div style="border: 1px black solid; margin: 20px 0px;"></div>
 
 <div class="board">

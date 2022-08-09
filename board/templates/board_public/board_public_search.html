@@ -1,0 +1,47 @@
+<div>일반인 게시판</div>
+<div><a href="{% url 'board:board_list' %}"><button>전체 게시판으로 이동</button></a></div>
+<div>검색</div>
+<form action="{% url 'board:board_public_search' %}" method="POST"> 
+    {% csrf_token %}
+    <input type="search" placeholder="Search" aria-label="Search" name="q" value="{{q}}">
+    <button input type="submit">Search</button>
+</form>
+
+{% if not boards%}
+    <h1>검색 결과가 없습니다</h1>
+{% else %}
+
+    <div class="board">
+        <table style="text-align:center; width:800px; border:1px solid black;">
+            <thead>
+                <tr class="header">
+                    <th scope="col">#</th>
+                    <th scope="col">문장</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">작성자</th>
+                    <th scope="col">글 작성일</th>
+                    <th scope="col">최종 수정일</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                {% for board in boards.all %}
+                <tr>
+                    <td>
+                        {% if board.image %}
+                        <img src="{{ board.image.url }}" alt="" height="100">
+                        {% endif %}
+                    </td>
+                    <td scope="row"><b>{{ board.sentence }}</b></td>
+                    <td>{{ board.title }}</td>
+                    <td>{{ board.writer }}</td>
+                    <td>{{ board.write_dttm }}</td>
+                    <td>{{ board.update_dttm }}</td>
+                    <td><a href="/board/detail/{{ board.id }}" target="_self"><button>상세보기</button></a></td>
+                </tr>
+                {% endfor %} 
+            </tbody>
+        </table>
+    </div>
+
+    {% endif %}

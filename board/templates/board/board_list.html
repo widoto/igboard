@@ -1,5 +1,12 @@
 {% block contents %}
 <div>게시판</div>
+<div>검색</div>
+<form action="{% url 'board:board_search' %}" method="POST"> 
+    {% csrf_token %}
+    <input type="search" placeholder="Search" aria-label="Search" name="q" value="{{q}}">
+    <button input type="submit">Search</button>
+</form>
+
 <div style="border: 1px black solid; margin: 20px 0px;"></div>
 
 <div class="board">
