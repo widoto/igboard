@@ -1,7 +1,10 @@
+import os
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import BoardWriteForm
+from .forms import BoardWriteForm, SBoardWriteForm
 from .models import Board
 from django.core.paginator import Paginator
+from django.conf import settings
+from django.http import HttpResponse
 
 def board_list(request):
     pb_boards = Board.objects.filter(board_name='Public').order_by('id')
@@ -17,14 +20,14 @@ def board_list(request):
     return render(request, 'board/board_list.html', context)
 
 def board_write(request):
-    if request.method == 'GET':
+    if request.method == 'GET' or request.method == 'FILES':
         write_form = BoardWriteForm()
         context = {
             'forms': write_form,
         }
         return render(request, 'board/board_write.html', context)
     elif request.method == 'POST':
-        write_form = BoardWriteForm(request.POST)
+        write_form = BoardWriteForm(request.POST, request.FILES)
 
         if write_form.is_valid():
             board = Board(
@@ -32,6 +35,7 @@ def board_write(request):
                 contents=write_form.contents,
                 writer=write_form.writer,
                 sentence=write_form.sentence,
+                image=write_form.image,
             )
             board.save()
             return redirect('/board')
@@ -90,4 +94,70 @@ def board_modify(request, pk):
                 for value in write_form.errors.values():
                     context['error'] = value
             return render(request, 'board/board_modify.html', context)
+
+
+#### 과학자 #####
+def board_science_list(request):
+    Science_boards = Board.objects.filter(board_name='Science').order_by('id')
+
+    paginator = Paginator(Science_boards, 10)
+    pagenum = request.GET.get('page')
+    Science_boards = paginator.get_page(pagenum)
+
+    context = {
+        'Science_boards' : Science_boards,
+    }
+
+    return render(request, 'board_science/board_science_list.html', context)
+
+def board_science_detail(request, pk):
+    board = get_object_or_404(Board, id=pk)
+
+    context = {
+        'board': board,
+    }
+
+    return render(request, 'board_science/board_science_detail.html', context)
+
+#파일 다운로드
+def file_download(request):
+    path = request.GET['path']
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+
+    binary_file = open(file_path, 'rb')
+    response = HttpResponse(binary_file.read(), content_type="application/octet-stream; charset=utf-8")
+    response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(file_path)
+    return response
+
+#글 작성
+def board_science_write(request):
+    if request.method == 'GET':
+        write_form = SBoardWriteForm()
+        context = {
+            'forms': write_form,
+        }
+        return render(request, 'board_science/board_science_write.html', context)
+    elif request.method == 'POST' or request.method == 'FILES':
+        write_form = SBoardWriteForm(request.POST, request.FILES)
+
+        if write_form.is_valid():
+            board = Board(
+                title=write_form.title,
+                contents=write_form.contents,
+                writer=write_form.writer,
+                sentence=write_form.sentence,
+                file=write_form.file,
+                board_name="Science",
+
+            )
+            board.save()
+            return redirect('/board/science')
+        else:
+            context = {
+                'forms': write_form,
+            }
+            if write_form.errors:
+                for value in write_form.errors.values():
+                    context['error'] = value
+            return render(request, 'board_science/board_science_write.html', context)
 

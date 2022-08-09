@@ -1,10 +1,11 @@
+from asyncio.windows_events import NULL
 from importlib.resources import contents
 from django import forms
 from .models import Board
 from django_summernote.fields import SummernoteTextField
 from django_summernote.widgets import SummernoteWidget
 
-
+#일반인
 class BoardWriteForm(forms.ModelForm):
     title = forms.CharField(
         label='글 제목',
@@ -22,7 +23,9 @@ class BoardWriteForm(forms.ModelForm):
         'title',
         'writer',
         'sentence',
-        'contents'
+        'image',
+        'contents',
+
     ]
 
     class Meta:
@@ -32,6 +35,7 @@ class BoardWriteForm(forms.ModelForm):
             'contents',
             'sentence',
             'writer',
+            'image'
         ]
         widgets = {
             'contents' : SummernoteWidget()
@@ -44,6 +48,7 @@ class BoardWriteForm(forms.ModelForm):
         contents = cleaned_data.get('contents', '')
         writer = cleaned_data.get('writer', '')
         sentence = cleaned_data.get('sentence', '')
+        image = cleaned_data.get('image', '')
 
         if title == '':
             self.add_error('title', '글 제목을 입력하세요.')
@@ -54,4 +59,62 @@ class BoardWriteForm(forms.ModelForm):
             self.contents = contents
             self.writer = writer
             self.sentence = sentence
+            self.image = image
+
+
+
+#과학자
+class SBoardWriteForm(forms.ModelForm):
+    title = forms.CharField(
+        label='글 제목',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': '게시글 제목'
+            }
+        ),
+        required=True,
+    )
+
+    contents = SummernoteTextField()
+
+    field_order = [
+        'title',
+        'writer',
+        'sentence',
+        'contents',
+        'file',
+    ]
+
+    class Meta:
+        model = Board
+        fields = [
+            'title',
+            'contents',
+            'sentence',
+            'writer',
+            'file',
+        ]
+        widgets = {
+            'contents' : SummernoteWidget()
+        }
+    
+    def clean(self):
+        cleaned_data = super().clean()
+
+        title = cleaned_data.get('title', '')
+        contents = cleaned_data.get('contents', '')
+        writer = cleaned_data.get('writer', '')
+        sentence = cleaned_data.get('sentence', '')
+        file = cleaned_data.get('file', '')
+
+        if title == '':
+            self.add_error('title', '글 제목을 입력하세요.')
+        elif contents == '':
+            self.add_error('contents', '글 내용을 입력하세요.')
+        else:
+            self.title = title
+            self.contents = contents
+            self.writer = writer
+            self.sentence = sentence
+            self.file = file
 
