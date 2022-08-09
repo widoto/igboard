@@ -12,6 +12,9 @@ class Board(models.Model):
     update_dttm = models.DateTimeField(auto_now=True, verbose_name='최종 수정일')
     hits = models.PositiveIntegerField(default=0, verbose_name='조회수')
 
+    image = models.ImageField(blank=True, null=True, upload_to = "Images/") 
+    file = models.FileField(blank=True, null=True, upload_to = "Files")
+
     def __str__(self):
         return self.title
     
