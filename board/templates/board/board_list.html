@@ -1,61 +1,92 @@
 {% block contents %}
-<div>일반인 게시판</div>
+<div>게시판</div>
 <div style="border: 1px black solid; margin: 20px 0px;"></div>
 
 <div class="board">
-    <table style="text-align:center; width:800px; border:1px solid black;">
-        <thead>
-            <tr class="header">
-                <th scope="col">#</th>
-                <th scope="col">#</th>
-                <th scope="col">제목</th>
-                <th scope="col">작성자</th>
-                <th scope="col">글 작성일</th>
-                <th scope="col">최종 수정일</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            {% for board in pb_boards %}
-            {% if board %}
-            <tr>
-                <td>
-                    {% if board.image %}
-                    <img src="{{ board.image.url }}" alt="" height="100">
-                    {% endif %}
-                </td>
-                <th scope="row">{{ board.id }}</th>
-                <td>{{ board.title }}</td>
-                <td>{{ board.writer }}</td>
-                <td>{{ board.write_dttm }}</td>
-                <td>{{ board.update_dttm }}</td>
-                <td><a href="/board/detail/{{ board.id }}" target="_self"><button>상세보기</button></a></td>
-            </tr>
-            {% else %}
-            <tr>
-                <td>작성된 게시글이 없습니다.</td>
-            </tr>
-            {% endif %}
-            {% endfor %} 
-        </tbody>
-    </table>
+    <div class="pb-board">
+        <table style="text-align:center; border:1px solid black;">
+            <p>일반인 게시판</p>
+            <div>
+                <a href="{% url 'board:board_public_write' %}"><button>글쓰기</button></a>
+                <a href="{% url 'board:board_public_list' %}"><button>게시판 이동</button></a>
+            </div>
+            <br>
+            <thead>
+                <tr class="header">
+                    <th scope="col">제목</th>
+                    <th scope="col">작성자</th>
+                    <th scope="col">글 작성일</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                {% for board in pb_boards %}
+                {% if board %}
+                <tr>
+                    <th scope="row">{{ board.title }}</th>
+                    <td>{{ board.writer }}</td>
+                    <td>{{ board.write_dttm }}</td>
+                    <td><a href="/board/public/detail/{{ board.id }}" target="_self"><button>상세보기</button></a></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td>작성된 게시글이 없습니다.</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="sc-board">
+        <table style="text-align:center; border:1px solid black;">
+            <p>과학자 게시판</p>
+            <div>
+                <a href="{% url 'board:board_science_write' %}"><button>글쓰기</button></a>
+                <a href="{% url 'board:board_science_list' %}"><button>게시판 이동</button></a>
+            </div>
+            <br>
+            <thead>
+                <tr class="header">
+                    <th scope="col">제목</th>
+                    <th scope="col">작성자</th>
+                    <th scope="col">글 작성일</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                {% for board in sc_boards %}
+                {% if board %}
+                <tr>
+                    <th scope="row">{{ board.title }}</th>
+                    <td>{{ board.writer }}</td>
+                    <td>{{ board.write_dttm }}</td>
+                    <td><a href="/board/science/detail/{{ board.id }}" target="_self"><button>상세보기</button></a></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td>작성된 게시글이 없습니다.</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<div>
-    {% if pb_boards.has_previous %}
-    <a href="?page=1">첫 페이지</a>
-    <a href="?page={{ pb_boards.previous_page_number }}">이전 페이지</a>
-    {% endif %}
+<style>
+    .board {
+        display: flex;
+    }
 
-    <span>{{ pb_boards.number}}</span>
-    <span>/</span>
-    <span>{{ pb_boards.paginator.num_pages }}</span>
+    .pb-board {
+        width: 50%;
+        padding-left: 25px;
+    }
 
-    {% if pb_boards.has_next %}
-    <a href="?page={{ pb_boards.next_page_number }}">다음 페이지</a>
-    <a href="?page={{ pb_boards.paginator.num_pages }}">마지막 페이지</a>
-    {% endif %}
-</div>
-
-<div><a href="{% url 'board:board_write' %}"><button>글쓰기</button></a></div>
+    .sc-board {
+        width: 50%;
+        border-left: 2px black double;
+        padding-left: 25px;
+    }
+</style>
 {% endblock contents %}

@@ -13,6 +13,8 @@ class BoardAdmin(SummernoteModelAdmin):
         'board_name',
         'hits',
         'write_dttm',
-        'update_dttm'
+        'update_dttm',
+        'image',
+        'file'
     )
     list_display_links = list_display

@@ -6,7 +6,7 @@ from django_summernote.fields import SummernoteTextField
 from django_summernote.widgets import SummernoteWidget
 
 #일반인
-class BoardWriteForm(forms.ModelForm):
+class PBoardWriteForm(forms.ModelForm):
     title = forms.CharField(
         label='글 제목',
         widget=forms.TextInput(
@@ -25,6 +25,7 @@ class BoardWriteForm(forms.ModelForm):
         'sentence',
         'image',
         'contents',
+        'file',
 
     ]
 
@@ -35,7 +36,8 @@ class BoardWriteForm(forms.ModelForm):
             'contents',
             'sentence',
             'writer',
-            'image'
+            'image',
+            'file'
         ]
         widgets = {
             'contents' : SummernoteWidget()
@@ -49,9 +51,12 @@ class BoardWriteForm(forms.ModelForm):
         writer = cleaned_data.get('writer', '')
         sentence = cleaned_data.get('sentence', '')
         image = cleaned_data.get('image', '')
+        file = cleaned_data.get('file', '')
 
         if title == '':
             self.add_error('title', '글 제목을 입력하세요.')
+        elif image == '':
+            self.add_error('image', '썸네일 이미지를 등록하세요.')
         elif contents == '':
             self.add_error('contents', '글 내용을 입력하세요.')
         else:
@@ -60,6 +65,7 @@ class BoardWriteForm(forms.ModelForm):
             self.writer = writer
             self.sentence = sentence
             self.image = image
+            self.file = file
 
 
 
@@ -92,7 +98,7 @@ class SBoardWriteForm(forms.ModelForm):
             'contents',
             'sentence',
             'writer',
-            'file',
+            'file'
         ]
         widgets = {
             'contents' : SummernoteWidget()

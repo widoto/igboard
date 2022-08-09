@@ -1,0 +1,35 @@
+{% block contents %}
+<div>일반인 게시판 글 상세보기</div>
+<div style="border: 1px black solid; margin: 20px 0px;"></div>
+
+<a href="/board/public/detail/{{ board.id }}/modify/"><button>수정</button></a>
+<a href="/board/public/detail/{{ board.id }}/delete/"><button>삭제</button></a>
+
+<div>
+    게시판 종류 : {{ board.board_name }}
+</div>
+<div>
+    제목 : {{ board.title }}
+</div>
+<div>
+    작성자 : {{ board.writer }} | 작성일 : {{ board.write_dttm }} | 조회수 : {{ board.hits }}
+</div>
+<div>
+    썸네일 이미지 : 
+    {% if board.image %}
+    <img src="{{ board.image.url }}" alt="" height="100">
+    {% endif %}
+</div>
+<div>
+    <label>첨부 파일 : </label>
+    <a href="/board/public/download?path={{ board.file }}">{{ board.file }}</a>
+ </div>
+<div>
+    문장 : {{ board.sentence }}
+</div>
+<div>
+    내용 : {{ board.contents|safe }}
+</div>
+
+<div><a href="{% url 'board:board_public_list' %}"><button>돌아가기</button></a></div>
+{% endblock contents %}

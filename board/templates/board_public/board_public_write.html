@@ -1,6 +1,7 @@
 {% block contents %}
-<div>게시판 수정하기</div>
-<form action="" method="POST">
+<div>일반인 게시판 글 작성하기</div>
+<div><a href="{% url 'board:board_public_list' %}"><button>목록으로 돌아가기</button></a></div>
+<form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
 
     {% for form in forms %}
@@ -13,6 +14,6 @@
     {% if error %} 
     {{ error }}
     {% endif %}
-    <button type="submit">글 수정하기</button>
+    <button type="submit">저장하기</button>
 </form>
 {% endblock contents %}
