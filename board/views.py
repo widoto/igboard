@@ -8,8 +8,8 @@ from django.http import HttpResponse
 
 #### 전체 게시판 ####
 def board_list(request):
-    pb_boards = Board.objects.filter(board_name='Public').order_by('id')
-    sc_boards = Board.objects.filter(board_name='Science').order_by('id')
+    pb_boards = Board.objects.filter(board_name='Public').order_by('-id')
+    sc_boards = Board.objects.filter(board_name='Science').order_by('-id')
 
     context = {
         'pb_boards' : pb_boards,
@@ -31,7 +31,7 @@ def file_download(request):
 #### 일반인 ####
 #게시판 목록
 def board_public_list(request):
-    pb_boards = Board.objects.filter(board_name='Public').order_by('id')
+    pb_boards = Board.objects.filter(board_name='Public').order_by('-id')
 
     paginator = Paginator(pb_boards, 10)
     pagenum = request.GET.get('page')
@@ -128,7 +128,7 @@ def board_public_modify(request, pk):
 #### 과학자 ####
 #게시판 목록
 def board_science_list(request):
-    sc_boards = Board.objects.filter(board_name='Science').order_by('id')
+    sc_boards = Board.objects.filter(board_name='Science').order_by('-id')
 
     paginator = Paginator(sc_boards, 10)
     pagenum = request.GET.get('page')

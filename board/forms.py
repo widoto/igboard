@@ -55,8 +55,6 @@ class PBoardWriteForm(forms.ModelForm):
 
         if title == '':
             self.add_error('title', '글 제목을 입력하세요.')
-        elif image == '':
-            self.add_error('image', '썸네일 이미지를 등록하세요.')
         elif contents == '':
             self.add_error('contents', '글 내용을 입력하세요.')
         else:
