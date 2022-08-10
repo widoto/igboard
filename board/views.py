@@ -152,8 +152,10 @@ def board_public_modify(request, pk):
             board.writer=write_form.writer
             board.sentence=write_form.sentence
             if write_form.image:
+                board.imagemodify()
                 board.image=write_form.image
             if write_form.file:
+                board.filemodify()
                 board.file=write_form.file
             
             board.save()
@@ -294,6 +296,7 @@ def board_science_modify(request, pk):
             board.writer=write_form.writer
             board.sentence=write_form.sentence
             if write_form.file:
+                board.filemodify()
                 board.file=write_form.file
             
             board.save()
