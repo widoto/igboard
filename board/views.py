@@ -201,7 +201,7 @@ def likes(request, pk):
 #### 과학자 ####
 #게시판 목록
 def board_science_list(request):
-    sc_boards = Board.objects.filter(board_name='Science').order_by('-id')
+    sc_boards = Board.objects.filter(board_name='Public').annotate(like_count=Count('like_users')).order_by('-like_count', '-write_dttm')
 
     paginator = Paginator(sc_boards, 10)
     pagenum = request.GET.get('page')
@@ -247,9 +247,13 @@ def board_science_write(request):
 #글 상세보기
 def board_science_detail(request, pk):
     board = get_object_or_404(Board, id=pk)
+    # 좋아요 수 띄우기
+    like = BoardLikeUsers.objects.filter(board = board.id).annotate(Count('user'))
+    like_num=like.count()
 
     context = {
         'board': board,
+        'like_num' : like_num,
     }
 
     return render(request, 'board_science/board_science_detail.html', context)
@@ -315,3 +319,18 @@ def board_science_search(request):
     
     else:
         return render(request, 'board_science/board_science_search.html')
+
+#좋아요
+def board_science_likes(request, pk):
+    #if request.user.is_authenticated:
+    board = get_object_or_404(Board, id=pk)
+
+    if board.like_users.filter(pk=request.user.pk).exists():
+        board.like_users.remove(request.user)
+        return redirect('/' + 'board/science/detail/' + str(pk))
+    else:
+        board.like_users.add(request.user)
+        return redirect('/' + 'board/science/detail/' + str(pk))
+        #return redirect('board/board_detail/' + str(pk))
+
+    #return redirect('#로그인')

@@ -14,6 +14,8 @@ urlpatterns = [
     path('public/detail/<int:pk>/delete/', views.board_public_delete, name='board_public_delete'),
     path('public/detail/<int:pk>/modify/', views.board_public_modify, name='board_public_modify'),
     path('public/search/', views.board_public_search, name='board_public_search'),
+    #좋아요
+    path('<int:pk>/likes/', views.likes, name='likes'),
 
     #과학자 페이지
     path('science/', views.board_science_list, name='board_science_list'),
@@ -23,7 +25,6 @@ urlpatterns = [
     path('science/detail/<int:pk>/delete/', views.board_science_delete, name='board_science_delete'),
     path('science/detail/<int:pk>/modify/', views.board_science_modify, name='board_science_modify'),
     path('science/search/', views.board_science_search, name='board_science_search'),
-
     #좋아요
-    path('<int:pk>/likes/', views.likes, name='likes'),
+    path('science/<int:pk>/likes/', views.board_science_likes, name='board_science_likes'),
 ]
