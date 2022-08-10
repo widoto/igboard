@@ -2,11 +2,12 @@ import os
 import re
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import PBoardWriteForm, SBoardWriteForm
-from .models import Board
+from .models import Board, BoardLikeUsers
 from django.core.paginator import Paginator
 from django.conf import settings
 from django.http import HttpResponse
 from django.db.models import Q
+from django.db.models import Count
 
 #### 전체 게시판 ####
 def board_list(request):
@@ -62,7 +63,7 @@ def board_search(request):
 #### 일반인 ####
 #게시판 목록
 def board_public_list(request):
-    pb_boards = Board.objects.filter(board_name='Public').order_by('-id')
+    pb_boards = Board.objects.filter(board_name='Public').annotate(like_count=Count('like_users')).order_by('-like_count', '-write_dttm')
 
     paginator = Paginator(pb_boards, 10)
     pagenum = request.GET.get('page')
@@ -108,9 +109,13 @@ def board_public_write(request):
 #글 상세보기
 def board_public_detail(request, pk):
     board = get_object_or_404(Board, id=pk)
+    # 좋아요 수 띄우기
+    like = BoardLikeUsers.objects.filter(board = board.id).annotate(Count('user'))
+    like_num=like.count()
 
     context = {
         'board': board,
+        'like_num' : like_num,
     }
 
     return render(request, 'board_public/board_public_detail.html', context)
@@ -178,6 +183,20 @@ def board_public_search(request):
     else:
         return render(request, 'board_public/board_public_search.html')
 
+#좋아요
+def likes(request, pk):
+    #if request.user.is_authenticated:
+    board = get_object_or_404(Board, id=pk)
+
+    if board.like_users.filter(pk=request.user.pk).exists():
+        board.like_users.remove(request.user)
+        return redirect('/' + 'board/public/detail/' + str(pk))
+    else:
+        board.like_users.add(request.user)
+        return redirect('/' + 'board/public/detail/' + str(pk))
+        #return redirect('board/board_detail/' + str(pk))
+
+    #return redirect('#로그인')
 
 #### 과학자 ####
 #게시판 목록

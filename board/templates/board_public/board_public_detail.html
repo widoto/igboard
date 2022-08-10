@@ -5,6 +5,21 @@
 <a href="/board/public/detail/{{ board.id }}/modify/"><button>수정</button></a>
 <a href="/board/public/detail/{{ board.id }}/delete/"><button>삭제</button></a>
 
+
+<div>
+    <form action="{% url 'board:likes' board.pk %}" method='POST'>
+      {% csrf_token %}
+      {% if user in board.like_users.all %}
+        <input type="submit" value='좋아요 취소'>
+      {% else %}
+        <input type="submit" value='좋아요'>
+      {% endif %}
+    </form>
+</div>
+
+<div>
+    좋아요 : {{ like_num }}
+</div>
 <div>
     게시판 종류 : {{ board.board_name }}
 </div>

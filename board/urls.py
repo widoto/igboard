@@ -23,4 +23,7 @@ urlpatterns = [
     path('science/detail/<int:pk>/delete/', views.board_science_delete, name='board_science_delete'),
     path('science/detail/<int:pk>/modify/', views.board_science_modify, name='board_science_modify'),
     path('science/search/', views.board_science_search, name='board_science_search'),
+
+    #좋아요
+    path('<int:pk>/likes/', views.likes, name='likes'),
 ]
