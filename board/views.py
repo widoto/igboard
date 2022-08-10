@@ -46,6 +46,9 @@ def board_search(request):
         elif search_type == "title_contents":
             pb_boards = pb_boards.filter(Q (title__icontains=q)| Q (contents__icontains=q))
             sc_boards = sc_boards.filter(Q (title__icontains=q)| Q (contents__icontains=q))
+        elif search_type == "title":
+            pb_boards = pb_boards.filter(title__icontains=q)
+            sc_boards = sc_boards.filter(title__icontains=q)
         elif search_type == "contents":
             pb_boards = pb_boards.filter(contents__icontains=q)
             sc_boards = sc_boards.filter(contents__icontains=q)
@@ -172,6 +175,8 @@ def board_public_search(request):
             boards = boards.filter(Q (title__icontains=q)| Q (contents__icontains=q)| Q (writer__icontains=q)| Q (sentence__icontains=q))
         elif search_type == "title_contents":
             boards = boards.filter(Q (title__icontains=q)| Q (contents__icontains=q))
+        elif search_type == "title":
+            boards = boards.filter(title__icontains=q)
         elif search_type == "contents":
             boards = boards.filter(contents__icontains=q)
         elif search_type == "writer":
@@ -309,6 +314,8 @@ def board_science_search(request):
             boards = boards.filter(Q (title__icontains=q)| Q (contents__icontains=q)| Q (writer__icontains=q)| Q (sentence__icontains=q))
         elif search_type == "title_contents":
             boards = boards.filter(Q (title__icontains=q)| Q (contents__icontains=q))
+        elif search_type == "title":
+            boards = boards.filter(title__icontains=q)
         elif search_type == "contents":
             boards = boards.filter(contents__icontains=q)
         elif search_type == "writer":

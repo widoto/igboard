@@ -26,38 +26,25 @@
 {% if not boards%}
     <p>검색 결과가 없습니다.</p>
 {% else %}
-
-    <div class="board">
-        <table style="text-align:center; width:800px; border:1px solid black;">
-            <thead>
-                <tr class="header">
-                    <th scope="col">#</th>
-                    <th scope="col">문장</th>
-                    <th scope="col">제목</th>
-                    <th scope="col">작성자</th>
-                    <th scope="col">글 작성일</th>
-                    <th scope="col">최종 수정일</th>
-                </tr>
-            </thead>
-    
-            <tbody>
-                {% for board in boards.all %}
-                <tr>
-                    <td>
-                        {% if board.image %}
-                        <img src="{{ board.image.url }}" alt="" height="100">
-                        {% endif %}
-                    </td>
-                    <td scope="row"><b>{{ board.sentence }}</b></td>
-                    <td>{{ board.title }}</td>
-                    <td>{{ board.writer }}</td>
-                    <td>{{ board.write_dttm }}</td>
-                    <td>{{ board.update_dttm }}</td>
-                    <td><a href="/board/public/detail/{{ board.id }}" target="_self"><button>상세보기</button></a></td>
-                </tr>
-                {% endfor %} 
-            </tbody>
-        </table>
+<div class="board" style="overflow: hidden;">
+    {% for board in boards %}
+    <div class="item">
+        <p style="text-align: left; font-size: 0.8em; margin-left: 15px; float: left;">
+            {% if board %}
+            {% if board.image %}
+            <img src="{{ board.image.url }}" alt="" width="200" height="150">
+            {% endif %}
+            <br>
+            <span style="font-weight: bold;">{{ board.title }}</span> <br>
+            작성자: {{ board.writer }} <br>
+            좋아요: {{ board.like_count }} <br>
+            글 작성일: {{ board.write_dttm }} <br>
+            최종 수정일: {{ board.update_dttm }} <br>
+            <a href="/board/public/detail/{{ board.id }}" target="_self"><button>상세보기</button></a>
+            {% endif %}
+        </p>
     </div>
+    {% endfor %}
+</div>
 
-    {% endif %}
+{% endif %}

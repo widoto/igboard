@@ -31,8 +31,6 @@
         <table style="text-align:center; width:800px; border:1px solid black;">
             <thead>
                 <tr class="header">
-                    <th scope="col">#</th>
-                    <th scope="col">문장</th>
                     <th scope="col">제목</th>
                     <th scope="col">작성자</th>
                     <th scope="col">글 작성일</th>
@@ -43,8 +41,7 @@
             <tbody>
                 {% for board in boards.all %}
                 <tr>
-                    <td scope="row"><b>{{ board.sentence }}</b></td>
-                    <td>{{ board.title }}</td>
+                    <th scope="row">{{ board.title }}</th>
                     <td>{{ board.writer }}</td>
                     <td>{{ board.write_dttm }}</td>
                     <td>{{ board.update_dttm }}</td>
@@ -55,4 +52,4 @@
         </table>
     </div>
 
-    {% endif %}
+{% endif %}
