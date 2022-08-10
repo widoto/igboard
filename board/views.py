@@ -71,7 +71,7 @@ def board_public_list(request):
     if sort == 'likes':
         pb_boards = Board.objects.filter(board_name='Public').annotate(like_count=Count('like_users')).order_by('-like_count', '-write_dttm')
     else:
-        pb_boards = Board.objects.order_by('-write_dttm')
+        pb_boards = Board.objects.filter(board_name='Public').order_by('-id')
 
     paginator = Paginator(pb_boards, 10)
     pagenum = request.GET.get('page')
