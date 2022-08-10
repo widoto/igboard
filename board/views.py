@@ -151,8 +151,10 @@ def board_public_modify(request, pk):
             board.contents=write_form.contents
             board.writer=write_form.writer
             board.sentence=write_form.sentence
-            board.image=write_form.image
-            board.file=write_form.file
+            if write_form.image:
+                board.image=write_form.image
+            if write_form.file:
+                board.file=write_form.file
             
             board.save()
             return redirect('/board/public')
@@ -291,7 +293,8 @@ def board_science_modify(request, pk):
             board.contents=write_form.contents
             board.writer=write_form.writer
             board.sentence=write_form.sentence
-            board.file=write_form.file
+            if write_form.file:
+                board.file=write_form.file
             
             board.save()
             return redirect('/board/science')
