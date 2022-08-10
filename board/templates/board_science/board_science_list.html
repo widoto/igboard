@@ -9,7 +9,9 @@
 </form>
 
 <div style="border: 1px black solid; margin: 20px 0px;"></div>
-
+{% if not sc_boards%}
+<p>작성된 게시글이 없습니다.</p>
+{% else %}
 <div class="board">
     <table style="text-align:center; width:800px; border:1px solid black;">
         <thead>
@@ -31,16 +33,12 @@
                 <td>{{ board.update_dttm }}</td>
                 <td><a href="/board/science/detail/{{ board.id }}" target="_self"><button>상세보기</button></a></td>
             </tr>
-            {% else %}
-            <tr>
-                <td>작성된 게시글이 없습니다.</td>
-            </tr>
             {% endif %}
             {% endfor %} 
         </tbody>
     </table>
 </div>
-
+{% endif %}
 <div>
     {% if sc_boards.has_previous %}
     <a href="?page=1">첫 페이지</a>

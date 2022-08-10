@@ -33,11 +33,6 @@
                         <td>{{ board.write_dttm }}</td>
                         <td><a href="/board/public/detail/{{ board.id }}" target="_self"><button>상세보기</button></a></td>
                     </tr>
-                    {% else %}
-                    <tr>
-                        <td>작성된 게시글이 없습니다.</td>
-                    </tr>
-                    {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
@@ -66,10 +61,6 @@
                         <td>{{ board.writer }}</td>
                         <td>{{ board.write_dttm }}</td>
                         <td><a href="/board/science/detail/{{ board.id }}" target="_self"><button>상세보기</button></a></td>
-                    </tr>
-                    {% else %}
-                    <tr>
-                        <td>작성된 게시글이 없습니다.</td>
                     </tr>
                     {% endif %}
                     {% endfor %}

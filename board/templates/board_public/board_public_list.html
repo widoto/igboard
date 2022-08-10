@@ -10,6 +10,9 @@
 
 <div style="border: 1px black solid; margin: 20px 0px;"></div>
 
+{% if not pb_boards%}
+<p>작성된 게시글이 없습니다.</p>
+{% else %}
 <div class="board" style="overflow: hidden;">
     {% for board in pb_boards %}
     <div class="item">
@@ -24,13 +27,12 @@
             글 작성일: {{ board.write_dttm }} <br>
             최종 수정일: {{ board.update_dttm }} <br>
             <a href="/board/public/detail/{{ board.id }}" target="_self"><button>상세보기</button></a>
-            {% else %}
-            작성된 게시글이 없습니다.
             {% endif %}
         </p>
     </div>
     {% endfor %}
 </div>
+{% endif %}
 <div>
     {% if pb_boards.has_previous %}
     <a href="?page=1">첫 페이지</a>
