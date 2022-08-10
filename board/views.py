@@ -30,7 +30,7 @@ def file_download(request):
 
 # 검색
 def board_search(request):
-    pb_boards = Board.objects.filter(board_name='Public').order_by('id')
+    pb_boards = Board.objects.filter(board_name='Public').order_by('-id')
     sc_boards = Board.objects.filter(board_name='Science').order_by('-id')
 
     q = request.POST.get('q', "") 
