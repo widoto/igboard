@@ -1,10 +1,12 @@
 import os
+import re
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import PBoardWriteForm, SBoardWriteForm
 from .models import Board
 from django.core.paginator import Paginator
 from django.conf import settings
 from django.http import HttpResponse
+from django.db.models import Q
 
 #### 전체 게시판 ####
 def board_list(request):
@@ -33,11 +35,25 @@ def board_search(request):
     pb_boards = Board.objects.filter(board_name='Public').order_by('-id')
     sc_boards = Board.objects.filter(board_name='Science').order_by('-id')
 
-    q = request.POST.get('q', "") 
+    q = request.POST.get('q', "")
+    search_type = request.POST.get('type', "")
 
     if q:
-        pb_boards = pb_boards.filter(sentence__icontains=q)
-        sc_boards = sc_boards.filter(sentence__icontains=q)
+        if search_type == "all":
+            pb_boards = pb_boards.filter(Q (title__icontains=q)| Q (contents__icontains=q)| Q (writer__icontains=q)| Q (sentence__icontains=q))
+            sc_boards = sc_boards.filter(Q (title__icontains=q)| Q (contents__icontains=q)| Q (writer__icontains=q)| Q (sentence__icontains=q))
+        elif search_type == "title_contents":
+            pb_boards = pb_boards.filter(Q (title__icontains=q)| Q (contents__icontains=q))
+            sc_boards = sc_boards.filter(Q (title__icontains=q)| Q (contents__icontains=q))
+        elif search_type == "contents":
+            pb_boards = pb_boards.filter(contents__icontains=q)
+            sc_boards = sc_boards.filter(contents__icontains=q)
+        elif search_type == "writer":
+            pb_boards = pb_boards.filter(writer__icontains=q)
+            sc_boards = sc_boards.filter(writer__icontains=q)
+        elif search_type == "sentence":
+            pb_boards = pb_boards.filter(sentence__icontains=q)
+            sc_boards = sc_boards.filter(sentence__icontains=q)
         return render(request, 'board/board_search.html', {'pb_boards' : pb_boards,'sc_boards' : sc_boards, 'q' : q})
     
     else:
@@ -143,10 +159,20 @@ def board_public_modify(request, pk):
 def board_public_search(request):
     boards = Board.objects.filter(board_name='Public').order_by('-id')
 
-    q = request.POST.get('q', "") 
+    q = request.POST.get('q', "")
+    search_type = request.POST.get('type', "")
 
     if q:
-        boards = boards.filter(sentence__icontains=q)
+        if search_type == "all":
+            boards = boards.filter(Q (title__icontains=q)| Q (contents__icontains=q)| Q (writer__icontains=q)| Q (sentence__icontains=q))
+        elif search_type == "title_contents":
+            boards = boards.filter(Q (title__icontains=q)| Q (contents__icontains=q))
+        elif search_type == "contents":
+            boards = boards.filter(contents__icontains=q)
+        elif search_type == "writer":
+            boards = boards.filter(writer__icontains=q)
+        elif search_type == "sentence":
+            boards = boards.filter(sentence__icontains=q)
         return render(request, 'board_public/board_public_search.html', {'boards' : boards, 'q' : q})
     
     else:
@@ -252,10 +278,20 @@ def board_science_modify(request, pk):
 def board_science_search(request):
     boards = Board.objects.filter(board_name='Science').order_by('-id')
 
-    q = request.POST.get('q', "") 
+    q = request.POST.get('q', "")
+    search_type = request.POST.get('type', "")
 
     if q:
-        boards = boards.filter(sentence__icontains=q)
+        if search_type == "all":
+            boards = boards.filter(Q (title__icontains=q)| Q (contents__icontains=q)| Q (writer__icontains=q)| Q (sentence__icontains=q))
+        elif search_type == "title_contents":
+            boards = boards.filter(Q (title__icontains=q)| Q (contents__icontains=q))
+        elif search_type == "contents":
+            boards = boards.filter(contents__icontains=q)
+        elif search_type == "writer":
+            boards = boards.filter(writer__icontains=q)
+        elif search_type == "sentence":
+            boards = boards.filter(sentence__icontains=q)
         return render(request, 'board_science/board_science_search.html', {'boards' : boards, 'q' : q})
     
     else:
