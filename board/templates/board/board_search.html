@@ -25,13 +25,16 @@
 
     <div class="board">
         <div class="pb-board">
+            <p>일반인 게시판</p>
+            <div>
+                <a href="{% url 'board:board_public_write' %}"><button>글쓰기</button></a>
+                <a href="{% url 'board:board_public_list' %}"><button>게시판 이동</button></a>
+            </div>
+            <br>
+            {% if not pb_boards%}
+            <p>검색 결과가 없습니다.</p>
+            {% else %}
             <table style="text-align:center; border:1px solid black;">
-                <p>일반인 게시판</p>
-                <div>
-                    <a href="{% url 'board:board_public_write' %}"><button>글쓰기</button></a>
-                    <a href="{% url 'board:board_public_list' %}"><button>게시판 이동</button></a>
-                </div>
-                <br>
                 <thead>
                     <tr class="header">
                         <th scope="col">제목</th>
@@ -53,15 +56,19 @@
                     {% endfor %}
                 </tbody>
             </table>
+            {% endif %}
         </div>
         <div class="sc-board">
+            <p>과학자 게시판</p>
+            <div>
+                <a href="{% url 'board:board_science_write' %}"><button>글쓰기</button></a>
+                <a href="{% url 'board:board_science_list' %}"><button>게시판 이동</button></a>
+            </div>
+            <br>
+            {% if not sc_boards%}
+            <p>검색 결과가 없습니다.</p>
+            {% else %}
             <table style="text-align:center; border:1px solid black;">
-                <p>과학자 게시판</p>
-                <div>
-                    <a href="{% url 'board:board_science_write' %}"><button>글쓰기</button></a>
-                    <a href="{% url 'board:board_science_list' %}"><button>게시판 이동</button></a>
-                </div>
-                <br>
                 <thead>
                     <tr class="header">
                         <th scope="col">제목</th>
@@ -83,6 +90,7 @@
                     {% endfor %}
                 </tbody>
             </table>
+            {% endif %}
         </div>
     </div>
 

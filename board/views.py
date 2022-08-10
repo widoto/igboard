@@ -206,7 +206,7 @@ def likes(request, pk):
 #### 과학자 ####
 #게시판 목록
 def board_science_list(request):
-    sc_boards = Board.objects.filter(board_name='Public').annotate(like_count=Count('like_users')).order_by('-like_count', '-write_dttm')
+    sc_boards = Board.objects.filter(board_name='Science').annotate(like_count=Count('like_users')).order_by('-like_count', '-write_dttm')
 
     paginator = Paginator(sc_boards, 10)
     pagenum = request.GET.get('page')
