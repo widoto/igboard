@@ -2,6 +2,8 @@
 <div>일반인 게시판 수정하기</div>
 <div><a href="{% url 'board:board_public_list' %}"><button>목록으로 돌아가기</button></a></div>
 <form action="" method="POST" enctype="multipart/form-data">
+    <input type="checkbox" id="imageChangeCheck" name="imageChange" style="display: none;">
+    <input type="checkbox" id="fileChangeCheck" name="fileChange" style="display: none;">
     {% csrf_token %}
 
     {% for form in forms %}

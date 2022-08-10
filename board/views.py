@@ -67,10 +67,11 @@ def board_search(request):
 #게시판 목록
 def board_public_list(request):
     sort = request.GET.get('sort','')
+
     if sort == 'likes':
         pb_boards = Board.objects.filter(board_name='Public').annotate(like_count=Count('like_users')).order_by('-like_count', '-write_dttm')
     else:
-        pb_boards = Board.objects.filter(board_name='Public').order_by('-id')
+        pb_boards = Board.objects.order_by('-write_dttm')
 
     paginator = Paginator(pb_boards, 10)
     pagenum = request.GET.get('page')
@@ -78,7 +79,7 @@ def board_public_list(request):
 
     context = {
         'pb_boards' : pb_boards,
-        'sort' : sort
+        'sort':sort,
     }
 
     return render(request, 'board_public/board_public_list.html', context)
@@ -149,6 +150,18 @@ def board_public_modify(request, pk):
         return render(request, 'board_public/board_public_modify.html', context)
     
     elif request.method == 'POST':
+        file_change_check = request.POST.get('fileChange', False)
+        file_check = request.POST.get('file-clear', False)
+        image_change_check = request.POST.get('imageChange', False)
+        image_check = request.POST.get('image-clear', False)
+
+        if file_check or file_change_check:
+            os.remove(os.path.join(settings.MEDIA_ROOT, board.file.path))
+            board.file = ''
+        if image_check or image_change_check:
+            os.remove(os.path.join(settings.MEDIA_ROOT, board.image.path))
+            board.image = ''
+
         write_form = PBoardWriteForm(request.POST, request.FILES)
 
         if write_form.is_valid():
@@ -157,10 +170,8 @@ def board_public_modify(request, pk):
             board.writer=write_form.writer
             board.sentence=write_form.sentence
             if write_form.image:
-                board.imagemodify()
                 board.image=write_form.image
             if write_form.file:
-                board.filemodify()
                 board.file=write_form.file
             
             board.save()
@@ -308,6 +319,13 @@ def board_science_modify(request, pk):
         return render(request, 'board_science/board_science_modify.html', context)
     
     elif request.method == 'POST':
+        file_change_check = request.POST.get('fileChange', False)
+        file_check = request.POST.get('file-clear', False)
+
+        if file_check or file_change_check:
+            os.remove(os.path.join(settings.MEDIA_ROOT, board.file.path))
+            board.file = ''
+
         write_form = SBoardWriteForm(request.POST, request.FILES)
 
         if write_form.is_valid():
@@ -316,7 +334,6 @@ def board_science_modify(request, pk):
             board.writer=write_form.writer
             board.sentence=write_form.sentence
             if write_form.file:
-                board.filemodify()
                 board.file=write_form.file
             
             board.save()
