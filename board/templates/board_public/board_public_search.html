@@ -1,7 +1,8 @@
 <div>일반인 게시판</div>
 <div><a href="{% url 'board:board_list' %}"><button>전체 게시판으로 이동</button></a></div>
+<a href="{% url 'board:board_public_list' %}"><button>목록으로 돌아가기</button></a>
 <div>검색</div>
-<form action="{% url 'board:board_public_search' %}" method="POST"> 
+<form action="{% url 'board:board_public_search' %}" method="GET"> 
     {% csrf_token %}
     <div style="overflow: hidden;">
         <div style="margin-top: 2px; float: left; padding-left: 10px;">
@@ -46,5 +47,19 @@
     </div>
     {% endfor %}
 </div>
-
 {% endif %}
+<div>
+    {% if boards.has_previous %}
+    <a href="?page=1&q={{q}}&type={{type}}">첫 페이지</a>
+    <a href="?page={{ boards.previous_page_number }}&q={{q}}&type={{type}}">이전 페이지</a>
+    {% endif %}
+
+    <span>{{ boards.number}}</span>
+    <span>/</span>
+    <span>{{ boards.paginator.num_pages }}</span>
+
+    {% if boards.has_next %}
+    <a href="?page={{ boards.next_page_number }}&q={{q}}&type={{type}}">다음 페이지</a>
+    <a href="?page={{ boards.paginator.num_pages }}&q={{q}}&type={{type}}">마지막 페이지</a>
+    {% endif %}
+</div>

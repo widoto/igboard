@@ -2,7 +2,7 @@
 <div>과학자 게시판</div>
 <div><a href="{% url 'board:board_list' %}"><button>전체 게시판으로 이동</button></a></div>
 <div>검색</div>
-<form action="{% url 'board:board_science_search' %}" method="POST"> 
+<form action="{% url 'board:board_science_search' %}" method="GET"> 
     {% csrf_token %}
     <div style="overflow: hidden;">
         <div style="margin-top: 2px; float: left; padding-left: 10px;">
@@ -21,6 +21,15 @@
         <div style="float: left; padding-left: 10px;">
             <button input type="submit">Search</button>
         </div>
+    </div>
+</form>
+<form method="GET" action="{% url 'board:board_science_list' %}">
+    <div>
+      <select name="sort" id="sort">
+        <option value="recently" id="recently">최신순</option>
+        <option value="likes" id="likes">좋아요순</option>
+      </select>
+      <button type="submit" value="">정렬</button>
     </div>
 </form>
 
@@ -59,8 +68,8 @@
 {% endif %}
 <div>
     {% if sc_boards.has_previous %}
-    <a href="?page=1">첫 페이지</a>
-    <a href="?page={{ sc_boards.previous_page_number }}">이전 페이지</a>
+    <a href="?page=1&sort={{sort}}">첫 페이지</a>
+    <a href="?page={{ sc_boards.previous_page_number }}&sort={{sort}}">이전 페이지</a>
     {% endif %}
 
     <span>{{ sc_boards.number}}</span>
@@ -68,8 +77,8 @@
     <span>{{ sc_boards.paginator.num_pages }}</span>
 
     {% if sc_boards.has_next %}
-    <a href="?page={{ sc_boards.next_page_number }}">다음 페이지</a>
-    <a href="?page={{ sc_boards.paginator.num_pages }}">마지막 페이지</a>
+    <a href="?page={{ sc_boards.next_page_number }}&sort={{sort}}">다음 페이지</a>
+    <a href="?page={{ sc_boards.paginator.num_pages }}&sort={{sort}}">마지막 페이지</a>
     {% endif %}
 </div>
 

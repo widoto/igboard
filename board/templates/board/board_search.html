@@ -1,5 +1,6 @@
 <div>검색</div>
-<form action="{% url 'board:board_search' %}" method="POST"> 
+<a href="{% url 'board:board_list' %}"><button>전체 게시판으로 돌아가기</button></a>
+<form action="{% url 'board:board_search' %}" method="GET"> 
     {% csrf_token %}
     <div style="overflow: hidden;">
         <div style="margin-top: 2px; float: left; padding-left: 10px;">

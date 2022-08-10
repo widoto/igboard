@@ -36,8 +36,8 @@ def board_search(request):
     pb_boards = Board.objects.filter(board_name='Public').order_by('-id')
     sc_boards = Board.objects.filter(board_name='Science').order_by('-id')
 
-    q = request.POST.get('q', "")
-    search_type = request.POST.get('type', "")
+    q = request.GET.get('q', "")
+    search_type = request.GET.get('type', "")
 
     if q:
         if search_type == "all":
@@ -66,7 +66,11 @@ def board_search(request):
 #### 일반인 ####
 #게시판 목록
 def board_public_list(request):
-    pb_boards = Board.objects.filter(board_name='Public').annotate(like_count=Count('like_users')).order_by('-like_count', '-write_dttm')
+    sort = request.GET.get('sort','')
+    if sort == 'likes':
+        pb_boards = Board.objects.filter(board_name='Public').annotate(like_count=Count('like_users')).order_by('-like_count', '-write_dttm')
+    else:
+        pb_boards = Board.objects.filter(board_name='Public').order_by('-id')
 
     paginator = Paginator(pb_boards, 10)
     pagenum = request.GET.get('page')
@@ -74,6 +78,7 @@ def board_public_list(request):
 
     context = {
         'pb_boards' : pb_boards,
+        'sort' : sort
     }
 
     return render(request, 'board_public/board_public_list.html', context)
@@ -171,8 +176,8 @@ def board_public_modify(request, pk):
 def board_public_search(request):
     boards = Board.objects.filter(board_name='Public').order_by('-id')
 
-    q = request.POST.get('q', "")
-    search_type = request.POST.get('type', "")
+    q = request.GET.get('q', '')
+    search_type = request.GET.get('type', '')
 
     if q:
         if search_type == "all":
@@ -187,7 +192,17 @@ def board_public_search(request):
             boards = boards.filter(writer__icontains=q)
         elif search_type == "sentence":
             boards = boards.filter(sentence__icontains=q)
-        return render(request, 'board_public/board_public_search.html', {'boards' : boards, 'q' : q})
+        paginator = Paginator(boards, 10)
+        pagenum = request.GET.get('page')
+        boards = paginator.get_page(pagenum)
+
+        context = {
+            'boards' : boards,
+            'q' : q,
+            'type' : search_type
+        }
+
+        return render(request, 'board_public/board_public_search.html', context)
     
     else:
         return render(request, 'board_public/board_public_search.html')
@@ -210,7 +225,11 @@ def likes(request, pk):
 #### 과학자 ####
 #게시판 목록
 def board_science_list(request):
-    sc_boards = Board.objects.filter(board_name='Science').annotate(like_count=Count('like_users')).order_by('-like_count', '-write_dttm')
+    sort = request.GET.get('sort','')
+    if sort == 'likes':
+        sc_boards = Board.objects.filter(board_name='Science').annotate(like_count=Count('like_users')).order_by('-like_count', '-write_dttm')
+    else:
+        sc_boards = Board.objects.filter(board_name='Science').order_by('-id')
 
     paginator = Paginator(sc_boards, 10)
     pagenum = request.GET.get('page')
@@ -218,6 +237,7 @@ def board_science_list(request):
 
     context = {
         'sc_boards' : sc_boards,
+        'sort' : sort
     }
 
     return render(request, 'board_science/board_science_list.html', context)
@@ -312,8 +332,8 @@ def board_science_modify(request, pk):
 def board_science_search(request):
     boards = Board.objects.filter(board_name='Science').order_by('-id')
 
-    q = request.POST.get('q', "")
-    search_type = request.POST.get('type', "")
+    q = request.GET.get('q', '')
+    search_type = request.GET.get('type', '')
 
     if q:
         if search_type == "all":
@@ -328,7 +348,16 @@ def board_science_search(request):
             boards = boards.filter(writer__icontains=q)
         elif search_type == "sentence":
             boards = boards.filter(sentence__icontains=q)
-        return render(request, 'board_science/board_science_search.html', {'boards' : boards, 'q' : q})
+        paginator = Paginator(boards, 10)
+        pagenum = request.GET.get('page')
+        boards = paginator.get_page(pagenum)
+
+        context = {
+            'boards' : boards,
+            'q' : q,
+            'type' : search_type
+        }
+        return render(request, 'board_science/board_science_search.html', context)
     
     else:
         return render(request, 'board_science/board_science_search.html')
