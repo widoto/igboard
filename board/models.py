@@ -1,3 +1,4 @@
+import os
 from django.db import models
 from django.conf import settings
 
@@ -29,6 +30,14 @@ class Board(models.Model):
     @property
     def total_likes(self):
         return self.like_users.count() #like_users 컬럼의 값의 갯수를 센다
+
+    def delete(self, *args, **kargs):
+        super(Board, self).delete(*args, **kargs)
+        if self.image:
+            os.remove(os.path.join(settings.MEDIA_ROOT, self.image.path))
+        if self.file:  
+            os.remove(os.path.join(settings.MEDIA_ROOT, self.file.path))
+
 
 class BoardLikeUsers(models.Model):
     id = models.BigAutoField(primary_key=True)
