@@ -99,7 +99,7 @@ def board_public_write(request):
             board = Board(
                 title=write_form.title,
                 contents=write_form.contents,
-                writer=write_form.writer,
+                writer=request.user,
                 sentence=write_form.sentence,
                 image=write_form.image,
                 file=write_form.file
@@ -220,18 +220,17 @@ def board_public_search(request):
 
 #좋아요
 def likes(request, pk):
-    #if request.user.is_authenticated:
-    board = get_object_or_404(Board, id=pk)
+    if request.user.is_authenticated:
+        board = get_object_or_404(Board, id=pk)
 
-    if board.like_users.filter(pk=request.user.pk).exists():
-        board.like_users.remove(request.user)
-        return redirect('/' + 'board/public/detail/' + str(pk))
-    else:
-        board.like_users.add(request.user)
-        return redirect('/' + 'board/public/detail/' + str(pk))
+        if board.like_users.filter(pk=request.user.pk).exists():
+            board.like_users.remove(request.user)
+            return redirect('/' + 'board/public/detail/' + str(pk))
+        else:
+            board.like_users.add(request.user)
+            return redirect('/' + 'board/public/detail/' + str(pk))
         #return redirect('board/board_detail/' + str(pk))
-
-    #return redirect('#로그인')
+    return redirect('/'+'accounts/login')
 
 #### 과학자 ####
 #게시판 목록
@@ -268,7 +267,7 @@ def board_science_write(request):
             board = Board(
                 title=write_form.title,
                 contents=write_form.contents,
-                writer=write_form.writer,
+                writer=request.user,
                 sentence=write_form.sentence,
                 file=write_form.file,
                 board_name="Science"

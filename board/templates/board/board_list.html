@@ -28,7 +28,9 @@
     <div class="pb-board">
         <p>일반인 게시판</p>
         <div>
+            {% if user.is_authenticated %}
             <a href="{% url 'board:board_public_write' %}"><button>글쓰기</button></a>
+            {% endif %}
             <a href="{% url 'board:board_public_list' %}"><button>게시판 이동</button></a>
         </div>
         <br>
@@ -62,7 +64,9 @@
     <div class="sc-board">
         <p>과학자 게시판</p>
         <div>
+            {% if user.is_authenticated %}
             <a href="{% url 'board:board_science_write' %}"><button>글쓰기</button></a>
+            {% endif %}
             <a href="{% url 'board:board_science_list' %}"><button>게시판 이동</button></a>
         </div>
         <br>

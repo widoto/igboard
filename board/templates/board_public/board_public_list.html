@@ -75,5 +75,8 @@
     {% endif %}
 </div>
 
+
+{% if user.is_authenticated %}
 <div><a href="{% url 'board:board_public_write' %}"><button>글쓰기</button></a></div>
+{% endif %}
 {% endblock contents %}

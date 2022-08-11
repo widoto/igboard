@@ -1,0 +1,17 @@
+<!--현재 로그인한 유저-->
+{% if user.is_authenticated %}
+{{user.username}}
+{% else %}
+<a>로그인 해주세요</a>
+{% endif %}
+
+{% block content %}
+<div>
+    <h3><a href="/accounts/signup">회원가입</a></h3>
+    <h3><a href="/accounts/login">로그인</a></h3>
+    <h3><a href="/accounts/logout">로그아웃</a></h3>
+</div>
+{% endblock %}
+
+</br></br>
+<h3><a href="{% url 'board:board_list' %}">게시판</a></h3>

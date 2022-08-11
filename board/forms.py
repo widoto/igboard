@@ -19,7 +19,7 @@ class PBoardWriteForm(forms.ModelForm):
 
     field_order = [
         'title',
-        'writer',
+        #'writer',
         'sentence',
         'image',
         'contents',
@@ -33,7 +33,7 @@ class PBoardWriteForm(forms.ModelForm):
             'title',
             'contents',
             'sentence',
-            'writer',
+            #'writer',
             'image',
             'file'
         ]
@@ -46,7 +46,7 @@ class PBoardWriteForm(forms.ModelForm):
 
         title = cleaned_data.get('title', '')
         contents = cleaned_data.get('contents', '')
-        writer = cleaned_data.get('writer', '')
+        # writer = cleaned_data.get('writer', '')
         sentence = cleaned_data.get('sentence', '')
         image = cleaned_data.get('image', '')
         file = cleaned_data.get('file', '')
@@ -60,7 +60,7 @@ class PBoardWriteForm(forms.ModelForm):
         else:
             self.title = title
             self.contents = contents
-            self.writer = writer
+            #self.writer = writer
             self.sentence = sentence
             self.image = image
             self.file = file
@@ -83,7 +83,7 @@ class SBoardWriteForm(forms.ModelForm):
 
     field_order = [
         'title',
-        'writer',
+        #'writer',
         'sentence',
         'contents',
         'file',
@@ -95,7 +95,7 @@ class SBoardWriteForm(forms.ModelForm):
             'title',
             'contents',
             'sentence',
-            'writer',
+            #'writer',
             'file'
         ]
         widgets = {
@@ -107,7 +107,7 @@ class SBoardWriteForm(forms.ModelForm):
 
         title = cleaned_data.get('title', '')
         contents = cleaned_data.get('contents', '')
-        writer = cleaned_data.get('writer', '')
+        #writer = cleaned_data.get('writer', '')
         sentence = cleaned_data.get('sentence', '')
         file = cleaned_data.get('file', '')
 
@@ -118,7 +118,7 @@ class SBoardWriteForm(forms.ModelForm):
         else:
             self.title = title
             self.contents = contents
-            self.writer = writer
+            #self.writer = writer
             self.sentence = sentence
             self.file = file
 
