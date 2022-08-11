@@ -37,14 +37,6 @@ class Board(models.Model):
             os.remove(os.path.join(settings.MEDIA_ROOT, self.image.path))
         if self.file:  
             os.remove(os.path.join(settings.MEDIA_ROOT, self.file.path))
-    
-    def imagemodify(self):
-        if self.image:
-            os.remove(os.path.join(settings.MEDIA_ROOT, self.image.path))
-    
-    def filemodify(self):
-        if self.file:
-            os.remove(os.path.join(settings.MEDIA_ROOT, self.file.path))
 
 
 class BoardLikeUsers(models.Model):
