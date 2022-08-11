@@ -21,8 +21,7 @@
 {% if messages %}
     <div>
         {% for message in messages %}
-            {{ message.message }}</br>
-            <a href="/accounts/login">로그인하기</a>
+            <a href="/accounts/login">{{ message.message }}</a>
         {% endfor %}
     </div>
 {% endif %}
