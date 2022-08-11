@@ -1,8 +1,8 @@
 import os
 import re
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import PBoardWriteForm, SBoardWriteForm
-from .models import Board, BoardLikeUsers
+from .forms import PBoardWriteForm, SBoardWriteForm, CommentForm
+from .models import Board, BoardLikeUsers, Comment
 from django.core.paginator import Paginator
 from django.conf import settings
 from django.http import HttpResponse
@@ -118,13 +118,18 @@ def board_public_write(request):
 #글 상세보기
 def board_public_detail(request, pk):
     board = get_object_or_404(Board, id=pk)
+    comments = Comment.objects.filter(board=board.id).order_by('created_at')
     # 좋아요 수 띄우기
     like = BoardLikeUsers.objects.filter(board = board.id).annotate(Count('user'))
-    like_num=like.count()
+    like_num = like.count()
+    #댓글
+    comment_form = CommentForm()
 
     context = {
         'board': board,
         'like_num' : like_num,
+        'comment_form' : comment_form,
+        'comments' : comments
     }
 
     return render(request, 'board_public/board_public_detail.html', context)
@@ -229,8 +234,29 @@ def likes(request, pk):
         else:
             board.like_users.add(request.user)
             return redirect('/' + 'board/public/detail/' + str(pk))
-        #return redirect('board/board_detail/' + str(pk))
     return redirect('/'+'accounts/login')
+
+#일반인_댓글 생성
+def comments_create(request, pk):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            board = get_object_or_404(Board, pk=pk)
+            commentform = CommentForm(request.POST)
+            if commentform.is_valid():
+                comment = commentform.save(commit=False)
+                comment.board = board
+                comment.user = request.user
+                comment.save()
+            return redirect('/' + 'board/public/detail/' + str(pk))
+        return redirect('/'+'accounts/login')
+
+#일반인_댓글 삭제
+def comments_delete(request, board_pk, comment_pk):
+    if request.user.is_authenticated:
+        comment = get_object_or_404(Comment, pk=comment_pk)
+        if request.user == comment.user:
+            comment.delete()
+    return redirect('/' + 'board/public/detail/' + str(board_pk))
 
 #### 과학자 ####
 #게시판 목록

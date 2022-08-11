@@ -17,7 +17,6 @@ class Board(models.Model):
     image = models.ImageField(blank=True, null=True, verbose_name='썸네일 이미지', upload_to = "Images/") 
     file = models.FileField(blank=True, null=True, verbose_name='첨부 파일', upload_to = "Files")
 
-    # 후에 user테이블과 연동 필요
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='like_borads')
 
     def __str__(self):
@@ -50,3 +49,13 @@ class BoardLikeUsers(models.Model):
         managed = False
         db_table = 'board_like_users'
         unique_together = (('board', 'user'),)
+
+class Comment(models.Model):
+    board = models.ForeignKey(Board, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    content = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.content

@@ -16,6 +16,9 @@ urlpatterns = [
     path('public/search/', views.board_public_search, name='board_public_search'),
     #좋아요
     path('<int:pk>/likes/', views.likes, name='likes'),
+    #댓글
+    path('public/detail/<int:pk>/comments/', views.comments_create, name='comments_create'),
+    path('<int:board_pk>/comments/<int:comment_pk>/delete/', views.comments_delete, name='comments_delete'),
 
     #과학자 페이지
     path('science/', views.board_science_list, name='board_science_list'),

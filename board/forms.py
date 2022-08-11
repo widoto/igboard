@@ -1,5 +1,5 @@
 from django import forms
-from .models import Board
+from .models import Board, Comment
 from django_summernote.fields import SummernoteTextField
 from django_summernote.widgets import SummernoteWidget
 
@@ -121,4 +121,12 @@ class SBoardWriteForm(forms.ModelForm):
             #self.writer = writer
             self.sentence = sentence
             self.file = file
+
+#댓글
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        # fields = '__all__'
+        exclude = ('board', 'user',)
+        #fields = ['content']
 
