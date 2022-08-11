@@ -18,6 +18,14 @@
       {% endif %}
     </form>
 </div>
+{% if messages %}
+    <div>
+        {% for message in messages %}
+            {{ message.message }}</br>
+            <a href="/accounts/login">로그인하기</a>
+        {% endfor %}
+    </div>
+{% endif %}
 
 <div>
     좋아요 : {{ like_num }}

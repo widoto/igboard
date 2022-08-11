@@ -8,6 +8,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.db.models import Q
 from django.db.models import Count
+from django.contrib import messages 
 
 #### 전체 게시판 ####
 def board_list(request):
@@ -234,7 +235,11 @@ def likes(request, pk):
         else:
             board.like_users.add(request.user)
             return redirect('/' + 'board/public/detail/' + str(pk))
-    return redirect('/'+'accounts/login')
+    else :
+        context = {
+            'messages' : messages.info(request, '로그인 해주세요.')
+        }
+        return redirect('/' + 'board/public/detail/' + str(pk), context)
 
 #일반인_댓글 생성
 def comments_create(request, pk):
