@@ -2,8 +2,10 @@
 <div>일반인 게시판 글 상세보기</div>
 <div style="border: 1px black solid; margin: 20px 0px;"></div>
 
+{% if user == board.writer %}
 <a href="/board/public/detail/{{ board.id }}/modify/"><button>수정</button></a>
 <a href="/board/public/detail/{{ board.id }}/delete/"><button>삭제</button></a>
+{% endif %}
 
 
 <div>
@@ -48,7 +50,7 @@
 <hr>
 <!--read-->
 {% if comments %}
-  <p><b>{{ comments|length }}개의 댓글이 있습니다.</b></p>
+  <p><b>댓글수 : {{ comments|length }}</b></p>
 {% endif %}
 <ul>
   {% for comment in comments %}
@@ -65,7 +67,7 @@
       {% endif %}
     </li>
   {% empty %}
-    <p>댓글이 없어요</p>
+    <p>댓글수 : 0</p>
   {% endfor %}
 </ul>
 
