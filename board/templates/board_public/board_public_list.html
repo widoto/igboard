@@ -51,6 +51,7 @@
             <span style="font-weight: bold;">{{ board.title }}</span> <br>
             작성자: {{ board.writer }} <br>
             좋아요: {{ board.total_likes }} <br>
+            조회수: {{ board.hits }} <br>
             글 작성일: {{ board.write_dttm }} <br>
             최종 수정일: {{ board.update_dttm }} <br>
             <a href="/board/public/detail/{{ board.id }}" target="_self"><button>상세보기</button></a>

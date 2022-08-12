@@ -16,6 +16,14 @@ def board_list(request):
     pb_boards = Board.objects.filter(board_name='Public').order_by('-id')
     sc_boards = Board.objects.filter(board_name='Science').order_by('-id')
 
+    pb_paginator = Paginator(pb_boards, 10)
+    pagenum = request.GET.get('page')
+    pb_boards = pb_paginator.get_page(pagenum)
+
+    sc_paginator = Paginator(sc_boards, 10)
+    pagenum = request.GET.get('page')
+    sc_boards = sc_paginator.get_page(pagenum)
+
     context = {
         'pb_boards' : pb_boards,
         'sc_boards' : sc_boards,
@@ -177,15 +185,13 @@ def board_public_modify(request, pk):
         return render(request, 'board_public/board_public_modify.html', context)
     
     elif request.method == 'POST':
-        file_change_check = request.POST.get('fileChange', False)
         file_check = request.POST.get('file-clear', False)
-        image_change_check = request.POST.get('imageChange', False)
         image_check = request.POST.get('image-clear', False)
 
-        if file_check or file_change_check:
+        if file_check:
             os.remove(os.path.join(settings.MEDIA_ROOT, board.file.path))
             board.file = ''
-        if image_check or image_change_check:
+        if image_check:
             os.remove(os.path.join(settings.MEDIA_ROOT, board.image.path))
             board.image = ''
 
@@ -194,11 +200,14 @@ def board_public_modify(request, pk):
         if write_form.is_valid():
             board.title=write_form.title
             board.contents=write_form.contents
-            board.writer=write_form.writer
             board.sentence=write_form.sentence
             if write_form.image:
+                if board.image:
+                    os.remove(os.path.join(settings.MEDIA_ROOT, board.image.path))
                 board.image=write_form.image
             if write_form.file:
+                if board.file:
+                    os.remove(os.path.join(settings.MEDIA_ROOT, board.file.path))
                 board.file=write_form.file
             
             board.save()
@@ -212,7 +221,14 @@ def board_public_modify(request, pk):
 
 # 검색
 def board_public_search(request):
-    boards = Board.objects.filter(board_name='Public').order_by('-id')
+    sort = request.GET.get('sort','')
+
+    if sort == 'likes':
+        boards = Board.objects.filter(board_name='Public').annotate(like_count=Count('like_users')).order_by('-like_count', '-write_dttm')
+    elif sort == 'hits':
+        boards = Board.objects.filter(board_name='Public').order_by('-hits', '-write_dttm')
+    else:
+        boards = Board.objects.filter(board_name='Public').order_by('-id')
 
     q = request.GET.get('q', '')
     search_type = request.GET.get('type', '')
@@ -237,7 +253,8 @@ def board_public_search(request):
         context = {
             'boards' : boards,
             'q' : q,
-            'type' : search_type
+            'type' : search_type,
+            'sort' : sort
         }
 
         return render(request, 'board_public/board_public_search.html', context)
@@ -390,10 +407,9 @@ def board_science_modify(request, pk):
         return render(request, 'board_science/board_science_modify.html', context)
     
     elif request.method == 'POST':
-        file_change_check = request.POST.get('fileChange', False)
         file_check = request.POST.get('file-clear', False)
 
-        if file_check or file_change_check:
+        if file_check:
             os.remove(os.path.join(settings.MEDIA_ROOT, board.file.path))
             board.file = ''
 
@@ -402,9 +418,10 @@ def board_science_modify(request, pk):
         if write_form.is_valid():
             board.title=write_form.title
             board.contents=write_form.contents
-            board.writer=write_form.writer
             board.sentence=write_form.sentence
             if write_form.file:
+                if board.file:
+                    os.remove(os.path.join(settings.MEDIA_ROOT, board.file.path))
                 board.file=write_form.file
             
             board.save()
@@ -418,7 +435,13 @@ def board_science_modify(request, pk):
 
 # 검색
 def board_science_search(request):
-    boards = Board.objects.filter(board_name='Science').order_by('-id')
+    sort = request.GET.get('sort','')
+    if sort == 'likes':
+        boards = Board.objects.filter(board_name='Science').annotate(like_count=Count('like_users')).order_by('-like_count', '-write_dttm')
+    elif sort == 'hits':
+        boards = Board.objects.filter(board_name='Science').order_by('-hits', '-write_dttm')
+    else:
+        boards = Board.objects.filter(board_name='Science').order_by('-id')
 
     q = request.GET.get('q', '')
     search_type = request.GET.get('type', '')
@@ -443,7 +466,8 @@ def board_science_search(request):
         context = {
             'boards' : boards,
             'q' : q,
-            'type' : search_type
+            'type' : search_type,
+            'sort' : sort
         }
         return render(request, 'board_science/board_science_search.html', context)
     

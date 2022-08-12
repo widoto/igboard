@@ -22,6 +22,14 @@
             <button input type="submit">Search</button>
         </div>
     </div>
+    <div>
+      <select name="sort" id="sort">
+        <option value="recently" id="recently">최신순</option>
+        <option value="likes" id="likes">좋아요순</option>
+        <option value="hits" id="hits">조회수순</option>
+      </select>
+      <button type="submit" value="">정렬</button>
+    </div>
 </form>
 
 {% if not boards%}
@@ -38,7 +46,8 @@
             <br>
             <span style="font-weight: bold;">{{ board.title }}</span> <br>
             작성자: {{ board.writer }} <br>
-            좋아요: {{ board.like_count }} <br>
+            좋아요: {{ board.total_likes }} <br>
+            조회수: {{ board.hits }} <br>
             글 작성일: {{ board.write_dttm }} <br>
             최종 수정일: {{ board.update_dttm }} <br>
             <a href="/board/public/detail/{{ board.id }}" target="_self"><button>상세보기</button></a>
@@ -50,8 +59,8 @@
 {% endif %}
 <div>
     {% if boards.has_previous %}
-    <a href="?page=1&q={{q}}&type={{type}}">첫 페이지</a>
-    <a href="?page={{ boards.previous_page_number }}&q={{q}}&type={{type}}">이전 페이지</a>
+    <a href="?page=1&sort={{sort}}&q={{q}}&type={{type}}">첫 페이지</a>
+    <a href="?page={{ boards.previous_page_number }}&sort={{sort}}&q={{q}}&type={{type}}">이전 페이지</a>
     {% endif %}
 
     <span>{{ boards.number}}</span>
@@ -59,7 +68,7 @@
     <span>{{ boards.paginator.num_pages }}</span>
 
     {% if boards.has_next %}
-    <a href="?page={{ boards.next_page_number }}&q={{q}}&type={{type}}">다음 페이지</a>
-    <a href="?page={{ boards.paginator.num_pages }}&q={{q}}&type={{type}}">마지막 페이지</a>
+    <a href="?page={{ boards.next_page_number }}&sort={{sort}}&q={{q}}&type={{type}}">다음 페이지</a>
+    <a href="?page={{ boards.paginator.num_pages }}&sort={{sort}}&q={{q}}&type={{type}}">마지막 페이지</a>
     {% endif %}
 </div>

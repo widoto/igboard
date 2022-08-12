@@ -22,6 +22,14 @@
             <button input type="submit">Search</button>
         </div>
     </div>
+    <div>
+      <select name="sort" id="sort">
+        <option value="recently" id="recently">최신순</option>
+        <option value="likes" id="likes">좋아요순</option>
+        <option value="hits" id="hits">조회수순</option>
+      </select>
+      <button type="submit" value="">정렬</button>
+    </div>
 </form>
 
 {% if not boards%}
@@ -34,6 +42,8 @@
                 <tr class="header">
                     <th scope="col">제목</th>
                     <th scope="col">작성자</th>
+                    <th scope="col">좋아요</th>
+                    <th scope="col">조회수</th>
                     <th scope="col">글 작성일</th>
                     <th scope="col">최종 수정일</th>
                 </tr>
@@ -44,6 +54,8 @@
                 <tr>
                     <th scope="row">{{ board.title }}</th>
                     <td>{{ board.writer }}</td>
+                    <td>{{ board.total_likes }} </td>
+                    <td>{{ board.hits }} </td>
                     <td>{{ board.write_dttm }}</td>
                     <td>{{ board.update_dttm }}</td>
                     <td><a href="/board/science/detail/{{ board.id }}" target="_self"><button>상세보기</button></a></td>
@@ -55,8 +67,8 @@
 {% endif %}
 <div>
     {% if boards.has_previous %}
-    <a href="?page=1&q={{q}}&type={{type}}">첫 페이지</a>
-    <a href="?page={{ boards.previous_page_number }}&q={{q}}&type={{type}}">이전 페이지</a>
+    <a href="?page=1&sort={{sort}}&q={{q}}&type={{type}}">첫 페이지</a>
+    <a href="?page={{ boards.previous_page_number }}&sort={{sort}}&q={{q}}&type={{type}}">이전 페이지</a>
     {% endif %}
 
     <span>{{ boards.number}}</span>
@@ -64,7 +76,7 @@
     <span>{{ boards.paginator.num_pages }}</span>
 
     {% if boards.has_next %}
-    <a href="?page={{ boards.next_page_number }}&q={{q}}&type={{type}}">다음 페이지</a>
-    <a href="?page={{ boards.paginator.num_pages }}&q={{q}}&type={{type}}">마지막 페이지</a>
+    <a href="?page={{ boards.next_page_number }}&sort={{sort}}&q={{q}}&type={{type}}">다음 페이지</a>
+    <a href="?page={{ boards.paginator.num_pages }}&sort={{sort}}&q={{q}}&type={{type}}">마지막 페이지</a>
     {% endif %}
 </div>
