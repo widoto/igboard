@@ -1,5 +1,6 @@
 import os
 import re
+from urllib import response
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import PBoardWriteForm, SBoardWriteForm, CommentForm
 from .models import Board, BoardLikeUsers, Comment
@@ -125,6 +126,8 @@ def board_public_detail(request, pk):
     like_num = like.count()
     #댓글
     comment_form = CommentForm()
+    #조회수 (쿠키 이용)
+    cookie_name = 'hit'
 
     context = {
         'board': board,
@@ -132,6 +135,22 @@ def board_public_detail(request, pk):
         'comment_form' : comment_form,
         'comments' : comments
     }
+
+    response = render(request, 'board_public/board_public_detail.html', context)
+
+    if request.COOKIES.get(cookie_name) is not None:
+        cookies = request.COOKIES.get(cookie_name)
+        cookies_list = cookies.split('|')
+        if str(pk) not in cookies_list:
+            response.set_cookie(cookie_name, cookies + f'|{pk}', expires=None)
+            board.hits += 1
+            board.save()
+            return response
+    else:
+        response.set_cookie(cookie_name, pk, expires=None)
+        board.hits += 1
+        board.save()
+        return response
 
     return render(request, 'board_public/board_public_detail.html', context)
 
@@ -320,11 +339,29 @@ def board_science_detail(request, pk):
     # 좋아요 수 띄우기
     like = BoardLikeUsers.objects.filter(board = board.id).annotate(Count('user'))
     like_num=like.count()
-
+    #조회수 (쿠키 이용)
+    cookie_name = 'hit'
+    
     context = {
         'board': board,
         'like_num' : like_num,
     }
+
+    response = render(request, 'board_science/board_science_detail.html', context)
+
+    if request.COOKIES.get(cookie_name) is not None:
+        cookies = request.COOKIES.get(cookie_name)
+        cookies_list = cookies.split('|')
+        if str(pk) not in cookies_list:
+            response.set_cookie(cookie_name, cookies + f'|{pk}', expires=None)
+            board.hits += 1
+            board.save()
+            return response
+    else:
+        response.set_cookie(cookie_name, pk, expires=None)
+        board.hits += 1
+        board.save()
+        return response
 
     return render(request, 'board_science/board_science_detail.html', context)
 

@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Board(models.Model):
     title = models.CharField(max_length=64, verbose_name='글 제목')
     contents = models.TextField(verbose_name='글 내용')
-    writer = models.ForeignKey(User, max_length=32, verbose_name='작성자', on_delete=models.CASCADE)
+    writer = models.ForeignKey(User, verbose_name='작성자', on_delete=models.CASCADE)
     sentence = models.CharField(max_length=64, verbose_name='문장', default="")
     write_dttm = models.DateTimeField(auto_now_add=True, verbose_name='글 작성일')
 
