@@ -28,6 +28,7 @@ urlpatterns = [
     path('', views.home, name="home"),
     path('board/', include('board.urls')),
     path('accounts/', include('accounts.urls')),
+    path('rword/', include('rword.urls')),
 ]
 
 urlpatterns += [path('summernote/', include('django_summernote.urls'))]
