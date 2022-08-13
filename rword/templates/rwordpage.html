@@ -1,29 +1,27 @@
 <h1>단어 랜덤 제공 페이지 입니다</h1>
-<form method="get" action="#">
-    <input type="submit" value="2" name="rm2"/>
+<form method='get' action='#'>
+    <input type="submit" value="2" name="button2"/>
 </form>
-<form method="get" action="#">
-    <input type="submit" value="3" name="rm3"/>
+<form method='get' action='#'>
+    <input type="submit" value="3" name="button3"/>
 </form>
-<form method="get" action="#">
-    <input type="submit" value="4" name="rm4"/>
+<form method='get' action='#'>
+    <input type="submit" value="4" name="button4"/>
 </form>
 <table class="board">
     <tbody>
         {% if rwordlist %}
             {% for rword in rwordlist %}
-            <tr class="{% if forloop.counter|divisibleby:2%} even_bgcolor{%endif%}">
-                <td> {{forloop.counter}}</td>
-                <td>
-                    <a>{{rword.word}}</a>
-                </td>
-            </tr>
+            <td class="{% if forloop.counter|divisibleby:2%} even_bgcolor{%endif%}">
+                <tr>
+                    <a>{{rword}}&nbsp;</a>
+                </tr>
+            </td>
             {% endfor %}
         {% endif %}
     </tbody>
 </table>
 </div>
-<br><br><br>
 <div style="float: left; padding-left: 10px;">
     <input type="sentence" placeholder="문장 입력" aria-label="sentence" name="q" value="{{q}}">
 </div>
