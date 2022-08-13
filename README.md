@@ -1,2 +1,2 @@
-# 멋사 REACT 실습 예제
-# Django-api Document
+# igboard 프로젝트
+## Django-api Document
