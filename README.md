@@ -46,14 +46,14 @@
 - 요청방식 : GET
 - 기능 : 누르면 파일 다운로드
 url : /board/public/download?path={{ board.file }}
-board.file : 파일 이름
+- board.file : 파일 이름
 
 #### 댓글
 1. comments_create
 - 요청방식 : POST
 - 기능 : 댓글 생성
 - url : public/detail/board_n/comments/
-board_n : 게시판 번호
+- board_n : 게시판 번호
 ```
 {
     "content" : "댓글내용"
@@ -66,4 +66,4 @@ board_n : 게시판 번호
 - 요청방식 : POST
 - 기능 : 댓글 삭제
 - url : board_n/comments/comment_n/delete/
-board_n : 게시판 번호, comment_n : 댓글 번호
+- board_n : 게시판 번호, comment_n : 댓글 번호
