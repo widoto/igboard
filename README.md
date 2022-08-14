@@ -53,7 +53,7 @@ url : /board/public/download?path={{ board.file }}
 1. comments_create
 - 요청방식 : POST
 - 기능 : 댓글 생성
-- url : public/detail/board_n/comments/
+- url : /board/ public/detail/board_n/comments/
 - board_n : 게시판 번호
 ```
 {
@@ -66,5 +66,5 @@ url : /board/public/download?path={{ board.file }}
 2. comments_delete
 - 요청방식 : POST
 - 기능 : 댓글 삭제
-- url : board_n/comments/comment_n/delete/
+- url : /board/board_n/comments/comment_n/delete/
 - board_n : 게시판 번호, comment_n : 댓글 번호
