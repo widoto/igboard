@@ -58,9 +58,9 @@ url : /board/public/download?path={{ board.file }}
 ```
 {
     "content" : "댓글내용"
-    "board" : 1
-    "user" : user
-    "create_at"
+    "board" : "게시판 번호"
+    "user" : "작성자"
+    "create_at" : "작성날짜"
 }
 ```
 2. comments_delete
