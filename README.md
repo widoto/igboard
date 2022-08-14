@@ -37,10 +37,10 @@
 - 기능 : 전체(과학자 + 일반인) 게시글 목록 보여줌 (제목, 작성자, 글 작성일)
 - url : /board
 
-{ "title":"제목" ,
-"writer": "작성자",
-"write_dttm": "작성날짜",
-}
+    { "title":"제목" ,
+    "writer": "작성자",
+    "write_dttm": "작성날짜",
+    }
 
 2. file_download
 - 요청방식 : GET
