@@ -2,9 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-
-
 from .models import WordList
+from .models import SentenceList
 
 # Create your views here.
 
@@ -19,5 +18,15 @@ def rwordpage(request):
         rwordlist = 'click button'
     return render(request, 'rwordpage.html', {'rwordlist':rwordlist})
 
+def insertsentence(request):
+    # if request.method == 'POST':
+    #     sentenceform = SentenceList(request.POST, sentence=)
+    #     if sentenceform.is_valid():
+    #         sentenceform.save()
+    #         return redirect("")
+    return render(request, 'rwordpage.html')
+
+    
 def rwordboard(request):
+
     return render(request, 'rwordboard.html')
