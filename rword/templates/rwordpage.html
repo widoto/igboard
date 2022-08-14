@@ -26,5 +26,8 @@
     <input type="sentence" placeholder="문장 입력" aria-label="sentence" name="q" value="{{q}}">
 </div>
 <div style="float: left; padding-left: 10px;">
-    <a href="{% url 'board:board_list' %}"><button>확인</button></a>
+    <form method='POST' action=''>
+        {% csrf_token %}
+        <a href="{% url 'rword:rwordboard' %}"><input type="submit" value="확인" name="submit"/></a>
+    </form>
 </div>

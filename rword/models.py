@@ -9,3 +9,12 @@ class WordList(models.Model):
 
     class Meta:
         db_table = 'rword'
+
+class SentenceList(models.Model):
+    sentence = models.CharField(max_length=100, verbose_name='문장')
+
+    def __str__(self):
+        return self.sentence
+    
+    class Meta:
+        db_table = 'rwordsent'

@@ -18,3 +18,6 @@ def rwordpage(request):
     else:
         rwordlist = 'click button'
     return render(request, 'rwordpage.html', {'rwordlist':rwordlist})
+
+def rwordboard(request):
+    return render(request, 'rwordboard.html')
