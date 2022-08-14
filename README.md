@@ -28,6 +28,7 @@
     
     `python manage.py runserver`
 
-# Django-api Document
+## Django-api Document
 
-## 게시판
+### 게시판
+
