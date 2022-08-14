@@ -40,13 +40,13 @@
 { "title":"제목" ,
 "writer": "작성자",
 "write_dttm": "작성날짜",
-
 }
 
 2. file_download
 - 요청방식 : GET
 - 기능 : 누르면 파일 다운로드
 url : /board/public/download?path={{ board.file }}
+board.file : 파일 이름
 
 #### 댓글
 1. comments_create
