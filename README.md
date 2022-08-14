@@ -54,13 +54,14 @@ board.file : 파일 이름
 - 기능 : 댓글 생성
 - url : public/detail/board_n/comments/
 board_n : 게시판 번호
+```
 {
     "content" : "댓글내용"
     "board" : 1
     "user" : user
     "create_at"
 }
-
+```
 2. comments_delete
 - 요청방식 : POST
 - 기능 : 댓글 삭제
