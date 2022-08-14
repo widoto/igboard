@@ -31,4 +31,38 @@
 ## Django-api Document
 
 ### 게시판
+#### 게시글
+1.board_list
+- 요청방식 : get
+- 기능 : 전체(과학자 + 일반인) 게시글 목록 보여줌 (제목, 작성자, 글 작성일)
+- url : /board
 
+{ "title":"제목" ,
+"writer": "작성자",
+"write_dttm": "작성날짜",
+
+}
+
+2. file_download
+- 요청방식 : GET
+- 기능 : 누르면 파일 다운로드
+url : /board/public/download?path={{ board.file }}
+
+#### 댓글
+1. comments_create
+- 요청방식 : POST
+- 기능 : 댓글 생성
+- url : public/detail/board_n/comments/
+board_n : 게시판 번호
+{
+    "content" : "댓글내용"
+    "board" : 1
+    "user" : user
+    "create_at"
+}
+
+2. comments_delete
+- 요청방식 : POST
+- 기능 : 댓글 삭제
+- url : board_n/comments/comment_n/delete/
+board_n : 게시판 번호, comment_n : 댓글 번호
