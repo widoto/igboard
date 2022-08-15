@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.urls import reverse
 from .models import WordList
 from .models import SentenceList
+from .forms import RSentencesWriteForm
+
 
 # Create your views here.
 
@@ -26,5 +28,8 @@ def insertsentence(request):
 
     
 def rwordboard(request):
-    
-    return render(request, 'rwordboard.html')
+    rword_setences = SentenceList.objects.all()
+    context = {
+        'rword_setences' : rword_setences,
+    }
+    return render(request, 'rwordboard.html', context)
