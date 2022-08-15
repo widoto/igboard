@@ -1,21 +1,26 @@
-<div class="pb-board">
+{% block contents %}
+<div class="rboard">
     <p>랜덤단어로 만든 문장 제공 보드</p>
     <br>
-    {% if not pb_boards%}
+    {% if not rword_setences%}
     <p>작성된 문장이 없습니다.</p>
     {% else %}
     <table style="text-align:center; border:1px solid black;">
         <thead>
             <tr class="header">
                 <th scope="col">문장</th>
+                <th scope="col">작성자</th>
+                <th scope="col">작성일</th>
             </tr>
         </thead>
 
         <tbody>
-            {% for board in sentence_boards %}
-            {% if board %}
+            {% for sentence in rword_setences %}
+            {% if sentence %}
             <tr>
-                <th scope="row">{{ board.sentence }}</th>
+                <th scope="row">{{ sentence.sentence }}</th>
+                <td>{{ sentence.writer }}</td>
+                <td>{{ sentence.write_dttm }}</td>
             </tr>
             {% endif %}
             {% endfor %}
@@ -23,3 +28,19 @@
     </table>
     {% endif %}
 </div>
+<div>
+    {% if rword_setences.has_previous %}
+    <a href="?page=1">첫 페이지</a>
+    <a href="?page={{ rword_setences.previous_page_number }}">이전 페이지</a>
+    {% endif %}
+
+    <span>{{ rword_setences.number}}</span>
+    <span>/</span>
+    <span>{{ rword_setences.paginator.num_pages }}</span>
+
+    {% if sc_boards.has_next %}
+    <a href="?page={{ rword_setences.next_page_number }}">다음 페이지</a>
+    <a href="?page={{ rword_setences.paginator.num_pages }}">마지막 페이지</a>
+    {% endif %}
+</div>
+{% endblock contents %}

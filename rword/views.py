@@ -1,34 +1,66 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import WordList
 from .models import SentenceList
 from .forms import RSentencesWriteForm
+from django.core.paginator import Paginator
 
 
 # Create your views here.
 
 def rwordpage(request):
-    if request.GET.get('button2')=="2":
-        rwordlist = WordList.objects.order_by('?')[:2]
-    elif request.GET.get('button3')=="3":
-        rwordlist = WordList.objects.order_by('?')[:3]
-    elif request.GET.get('button4')=="4":
-        rwordlist = WordList.objects.order_by('?')[:4]
-    else:
-        rwordlist = 'click button'
-    return render(request, 'rwordpage.html', {'rwordlist':rwordlist})
+    if request.method == 'GET':
+        if request.GET.get('button2')=="2":
+            rwordlist = WordList.objects.order_by('?')[:2]
+        elif request.GET.get('button3')=="3":
+            rwordlist = WordList.objects.order_by('?')[:3]
+        elif request.GET.get('button4')=="4":
+            rwordlist = WordList.objects.order_by('?')[:4]
+        else:
+            rwordlist = 'click button'
+        form = RSentencesWriteForm()
+        context = {
+            'forms': form,
+            'rwordlist' : rwordlist,
+        }
+        return render(request, 'rwordpage.html', context)
 
-def insertsentence(request):
-    if request.method == 'POST':
-        s = SentenceList.objects.Create(sentence=request.POST['insentence'])
-        s.save()
-    return render(request, 'rwordpage.html')
+    elif request.method == 'POST':
+        if request.GET.get('button2')=="2":
+            rwordlist = WordList.objects.order_by('?')[:2]
+        elif request.GET.get('button3')=="3":
+            rwordlist = WordList.objects.order_by('?')[:3]
+        elif request.GET.get('button4')=="4":
+            rwordlist = WordList.objects.order_by('?')[:4]
+        else:
+            rwordlist = 'click button'
+
+        form = RSentencesWriteForm(request.POST)
+
+        if form.is_valid():
+            s = SentenceList()
+            s.sentence = form.cleaned_data['sentence']
+            s.contents = form.cleaned_data['contents']
+            s.writer = request.user
+            s.save()
+            return redirect('/rword/rboard')
+        else:
+            context = {
+                'forms': form,
+                'rwordlist' : rwordlist,
+            }
+            return render(request, 'rwordpage.html', context)
 
     
 def rwordboard(request):
-    rword_setences = SentenceList.objects.all()
+    rword_setences = SentenceList.objects.filter().order_by('-id')
+
+    paginator = Paginator(rword_setences, 10)
+    pagenum = request.GET.get('page')
+    rword_setences = paginator.get_page(pagenum)
+
     context = {
         'rword_setences' : rword_setences,
     }
