@@ -19,14 +19,12 @@ def rwordpage(request):
     return render(request, 'rwordpage.html', {'rwordlist':rwordlist})
 
 def insertsentence(request):
-    # if request.method == 'POST':
-    #     sentenceform = SentenceList(request.POST, sentence=)
-    #     if sentenceform.is_valid():
-    #         sentenceform.save()
-    #         return redirect("")
+    if request.method == 'POST':
+        s = SentenceList.objects.Create(sentence=request.POST['insentence'])
+        s.save()
     return render(request, 'rwordpage.html')
 
     
 def rwordboard(request):
-
+    
     return render(request, 'rwordboard.html')
