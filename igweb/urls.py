@@ -28,7 +28,6 @@ urlpatterns = [
     path('board/', include('board.urls')),
     path('accounts/', include('accounts.urls')),
     path('', include('rword.urls')),
-    path('rboard/', include('rword.urls')),
 ]
 
 urlpatterns += [path('summernote/', include('django_summernote.urls'))]
