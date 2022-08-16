@@ -21,7 +21,7 @@
                         <a class="nav-link menu randommenu" href="{% url 'rwordpage' %}" data-mid="0">랜덤 단어 생성하기</a>        
                     </li>        
                     <li class="nav-item mr-3" data-mid="1">            
-                        <a class="nav-link menu" href="#" data-mid="1">문장 공유하기</a>        
+                        <a class="nav-link menu" href="{% url 'rwordboard' %}" data-mid="1">문장 공유하기</a>        
                     </li>        
                     <li class="nav-item mr-3" data-mid="2">            
                         <a class="nav-link menu" href="{% url 'board:board_list' %}" data-mid="2">일반인 게시판</a>        
@@ -155,36 +155,27 @@
             </div>
             <div class="row mt-5"><!--난이도 선택 버튼-->
                 <div class="btn-group col-md-12 mx-auto btngroup" role="group" aria-label="Basic radio toggle button group">
-                    <input data-id="0" type="radio" class="btn-check btncheck" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                    <label data-id="0" class="btn btn-outline-primary radiobtn" for="btnradio1">3 Words</label>
-                  
-                    <input data-id="1" type="radio" class="btn-check btncheck" name="btnradio" id="btnradio2" autocomplete="off">
-                    <label data-id="1" class="btn btn-outline-primary radiobtn" for="btnradio2">4 Words</label>
-                  
-                    <input data-id="2" type="radio" class="btn-check btncheck" name="btnradio" id="btnradio3" autocomplete="off">
-                    <label data-id="2" class="btn btn-outline-primary radiobtn" for="btnradio3">5 Words</label>
+                    <form method='get' action='#'>
+                        <input data-id="0" type="submit" value="3" name="button3"  class="btn-check btncheck"  id="btnradio3" autocomplete="off">
+                        <label data-id="0" class="btn btn-outline-primary radiobtn" for="btnradio3">3 Words</label>    
+                    </form>
+                    <form method='get' action='#'>
+                        <input data-id="1" type="submit" value="4" name="button4" class="btn-check btncheck"id="btnradio4" autocomplete="off">
+                        <label data-id="1" class="btn btn-outline-primary radiobtn" for="btnradio4">4 Words</label>    
+                    </form>
+                    <form method='get' action='#'>
+                        <input data-id="2" type="submit" value="5" name="button5" class="btn-check btncheck" id="btnradio5" autocomplete="off">
+                        <label data-id="2" class="btn btn-outline-primary radiobtn" for="btnradio5">5 Words</label>    
+                    </form>
                 </div>
             </div>
             <div id="random"><!--단어 개수를 선택한 결과가 나오는 부분-->
                 <div class="row">
-                    <div class="lwords row mx-auto">
-                        <p class="wordspan col-md-4">word3</p>
-                        <p class="wordspan col-md-4">word3</p>
-                        <p class="wordspan col-md-4">word3</p>
-                    </div>
-                    <div class="lwords row mx-auto">
-                        <p class="wordspan col-md-3">word4</p>
-                        <p class="wordspan col-md-3">word4</p>
-                        <p class="wordspan col-md-3">word4</p>
-                        <p class="wordspan col-md-3">word4</p>
-                    </div>
-                    <div class="lwords row mx-auto">
-                        <p class="wordspan col-md-3">word5</p>
-                        <p class="wordspan col-md-3">word5</p>
-                        <p class="wordspan col-md-3">word5</p>
-                        <p class="wordspan col-md-3">word5</p>
-                        <p class="wordspan col-md-3">word5</p>
-                    </div>
+                    {% if rwordlist %}
+                    {% for rword in rwordlist %}
+                        <p class="wordspan col-md-3"> {{rword}}&nbsp;</p>
+                    {% endfor %}
+                    {% endif %}
                 </div>
             </div>
             <div class="row mb-5">
@@ -199,19 +190,22 @@
         <div class="container">
             <p class="ignovel mt-5" data-content="MAKE SENTENCE">MAKE SENTENCE</p>
             <div class="row">
-                <form>
-                    <div class="form-group mt-5">
-                      <label for="formGroupExampleInput"></label>
-                      <input type="text" class="form-control onesentence" id="formGroupExampleInput" placeholder="랜덤 단어를 넣어 한 문장으로 완성하세요.">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% if forms %}
+                    <div>
+                        {{ forms.sentence }}<br><br>
+                        <label for="formGroupExampleInput2" class="explicatetext">위 문장은 무슨 의미인가요?</label><br>
+                        {{ forms.contents }}
                     </div>
-                    <div class="form-group mt-5">
-                      <label for="formGroupExampleInput2" class="explicatetext">위 문장은 무슨 의미인가요?</label>
-                      <textarea class="form-control" rows="5" name="content" id="content" placeholder="내용을 입력해 주세요" ></textarea>
-                    </div>
-                    <div class="col-sm-10 submitbtn">
-                        <button type="button" class="btn btn-primary submitb">완성</button>
-                    </div>
-                </form>    
+                    {% endif %} 
+                
+                    {% if error %} 
+                    {{ error }}
+                    {% endif %}
+                    <button type="submit" class="btn btn-primary submitb">완성</button>
+                </form>
             </div>
         </div>      
     </section>
@@ -226,32 +220,7 @@
     <script src="/static/js/home.js"></script>
 </body>
 </html>
-
-<h1>단어 랜덤 제공 페이지 입니다</h1>
-<form method='get' action='#'>
-    <input type="submit" value="2" name="button2"/>
-</form>
-<form method='get' action='#'>
-    <input type="submit" value="3" name="button3"/>
-</form>
-<form method='get' action='#'>
-    <input type="submit" value="4" name="button4"/>
-</form>
-<table class="randomword">
-    <tbody>
-        {% if rwordlist %}
-            {% for rword in rwordlist %}
-            <td class="{% if forloop.counter|divisibleby:2%} even_bgcolor{%endif%}">
-                <tr>
-                    <a>{{rword}}&nbsp;</a>
-                </tr>
-            </td>
-            {% endfor %}
-        {% endif %}
-    </tbody>
-</table>
-</div>
-<form action="" method="POST" enctype="multipart/form-data">
+<!-- <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
 
     {% for form in forms %}
@@ -265,4 +234,4 @@
     {{ error }}
     {% endif %}
     <button type="submit">저장하기</button>
-</form>
+</form> -->
