@@ -38,7 +38,7 @@
     <span>/</span>
     <span>{{ rword_setences.paginator.num_pages }}</span>
 
-    {% if sc_boards.has_next %}
+    {% if rword_setences.has_next %}
     <a href="?page={{ rword_setences.next_page_number }}">다음 페이지</a>
     <a href="?page={{ rword_setences.paginator.num_pages }}">마지막 페이지</a>
     {% endif %}
