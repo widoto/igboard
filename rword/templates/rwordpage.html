@@ -36,7 +36,9 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <section> 
+    {% if user.is_authenticated %}
+    {% else %} 
+    <section>
         <!--login modal--><!--로그인 모달-->
         <div class="modal fade" data-keyboard="false" data-backdrop="static"  id="ModalForm" tabindex="-1" aria-hidden="true"  >
             <div class="modal-dialog modal-dialog-centered">
@@ -97,6 +99,7 @@
         </div>
         <!--여기까지 신경안쓰셔도 됩니다! 아무것도 넣지 않으셔도 되어요-->
     </section>
+    {% endif %}
     <!--제목부터 난이도까지 title to level select-->
     <section id="main"> 
         <div class="bg">
