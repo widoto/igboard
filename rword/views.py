@@ -12,14 +12,14 @@ from django.core.paginator import Paginator
 
 def rwordpage(request):
     if request.method == 'GET':
-        if request.GET.get('button2')=="2":
-            rwordlist = WordList.objects.order_by('?')[:2]
-        elif request.GET.get('button3')=="3":
+        if request.GET.get('button3')=="3":
             rwordlist = WordList.objects.order_by('?')[:3]
         elif request.GET.get('button4')=="4":
             rwordlist = WordList.objects.order_by('?')[:4]
+        elif request.GET.get('button5')=="5":
+            rwordlist = WordList.objects.order_by('?')[:5]
         else:
-            rwordlist = 'click button'
+            rwordlist = ''
         form = RSentencesWriteForm()
         context = {
             'forms': form,
@@ -28,12 +28,12 @@ def rwordpage(request):
         return render(request, 'rwordpage.html', context)
 
     elif request.method == 'POST':
-        if request.GET.get('button2')=="2":
-            rwordlist = WordList.objects.order_by('?')[:2]
-        elif request.GET.get('button3')=="3":
+        if request.GET.get('button3')=="3":
             rwordlist = WordList.objects.order_by('?')[:3]
         elif request.GET.get('button4')=="4":
             rwordlist = WordList.objects.order_by('?')[:4]
+        elif request.GET.get('button5')=="5":
+            rwordlist = WordList.objects.order_by('?')[:5]
         else:
             rwordlist = 'click button'
 
@@ -43,9 +43,9 @@ def rwordpage(request):
             s = SentenceList()
             s.sentence = form.cleaned_data['sentence']
             s.contents = form.cleaned_data['contents']
-            s.writer = request.user
+            # s.writer = request.user "SentenceList.writer" must be a "User" instance.
             s.save()
-            return redirect('/rword/rboard')
+            return redirect('/rboard')
         else:
             context = {
                 'forms': form,

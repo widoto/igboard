@@ -277,6 +277,9 @@ input[type=password]::placeholder {
 
 .btn-group
 {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    position: relative;
     width:500px;
 }
 
