@@ -19,10 +19,10 @@
             <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">        
                 <ul class="navbar-nav mt-2 menugroup">        
                     <li class="nav-item mr-3" data-mid="0">            
-                        <a class="nav-link menu randommenu" href="#" data-mid="0">랜덤 단어 생성하기</a>        
+                        <a class="nav-link menu randommenu" href="{% url 'rwordpage' %}" data-mid="0">랜덤 단어 생성하기</a>        
                     </li>        
                     <li class="nav-item mr-3" data-mid="1">            
-                        <a class="nav-link menu" href="board.html" data-mid="1">문장 공유하기</a>        
+                        <a class="nav-link menu" href="{% url 'rwordboard' %}" data-mid="1">문장 공유하기</a>        
                     </li>        
                     <li class="nav-item mr-3" data-mid="2">            
                         <a class="nav-link menu" href="{% url 'board:board_public_list' %}" data-mid="2">일반인 게시판</a>        

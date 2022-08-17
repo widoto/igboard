@@ -42,7 +42,6 @@ class Board(models.Model):
 class BoardLikeUsers(models.Model):
     id = models.BigAutoField(primary_key=True)
     board = models.ForeignKey(Board, models.DO_NOTHING)
-    # 후에 user테이블과 연동 필요
     user = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING)
 
     class Meta:

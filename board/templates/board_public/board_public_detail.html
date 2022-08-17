@@ -76,9 +76,9 @@
                     {% if messages %}
                     <div>
                         {% for message in messages %}
-                          <a href="/accounts/login">{{ message.message }}</a>
+                        <a href="/accounts/login">{{ message.message }}</a>
                         {% endfor %}
-                    </div>-->
+                    </div>
                     {% endif %}
                     <div class="like col">
                         <p>좋아요</p>
@@ -111,42 +111,42 @@
                 <hr class="first-line">
                 <!--댓글창-->
                 {% if comments %}
-                <div>
+                <div class="d-block comment-div">
                     <h5 class="comment-num"><strong>댓글&nbsp;</strong></h5>
                     <h5 class="comment-num"><strong>{{ comments|length }} 개</strong></h5>
                 </div>
                 {% endif %}
-                <!--
-                <div class="text-add">
-                  <input type="text" class="text" placeholder="내 의견 달기.."></input>
-                </div>-->
+                {% if not comments %}
+                  <h5 class="comment-num"><strong>댓글&nbsp;</strong></h5>
+                  <h5 class="comment-num"><strong>0 개</strong></h5>
+                {% endif %}
                 <!-- 댓글생성 -->
                 {% if request.user.is_authenticated %}
-                <form class="text-add" class="text" action="{% url 'board:comments_create' board.pk %}" method="POST">
-                  {% csrf_token %}
-                  {{ comment_form.content }}
-                  <input type="submit" value="댓글 입력">
-                </form>
+                <div class="d-block commentdDiv">
+                  <form class="text-add" action="{% url 'board:comments_create' board.pk %}" method="POST">
+                    {% csrf_token %}
+                    {{ comment_form.content }}
+                    <input class="comment-input-button" type="submit" value="댓글 입력">
+                  </form>
+                </div>                
                 {% else %}
-                <a href="/accounts/login">댓글을 작성하려면 로그인하세요.</a>
-                {% endif %}       
-
-                  <!--댓글 리스트-->
-                  {% for comment in comments %}
-                    <div class="comment">
-                      <b>{{ comment.user }}&nbsp;&nbsp;&nbsp;</b>{{ comment.content }}</div>
-                      <!--댓글 삭제 버튼-->
-                      {% if user == comment.user %}
-                        <form action="{% url 'board:comments_delete' board.pk comment.pk %}" method="POST" class="d-inline">
-                          {% csrf_token %}
-                          <input type="button" value="삭제">
-                        </form>
-                      {% endif %}                                                                                                                                                                                                                                                                                                       
-                {% empty %}
-                    <h5 class="comment-num"><strong>댓글&nbsp;</strong></h5>
-                    <h5 class="comment-num"><strong>0 개</strong></h5>
-                {% endfor %}
-                
+                  <a href="/accounts/login">댓글을 작성하려면 로그인하세요.</a>
+                {% endif %}    
+                <!--댓글 리스트-->
+                {% for comment in comments %}
+                <div class="row">
+                  <div class="comment col-10">
+                    <b>{{ comment.user }}&nbsp;&nbsp;&nbsp;</b>{{ comment.content }}
+                  </div>
+                <!--댓글 삭제 버튼-->
+                  {% if user == comment.user %}
+                  <form class="col-2 comment-delete" action="{% url 'board:comments_delete' board.pk comment.pk %}" method="POST" class="d-inline">
+                    {% csrf_token %}
+                    <input class="comment-delete-input" type="submit" value="삭제">
+                  </form>
+                  {% endif %}                                           
+                </div>                                                                                                                                                                                                                                                                                            
+                {% endfor %}        
             </div>        
         </div>
         

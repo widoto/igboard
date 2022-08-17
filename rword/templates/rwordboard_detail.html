@@ -51,7 +51,7 @@
             <hr class="first-line">
         <div class="inner">
             <div class="main-title">
-                <h4 class="d-inline" id="title">{{ rwordboard.sentence }}</h4>
+                <h4 class="d-inline" id="title">{{ sentence.sentence }}</h4>
                 <h6 class="d-inline number">32</h6>
                 <!-- <div class="like d-inline">
                     <p class="d-inline"><a href="#">좋아요</a></p>
@@ -59,9 +59,9 @@
                 </div> -->
             </div>                      
             <div class="sub-title">
-                <p class="user-id">{{ rwordboard.writer }}</p>
+                <p class="user-id">{{ sentence.writer }}</p>
                 <p class="part">|</p>
-                <p class="date">{{ rwordboard.write_dttm }}</p>               
+                <p class="date">{{ sentence.write_dttm }}</p>               
             </div>
             <!-- <div class="hits">
                 <p class="d-inline justify-content-end">조회수</p> 
@@ -71,7 +71,7 @@
         <hr class="second-line">
         <div class="inner2">
             <div class="board">
-                <p class="main-p">{{ rwordboard.contents }}</p>
+                <p class="main-p">{{ sentence.contents }}</p>
             </div>   
             <div class="tag">
             </div>
@@ -119,21 +119,44 @@
             </button>
         </div>
         <hr class="first-line">
-
         <!--댓글창-->
-        <!-- <div>
+        {% if comments %}
+        <div class="d-block comment-div">
             <h5 class="comment-num"><strong>댓글&nbsp;</strong></h5>
-            <h5 class="comment-num"><strong>100개</strong></h5>
+            <h5 class="comment-num"><strong>{{ comments|length }} 개</strong></h5>
         </div>
-        <div class="text-add">
-            <input type="text" class="text" placeholder="내 의견 달기.."></input>
-        </div>
-        <div class="comments">
-            <div class="comment"><b>name&nbsp;&nbsp;&nbsp;</b>댓글입니다.</div>
-        </div>
-        <div class="comments">
-            <div class="comment"><b>name&nbsp;&nbsp;&nbsp;</b>댓글입니다.</div>
-        </div> -->
+        {% endif %}
+        {% if not comments %}
+          <h5 class="comment-num"><strong>댓글&nbsp;</strong></h5>
+          <h5 class="comment-num"><strong>0 개</strong></h5>
+        {% endif %}
+        <!-- 댓글생성 -->
+        {% if request.user.is_authenticated %}
+        <div class="d-block commentdDiv">
+          <form class="text-add" action="{% url 'sen_comments_create' sentence.pk %}" method="POST">
+            {% csrf_token %}
+            {{ comment_form.content }}
+            <input class="comment-input-button" type="submit" value="댓글 입력">
+          </form>
+        </div>                
+        {% else %}
+          <a href="/accounts/login">댓글을 작성하려면 로그인하세요.</a>
+        {% endif %}    
+        <!--댓글 리스트-->
+        {% for comment in comments %}
+        <div class="row">
+          <div class="comment col-10">
+            <b>{{ comment.user }}&nbsp;&nbsp;&nbsp;</b>{{ comment.content }}
+          </div>
+        <!--댓글 삭제 버튼-->
+          {% if user == comment.user %}
+          <form class="col-2 comment-delete" action="{% url 'board:comments_delete' board.pk comment.pk %}" method="POST" class="d-inline">
+            {% csrf_token %}
+            <input class="comment-delete-input" type="submit" value="삭제">
+          </form>
+          {% endif %}                                           
+        </div>                                                                                                                                                                                                                                                                                            
+        {% endfor %}  
 
         <!-- 일반인 글쓰기 팝업창 -->
         <div class="modal fade" id="personModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"  >
@@ -144,23 +167,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                <!--1. 제목-->
-                <!-- <form action="" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                
-                    {% for form in forms %}
-                    <div>
-                        <label for="{{ form.id_for_label }}">{{ form.label }}</label>
-                        {{ form }}
-                    </div>
-                    {% endfor %} 
-                
-                    {% if error %} 
-                    {{ error }}
-                    {% endif %}
-                    <button type="submit">저장하기</button>
-                </form> -->
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="{% url 'board_public_write' %}" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="mb-3 row" name="form">
                             <!--제목-->

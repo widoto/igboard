@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from .models import WordList
+from .models import SentenceListComment, WordList
 from .models import SentenceList
-from .forms import RSentencesWriteForm
+from .forms import RSentencesWriteForm, SentencesCommentForm
 from board.models import Board
 from board.forms import PBoardWriteForm
 from django.core.paginator import Paginator
@@ -70,34 +70,38 @@ def rwordboard(request):
 
 #문장 게시판 상세보기
 def rword_detail(request, pk):
-    if request.method == 'GET' or request.method == 'FILES':
-        rwordboard = get_object_or_404(SentenceList, id=pk)
-        write_form = PBoardWriteForm()
+    sentence = get_object_or_404(SentenceList, id=pk)
+    comments = SentenceListComment.objects.filter(Sentence=sentence.id).order_by('created_at')
+    write_form = PBoardWriteForm()
+    comment_form = SentencesCommentForm()
 
-        context = {
-            'rwordboard': rwordboard,
-            'forms': write_form,
-        }
-        return render(request, 'rwordboard_detail.html', context)
-    elif request.method == 'POST':
-        write_form = PBoardWriteForm(request.POST, request.FILES)
+    context = {
+        'sentence': sentence,
+        'forms': write_form,
+        #'like_num' : like_num,
+        'comment_form' : comment_form,
+        'comments' : comments
+    }
+    return render(request, 'rwordboard_detail.html', context)
 
-        if write_form.is_valid():
-            board = Board(
-                title=write_form.title,
-                contents=write_form.contents,
-                writer=request.user,
-                sentence=write_form.sentence,
-                image=write_form.image,
-                #file=write_form.file
-            )
-            board.save()
-            return redirect('/board/public')
-        else:
-            context = {
-                'forms': write_form,
-            }
-            if write_form.errors:
-                for value in write_form.errors.values():
-                    context['error'] = value
-            return render(request, 'rwordboard_detail.html', context)
+#댓글 생성
+def sen_comments_create(request, pk):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            sentence = get_object_or_404(SentenceList, pk=pk)
+            commentform = SentencesCommentForm(request.POST)
+            if commentform.is_valid():
+                comment = commentform.save(commit=False)
+                comment.Sentence = sentence
+                comment.user = request.user
+                comment.save()
+            return redirect('/' + 'rboard/detail/' + str(pk))
+        return redirect('/'+'accounts/login')
+
+#댓글 삭제
+def sen_comments_delete(request, Sentence_pk, comment_pk):
+    if request.user.is_authenticated:
+        comment = get_object_or_404(SentenceList, pk=comment_pk)
+        if request.user == comment.user:
+            comment.delete()
+    return redirect('/' + 'rword/detail/' + str(Sentence_pk))

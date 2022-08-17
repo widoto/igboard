@@ -98,13 +98,7 @@ def board_public_list(request):
 
 #글 작성하기
 def board_public_write(request):
-    if request.method == 'GET' or request.method == 'FILES':
-        write_form = PBoardWriteForm()
-        context = {
-            'forms': write_form,
-        }
-        return render(request, 'board_public/board_public_write.html', context)
-    elif request.method == 'POST':
+    if request.method == 'POST':
         write_form = PBoardWriteForm(request.POST, request.FILES)
 
         if write_form.is_valid():
@@ -114,7 +108,7 @@ def board_public_write(request):
                 writer=request.user,
                 sentence=write_form.sentence,
                 image=write_form.image,
-                file=write_form.file
+                #file=write_form.file
             )
             board.save()
             return redirect('/board/public')
