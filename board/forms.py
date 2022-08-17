@@ -1,3 +1,4 @@
+from tkinter import Widget
 from django import forms
 from .models import Board, Comment
 from django_summernote.fields import SummernoteTextField
@@ -9,11 +10,33 @@ class PBoardWriteForm(forms.ModelForm):
         label='글 제목',
         widget=forms.TextInput(
             attrs={
+                'class': "form-control",
                 'placeholder': '게시글 제목'
             }
         ),
         required=True,
     )
+    sentence = forms.CharField(
+        label='문장',
+        widget=forms.TextInput(
+            attrs={
+                'class': "form-control",
+                'placeholder': '문장'
+            }
+        ),
+        required=True,
+    )
+    image = forms.ImageField(
+        label='썸네일',
+        widget=forms.FileInput(
+            attrs={
+                'class': "form-control",
+                'placeholder': '썸네일'
+            }
+        ),
+        required=True,
+    )
+   
 
     contents = SummernoteTextField()
 
