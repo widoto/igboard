@@ -65,3 +65,12 @@ def rwordboard(request):
         'rword_setences' : rword_setences,
     }
     return render(request, 'rwordboard.html', context)
+
+#문장 게시판 상세보기
+def rword_detail(request, pk):
+    rwordboard = get_object_or_404(SentenceList, id=pk)
+
+    context = {
+        'rwordboard': rwordboard,
+    }
+    return render(request, 'rwordboard_detail.html', context)
