@@ -313,7 +313,7 @@ def board_science_list(request):
         sc_boards = Board.objects.filter(board_name='Science').order_by('-id')
 
     paginator = Paginator(sc_boards, 10)
-    pagenum = request.GET.get('page')
+    pagenum = request.GET.get('page', '1')
     sc_boards = paginator.get_page(pagenum)
 
     context = {
