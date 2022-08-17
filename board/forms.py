@@ -3,6 +3,7 @@ from django import forms
 from .models import Board, Comment
 from django_summernote.fields import SummernoteTextField
 from django_summernote.widgets import SummernoteWidget
+from django.forms import TextInput
 
 #일반인
 class PBoardWriteForm(forms.ModelForm):
@@ -149,7 +150,12 @@ class SBoardWriteForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        # fields = '__all__'
         exclude = ('board', 'user',)
-        #fields = ['content']
+        widgets = {
+            'content': TextInput(attrs={
+                'class': "text",
+                'placeholder': '내 의견 달기..'
+                }),
+    }
+
 

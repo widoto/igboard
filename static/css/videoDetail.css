@@ -131,46 +131,61 @@ iframe {
 .info {
     padding: 0 50px 50px 50px;
 }
-
+/*수정*/
 .video-title {
     margin-top: 15px;
     margin-bottom: 10px;
     font-weight: bold;
     text-align: left;
+    float: left;
     font-family: 'nanumsquare';
+    width: 90%;
+}
+/*수정*/
+.like-button {
+    float: right;
+    width: 100px;
+}
+.like-button-div {
+    width: 100px;
 }
 
+/*수정*/
 .video-below {
-    overflow: hidden;
+    margin: 0 auto;
     margin-top: 20px;
 }
 
 .date {
     text-align: left;
-    width: 180px;
+    /*수정*/
+    width: 600px;
 }
 
 .like {
     float: right;
-    width: 200px;
     text-align: right;
 }
 
-.like a {
-    text-decoration: none;
+/*수정*/
+.like p {
+    opacity: 0.5;
     color: white;
+    margin-right: 10px;
+    text-align: right;
+    display: inline;
 }
 
 .hits {
-    float: left;
-    width: 600px;
-    text-align: left;
+    text-align: center;
 }
 
 .hits p {
     color: white;
     display: inline;
     opacity: 0.5;
+    /* 수정 */
+    margin-right: 10px;
 }
 
 .date p {
@@ -180,14 +195,19 @@ iframe {
     
 }
 
-.like p {
-    display: inline;
-    color:rgb(181, 181, 181);
+.user-func{
+    text-decoration: none;
+    color: #C0C53F;
+    font-weight: bold;
+}
+
+.user-func:hover {
+    color: #797b2c;
 }
 
 #box-name {
     text-align: left;
-    margin-top: 30px;
+    margin-top: 40px;
     margin-bottom: 0;
 }
 
@@ -222,7 +242,7 @@ iframe {
 #idea-line {
     margin-top: 5px;
     margin-bottom: 10px;
-    width: 300px;
+    width: 400px;
     float: left;
     background-color: white;
     color: white;
@@ -281,3 +301,19 @@ iframe {
     font-family: 'nanumsquare';
     margin-top: 15px;
 }
+
+/*수정 부분*/
+.contents {
+    margin-top: 100px;
+}
+
+.date {
+    width: 500px;
+}
+
+.date-num{
+    color: white;
+}
+.hits-num {
+    color: white;
+} 
