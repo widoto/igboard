@@ -10,4 +10,6 @@ urlpatterns = [
     #댓글
     path('rword/detail/<int:pk>/comments/', views.sen_comments_create, name='sen_comments_create'),
     path('<int:Sentence_pk>/comments/<int:comment_pk>/delete/', views.sen_comments_delete, name='sen_comments_delete'),
+    #좋아요
+    path('<int:pk>/likes/', views.likes, name='likes'),
 ]

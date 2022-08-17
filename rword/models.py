@@ -18,12 +18,27 @@ class SentenceList(models.Model):
     contents = models.TextField(verbose_name='설명', null=True)
     writer = models.ForeignKey(User, verbose_name='작성자', null=True, on_delete=models.CASCADE)
     write_dttm = models.DateTimeField(auto_now_add=True, null=True, verbose_name='글 작성일')
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='like_sentence')
 
     def __str__(self):
         return self.sentence
     
     class Meta:
         db_table = 'rwordsent'
+
+    @property
+    def total_likes(self):
+        return self.like_users.count() #like_users 컬럼의 값의 갯수를 센다
+
+class SBoardLikeUsers(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    sentence = models.ForeignKey(SentenceList, models.DO_NOTHING)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'rwordsent_like_users'
+        unique_together = (('sentence', 'user'),)
 
 class SentenceListComment(models.Model):
     Sentence = models.ForeignKey(SentenceList, on_delete=models.CASCADE)

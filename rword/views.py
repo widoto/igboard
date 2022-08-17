@@ -2,12 +2,14 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from .models import SentenceListComment, WordList
+from .models import SBoardLikeUsers, SentenceListComment, WordList
 from .models import SentenceList
 from .forms import RSentencesWriteForm, SentencesCommentForm
 from board.models import Board
 from board.forms import PBoardWriteForm
 from django.core.paginator import Paginator
+from django.db.models import Count
+from django.contrib import messages 
 
 
 # Create your views here.
@@ -74,6 +76,9 @@ def rword_detail(request, pk):
     comments = SentenceListComment.objects.filter(Sentence=sentence.id).order_by('created_at')
     write_form = PBoardWriteForm()
     comment_form = SentencesCommentForm()
+    # 좋아요 수 띄우기
+    #like = SBoardLikeUsers.objects.filter(sentence = sentence.id).annotate(Count('user'))
+    #like_num = like.count()
 
     context = {
         'sentence': sentence,
@@ -105,3 +110,20 @@ def sen_comments_delete(request, Sentence_pk, comment_pk):
         if request.user == comment.user:
             comment.delete()
     return redirect('/' + 'rword/detail/' + str(Sentence_pk))
+
+#좋아요
+def likes(request, pk):
+    if request.user.is_authenticated:
+        sentence = get_object_or_404(SentenceList, id=pk)
+
+        if sentence.like_users.filter(pk=request.user.pk).exists():
+            sentence.like_users.remove(request.user)
+            return redirect('/' + 'rboard/detail/' + str(pk))
+        else:
+            sentence.like_users.add(request.user)
+            return redirect('/' + 'rboard/detail/' + str(pk))
+    else :
+        context = {
+            'messages' : messages.info(request, '로그인 해주세요.')
+        }
+        return redirect('/' + 'rboard/detail/' + str(pk), context)
