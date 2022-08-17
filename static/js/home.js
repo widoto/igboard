@@ -56,7 +56,7 @@ loginbtn.addEventListener("click",function(){
     }
     else{ //적고 눌렀다면 비밀번호 맞나 확인
         //아닐 경우
-        alert('아이다 또는 비밀번호를 잘못 입력하였습니다.')
+        //alert('아이다 또는 비밀번호를 잘못 입력하였습니다.')
         //맞을 경우 모달창 닫기
         $('#ModalForm').modal('hide');
     }
