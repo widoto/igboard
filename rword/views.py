@@ -5,6 +5,8 @@ from django.urls import reverse
 from .models import WordList
 from .models import SentenceList
 from .forms import RSentencesWriteForm
+from board.models import Board
+from board.forms import PBoardWriteForm
 from django.core.paginator import Paginator
 
 
@@ -68,9 +70,34 @@ def rwordboard(request):
 
 #문장 게시판 상세보기
 def rword_detail(request, pk):
-    rwordboard = get_object_or_404(SentenceList, id=pk)
+    if request.method == 'GET' or request.method == 'FILES':
+        rwordboard = get_object_or_404(SentenceList, id=pk)
+        write_form = PBoardWriteForm()
 
-    context = {
-        'rwordboard': rwordboard,
-    }
-    return render(request, 'rwordboard_detail.html', context)
+        context = {
+            'rwordboard': rwordboard,
+            'forms': write_form,
+        }
+        return render(request, 'rwordboard_detail.html', context)
+    elif request.method == 'POST':
+        write_form = PBoardWriteForm(request.POST, request.FILES)
+
+        if write_form.is_valid():
+            board = Board(
+                title=write_form.title,
+                contents=write_form.contents,
+                writer=request.user,
+                sentence=write_form.sentence,
+                image=write_form.image,
+                #file=write_form.file
+            )
+            board.save()
+            return redirect('/board/public')
+        else:
+            context = {
+                'forms': write_form,
+            }
+            if write_form.errors:
+                for value in write_form.errors.values():
+                    context['error'] = value
+            return render(request, 'rwordboard_detail.html', context)

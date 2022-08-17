@@ -145,29 +145,51 @@
                 </div>
                 <div class="modal-body">
                 <!--1. 제목-->
-                <div class="mb-3 row" name="form">
-                    <div class="col-2">
-                        <label for="recipient-name" class="col-form-label">글 제목:</label>
+                <!-- <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                
+                    {% for form in forms %}
+                    <div>
+                        <label for="{{ form.id_for_label }}">{{ form.label }}</label>
+                        {{ form }}
                     </div>
-                    <div class="col-10">
-                        <input type="text" class="form-control" id="recipient-name" name="name">
-                    </div>
-                </div>
-                <!--<div class="input-group mb-3">
-                    <input type="file" class="form-control" id="inputGroupFile02">
-                    <label class="input-group-text" for="inputGroupFile02">Upload</label>
-                </div>-->
-                <!--file input-->
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">썸네일로 사용할 사진을 선택하세요.</label>
-                    <input class="form-control" type="file" id="formFile">
-                  </div>
-                <!--2. 글박스-->
-                <div id="summernote"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                    <button type="button" class="btn upload" style="background-color: #C0C53F;">업로드 하기</button>
+                    {% endfor %} 
+                
+                    {% if error %} 
+                    {{ error }}
+                    {% endif %}
+                    <button type="submit">저장하기</button>
+                </form> -->
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3 row" name="form">
+                            <!--제목-->
+                            <div class="col-2">
+                                <label for="recipient-name" class="col-form-label">글 제목:</label>
+                            </div>
+                            <div class="col-10">
+                                {{ forms.title }}
+                            </div>
+                            <!--문장-->
+                            <div class="col-2">
+                                <label for="recipient-name" class="col-form-label">문장:</label>
+                            </div>
+                            <div class="col-10">
+                                {{ forms.sentence }}
+                            </div>
+                            <!--썸네일-->
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">썸네일로 사용할 사진을 선택하세요.</label>
+                                {{ forms.image }}
+                            </div>
+                            <!--글박스-->
+                            <div>{{ forms.contents }}</div>
+                        </div>
+                        {% if error %} 
+                        {{ error }}
+                        {% endif %}
+                        <button type="submit" type="button" class="btn upload" style="background-color: #C0C53F;" >저장하기</button>
+                    </form>
                 </div>
             </div>
         </div>
