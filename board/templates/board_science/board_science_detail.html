@@ -1,45 +1,112 @@
-{% block contents %}
-<div>과학자 게시판 글 상세보기</div>
-<div style="border: 1px black solid; margin: 20px 0px;"></div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>과학자 상세 페이지 - 이그웹</title>
+    <link rel="stylesheet" href="/static/css/scientistDetail.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <link rel="icon" sizes="192x192" href="/static/img/favicon.png">
+    <nav class="navbar navbar-expand-sm fixed-top navbackground navmargin">    
+        <div class="container-fluid"> 
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">        
+                <span class="navbar-toggler-icon togglers" ></span>    
+            </button>     
+            <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">        
+                <ul class="navbar-nav mt-2 menugroup">        
+                    <li class="nav-item mr-3" data-mid="0">            
+                        <a class="nav-link menu randommenu" href="{% url 'rwordpage' %}" data-mid="0">랜덤 단어 생성하기</a>        
+                    </li>        
+                    <li class="nav-item mr-3" data-mid="1">            
+                        <a class="nav-link menu" href="{% url 'rwordboard' %}" data-mid="1">문장 공유하기</a>        
+                    </li>        
+                    <li class="nav-item mr-3" data-mid="2">            
+                        <a class="nav-link menu" href="{% url 'board:board_public_list' %}" data-mid="2">일반인 게시판</a>        
+                    </li>        
+                    <li class="nav-item mr-3">            
+                        <a class="nav-link menu" href="{% url 'board:board_science_list' %}" data-mid="3">과학자 게시판</a>        
+                    </li>        
+                </ul>    
+            </div>    
+        </div>
+    </nav>
+</head>
+<body>
+    <section class="all">
+        <div class="main">
+            <div class="title">
+                <h3 id="title">{{ board.title }}</h3>
+                {% if user == board.writer %}
+                <a href="/board/science/detail/{{ board.id }}/modify/"><button>수정</button></a>
+                <a href="/board/science/detail/{{ board.id }}/delete/"><button>삭제</button></a>
+                {% endif %}
+                <div>
+                    <form action="{% url 'board:board_science_likes' board.pk %}" method='POST'>
+                      {% csrf_token %}
+                      {% if user in board.like_users.all %}
+                        <input type="submit" value='좋아요 취소'>
+                      {% else %}
+                        <input type="submit" value='좋아요'>
+                      {% endif %}
+                    </form>
+                </div>
+                <div style="color: white;">
+                    좋아요 : {{ like_num }}
+                    조회수 : {{ board.hits }}
+                </div>
+            </div>
+            <hr class="bold-line">
+            <div class="table-div">
+                <table class="table-tag">
+                    <tr>
+                        <th>저자</th>
+                        <td>{{ board.writer }}</td>
+                    </tr>
+                    <tr>
+                        <th>문장</th>
+                        <td>{{ board.sentence }}</td>
+                    </tr>
+                    <tr>
+                        <th>작성일시</th>
+                        <td>{{ board.write_dttm }}</td>
+                    </tr>
+                    <tr>
+                        <!--고정-->
+                        <th>작성언어</th>
+                        <td>Korean</td>
+                    </tr>
+                    <tr>
+                        <!--고정-->
+                        <th>자료형태</th>
+                        <td>학술저널</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <hr>
+            <button type="button" class="btn btn-color" style="background-color: #C0C53F;"><a href="/board/science/download?path={{ board.file }}" download="file_name.pdf"><strong>파일 다운로드</strong></a></button>
 
-{% if user == board.writer %}
-<a href="/board/science/detail/{{ board.id }}/modify/"><button>수정</button></a>
-<a href="/board/science/detail/{{ board.id }}/delete/"><button>삭제</button></a>
-{% endif %}
+            <h4 id="title2">내용</h4>
+            <hr class="bold-line">
+            <div class="main-write">
+                <p>
+                    {{ board.contents|safe }}
+                </p>
+            </div>
+        </div>
+    </section>
+    <section id="footer"> <!--footer-->
+        <div class="container-fluid">
+            <footer class="align-items-center fbox">
+              <img src="/static/img/footerImg.png" width="10%" class="footerImg">
+              <p class="footertext">© 2022 Ig-Web for IgNobel Prize</p>
+            </footer>
+          </div>
+    </section>
 
-<div>
-    <form action="{% url 'board:board_science_likes' board.pk %}" method='POST'>
-      {% csrf_token %}
-      {% if user in board.like_users.all %}
-        <input type="submit" value='좋아요 취소'>
-      {% else %}
-        <input type="submit" value='좋아요'>
-      {% endif %}
-    </form>
-</div>
-
-<div>
-    좋아요 : {{ like_num }}
-</div>
-<div>
-    게시판 종류 : {{ board.board_name }}
-</div>
-<div>
-    제목 : {{ board.title }}
-</div>
-<div>
-    작성자 : {{ board.writer }} | 작성일 : {{ board.write_dttm }} | 조회수 : {{ board.hits }}
-</div>
-<div>
-    <label>첨부 파일 : </label>
-    <a href="/board/science/download?path={{ board.file }}">{{ board.file }}</a>
- </div>
-<div>
-    문장 : {{ board.sentence }}
-</div>
-<div>
-    내용 : {{ board.contents|safe }}
-</div>
+</body>
+</html>
 
 <div><a href="{% url 'board:board_science_list' %}"><button>돌아가기</button></a></div>
-{% endblock contents %}
