@@ -21,13 +21,14 @@ signupbtn.addEventListener("click", function(){
         console.log("적긴 했습니다.");
         //아이디와 비밀번호가 기존 db와 겹치는지 확인해서
         //안겹친다면 메인 홈페이지로 (home.html로) 이동
+       
         
 
 
 
 
         //겹친다면 경고창 생성
-        alert("사용자ID 또는 비밀번호를 잘못 입력하셨습니다.");
+        //alert("사용자ID 또는 비밀번호를 잘못 입력하셨습니다.");
     }
 
 })

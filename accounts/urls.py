@@ -1,11 +1,13 @@
+import imp
 from django.urls import path
 from .views import *
 
+import accounts.views
 
 urlpatterns = [
-    path('signup/', signup, name='signup'),
-    path('login/', login, name='login'),
-    path('logout/', logout, name='logout'),
+    path('signup/', accounts.views.signup, name='signup'),
+    path('login/', accounts.views.login, name='login'),
+    path('logout/', accounts.views.logout, name='logout'),
 
     
 ]

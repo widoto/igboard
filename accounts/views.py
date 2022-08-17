@@ -14,7 +14,7 @@ def login(request):
 
         if user is not None:
             auth.login(request, user)
-            return redirect('home')
+            return redirect('rwordpage')
         else:
             return render(request, 'bad_login.html')
     else:
@@ -23,7 +23,7 @@ def login(request):
 #로그아웃
 def logout(request):
     auth.logout(request)
-    return redirect('home')
+    return redirect('rwordpage')
 
 #회원가입
 def signup(request):
@@ -37,7 +37,7 @@ def signup(request):
         if request.POST['password'] == request.POST['repeat']:
             new_user = User.objects.create_user(username=request.POST['username'], password=request.POST['password'])
             auth.login(request, new_user)
-            return redirect('home')
+            return redirect('rwordpage')
         else:
             #비밀번호 확인이 일치하지 않는 경우
             return JsonResponse({'message':'비밀번호 확인이 일치하지 않습니다. 이전으로 돌아가 다시 시도하세요.'}, status=400,  safe=False, json_dumps_params={'ensure_ascii': False})
