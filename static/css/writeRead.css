@@ -302,3 +302,33 @@ a{text-decoration:none;}
     color: black;
 
 }
+
+/*추가*/
+
+/*수정됨*/
+.like-num {
+    float: right;
+    opacity: 0.6;
+}
+
+.like-button {
+    margin: 0;
+    padding: 0;
+}
+
+/*추가*/
+
+.like {
+    padding-top: 0;
+}
+
+.like-button-div {
+    padding-top: 0;
+}
+
+.like_hits {
+    width: 30%;
+    float: right;
+    text-align: right;
+
+}
