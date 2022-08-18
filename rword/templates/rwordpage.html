@@ -127,8 +127,7 @@
                     </p>
                 </div>
                 <div class="col-md-4 mt-5">
-                    <img src="/static/img/scientist.gif" class="korean">
-                    <img src="/static/img/tv.png" class="tv">
+                    <img src="/static/img/tvideo2.gif" class="tv">
                 </div>
             </div>
             <div class="row contentbox mt-5">
@@ -156,19 +155,19 @@
                     <p class="ment mt-3">생성되는 <b>랜덤단어</b>를 이용하여 이그노벨상의 영감이 될 문장을 공유해보세요.</p>                    
                 </div>
             </div>
-            <div class="row mt-5"><!--난이도 선택 버튼-->
-                <div class="btn-group col-md-12 mx-auto btngroup"  role="group" aria-label="Basic radio toggle button group">
-                    <form method='get' action='#'>
-                        <input data-id="0" type="submit" value="3" name="button3"  class="btn-check btncheck"  id="btnradio3" autocomplete="off">
-                        <label data-id="0" class="btn btn-outline-primary radiobtn" for="btnradio3">3 Words</label>    
+            <div class="mt-5"><!--난이도 선택 버튼-->
+                <div class="btn-group btngroup row mx-auto"  role="group" aria-label="Basic radio toggle button group">
+                    <form method='get' action='#' class="col-md-4">
+                        <input data-id="0" type="submit" value="3" name="button3"  class="btn-check btncheck go_btn"  id="btnradio3" autocomplete="off">
+                        <label data-id="0" class="btn btn-outline-primary radiobtn go_btn" for="btnradio3">3 Words</label>    
                     </form>
-                    <form method='get' action='#'>
-                        <input data-id="1" type="submit" value="4" name="button4" class="btn-check btncheck"id="btnradio4" autocomplete="off">
-                        <label data-id="1" class="btn btn-outline-primary radiobtn" for="btnradio4">4 Words</label>    
+                    <form method='get' action='#' class="col-md-4">
+                        <input data-id="1" type="submit" value="4" name="button4" class="btn-check btncheck go_btn"id="btnradio4" autocomplete="off">
+                        <label data-id="1" class="btn btn-outline-primary radiobtn go_btn" for="btnradio4">4 Words</label>    
                     </form>
-                    <form method='get' action='#'>
-                        <input data-id="2" type="submit" value="5" name="button5" class="btn-check btncheck" id="btnradio5" autocomplete="off">
-                        <label data-id="2" class="btn btn-outline-primary radiobtn" for="btnradio5">5 Words</label>    
+                    <form method='get' action='#' class="col-md-4">
+                        <input data-id="2" type="submit" value="5" name="button5" class="btn-check btncheck go_btn" id="btnradio5" autocomplete="off">
+                        <label data-id="2" class="btn btn-outline-primary radiobtn go_btn" for="btnradio5">5 Words</label>    
                     </form>
                 </div>
             </div>
@@ -223,18 +222,3 @@
     <script src="/static/js/home.js"></script>
 </body>
 </html>
-<!-- <form action="" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-
-    {% for form in forms %}
-    <div>
-        <label for="{{ form.id_for_label }}">{{ form.label }}</label>
-        {{ form }}
-    </div>
-    {% endfor %} 
-
-    {% if error %} 
-    {{ error }}
-    {% endif %}
-    <button type="submit">저장하기</button>
-</form> -->
