@@ -52,8 +52,8 @@ def board_search(request):
 
     if q:
         if search_type == "all":
-            pb_boards = pb_boards.filter(Q (title__icontains=q)| Q (contents__icontains=q)| Q (writer__username__icontains=q)| Q (sentence__icontains=q))
-            sc_boards = sc_boards.filter(Q (title__icontains=q)| Q (contents__icontains=q)| Q (writer__username__icontains=q)| Q (sentence__icontains=q))
+            pb_boards = pb_boards.filter(Q (title__icontains=q)| Q (contents__icontains=q)| Q (writer__username__icontains=q)| Q (sentence__sentence__icontains=q))
+            sc_boards = sc_boards.filter(Q (title__icontains=q)| Q (contents__icontains=q)| Q (writer__username__icontains=q)| Q (sentence__sentence__icontains=q))
         elif search_type == "title_contents":
             pb_boards = pb_boards.filter(Q (title__icontains=q)| Q (contents__icontains=q))
             sc_boards = sc_boards.filter(Q (title__icontains=q)| Q (contents__icontains=q))
@@ -67,8 +67,8 @@ def board_search(request):
             pb_boards = pb_boards.filter(writer__username__icontains=q)
             sc_boards = sc_boards.filter(writer__username__icontains=q)
         elif search_type == "sentence":
-            pb_boards = pb_boards.filter(sentence__icontains=q)
-            sc_boards = sc_boards.filter(sentence__icontains=q)
+            pb_boards = pb_boards.filter(sentence__sentence__icontains=q)
+            sc_boards = sc_boards.filter(sentence__sentence__icontains=q)
         return render(request, 'board/board_search.html', {'pb_boards' : pb_boards,'sc_boards' : sc_boards, 'q' : q})
     
     else:
@@ -230,7 +230,7 @@ def board_public_search(request):
 
     if q:
         if search_type == "all":
-            boards = boards.filter(Q (title__icontains=q)| Q (contents__icontains=q)| Q (writer__username__icontains=q)| Q (sentence__icontains=q))
+            boards = boards.filter(Q (title__icontains=q)| Q (contents__icontains=q)| Q (writer__username__icontains=q)| Q (sentence__sentence__icontains=q))
         elif search_type == "title_contents":
             boards = boards.filter(Q (title__icontains=q)| Q (contents__icontains=q))
         elif search_type == "title":
@@ -240,7 +240,7 @@ def board_public_search(request):
         elif search_type == "writer":
             boards = boards.filter(writer__username__icontains=q)
         elif search_type == "sentence":
-            boards = boards.filter(sentence__icontains=q)
+            boards = boards.filter(sentence__sentence__icontains=q)
         paginator = Paginator(boards, 10)
         pagenum = request.GET.get('page')
         boards = paginator.get_page(pagenum)
@@ -437,7 +437,7 @@ def board_science_search(request):
 
     if q:
         if search_type == "all":
-            boards = boards.filter(Q (title__icontains=q)| Q (contents__icontains=q)| Q (writer__username__icontains=q)| Q (sentence__icontains=q))
+            boards = boards.filter(Q (title__icontains=q)| Q (contents__icontains=q)| Q (writer__username__icontains=q)| Q (sentence__sentence__icontains=q))
         elif search_type == "title_contents":
             boards = boards.filter(Q (title__icontains=q)| Q (contents__icontains=q))
         elif search_type == "title":
@@ -447,7 +447,7 @@ def board_science_search(request):
         elif search_type == "writer":
             boards = boards.filter(writer__username__icontains=q)
         elif search_type == "sentence":
-            boards = boards.filter(sentence__icontains=q)
+            boards = boards.filter(sentence__sentence__icontains=q)
         paginator = Paginator(boards, 10)
         pagenum = request.GET.get('page')
         boards = paginator.get_page(pagenum)

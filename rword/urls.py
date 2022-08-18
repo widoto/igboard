@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from board import views as view_board
+from accounts import views as view_accounts
 
 urlpatterns = [
     path('', views.rwordpage, name='rwordpage'),
@@ -14,4 +15,6 @@ urlpatterns = [
     path('<int:Sentence_pk>/comments/<int:comment_pk>/delete/', views.sen_comments_delete, name='sen_comments_delete'),
     #좋아요
     path('<int:pk>/likes/', views.likes, name='likes'),
+    #로그인
+    path('rboard/login/', view_accounts.login, name='login')
 ]
