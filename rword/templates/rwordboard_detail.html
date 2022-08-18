@@ -51,8 +51,14 @@
             <hr class="first-line">
         <div class="inner">
             <div class="main-title">
+                <!--문장-->
                 <h4 class="d-inline" id="title">{{ sentence.sentence }}</h4>
                 <h6 class="d-inline number">32</h6>
+                <!--좋아요수-->
+                <div class="like d-inline">
+                    <p class="d-inline">좋아요</a></p>
+                    <p class="d-inline" id="like">{{ sentence.total_likes }}</p>
+                </div>
                 <!--좋아요 버튼-->
                 <div class="like-button-div col-2">
                     <form class="d-inline like-button" action="{% url 'likes' sentence.pk %}" method='POST'>
@@ -74,17 +80,15 @@
                   </div>
             </div>                      
             <div class="sub-title">
+                <!--유저 아이디-->
                 <p class="user-id">{{ sentence.writer }}</p>
                 <p class="part">|</p>
+                <!--날짜-->
                 <p class="date">{{ sentence.write_dttm }}</p>               
             </div>
             <div class="hits">
                 <p class="d-inline justify-content-end">조회수</p> 
                 <p class="d-inline justify-content-end">{{ sentence.hits }}</p> 
-            </div>
-            <div class="like col">
-                <p>좋아요</p>
-                <p class="text-light">{{ sentence.total_likes }}</p>
             </div>
         </div>
         <hr class="second-line">
