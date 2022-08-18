@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from .models import SBoardLikeUsers, SentenceListComment, WordList
+from .models import SentenceListComment, WordList
 from .models import SentenceList
 from .forms import RSentencesWriteForm, SentencesCommentForm
 from board.models import Board

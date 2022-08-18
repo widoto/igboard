@@ -31,7 +31,7 @@ class SentenceList(models.Model):
     def total_likes(self):
         return self.like_users.count() #like_users 컬럼의 값의 갯수를 센다
 
-class SBoardLikeUsers(models.Model):
+class SentenceLikeUsers(models.Model):
     id = models.BigAutoField(primary_key=True)
     sentence = models.ForeignKey(SentenceList, models.DO_NOTHING)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, models.DO_NOTHING)
