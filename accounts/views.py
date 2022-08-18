@@ -17,6 +17,7 @@ def login(request):
             return redirect('rwordpage')
         else:
             return render(request, 'bad_login.html')
+           
     else:
         return render(request, 'login.html')
 
@@ -33,12 +34,12 @@ def signup(request):
                 return render(request, 'bad_signup.html')
                 #return JsonResponse({'message':'INVALID_EMAIL_FORMAT'}, status=400)
         if User.objects.filter(username=request.POST['username']).exists():
-                return JsonResponse({'message':'이미 가입된 이메일입니다. 이전으로 돌아가 다시 시도하세요'}, status=400,  safe=False, json_dumps_params={'ensure_ascii': False})
+                return render(request, 'bad_alreadyexist.html')
         if request.POST['password'] == request.POST['repeat']:
             new_user = User.objects.create_user(username=request.POST['username'], password=request.POST['password'])
             auth.login(request, new_user)
             return redirect('rwordpage')
         else:
             #비밀번호 확인이 일치하지 않는 경우
-            return JsonResponse({'message':'비밀번호 확인이 일치하지 않습니다. 이전으로 돌아가 다시 시도하세요.'}, status=400,  safe=False, json_dumps_params={'ensure_ascii': False})
+            return render(request, 'bad_pwcheck.html')
     return render(request, 'signup.html')
