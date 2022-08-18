@@ -304,7 +304,7 @@ input[type=password]::placeholder {
 }
 
 .tv{
-    width:100%;
+    width:80% !important ;
     right: -20%;
     margin-top: 260px;
 }
