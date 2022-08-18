@@ -33,7 +33,7 @@ class SentencesCommentForm(forms.ModelForm):
         exclude = ('Sentence', 'user',)
         widgets = {
             'content': TextInput(attrs={
-                'class': "text",
+                'class': "text-add",
                 'placeholder': '내 의견 달기..'
                 }),
     }

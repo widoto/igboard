@@ -78,21 +78,19 @@
                 </div>
                 
             </div>     
-            <div class="d-block">
-                <div class="sub-title d-inline">
-                    <p class="user-id">{{ sentence.writer }}</p>
-                    <p class="part">|</p>
-                    <p class="date">{{ sentence.write_dttm }}</p>               
+            <div class="d-block sub">
+                <div class="like-num d-block">
+                    <p class="d-inline justify-content-end">좋아요</p>
+                    <p class="d-inline justify-content-end">{{ sentence.total_likes }}</p>
                 </div>
-                <div class="like_hits d-inline">
-                    <div class="like-num">
-                        <p class="d-inline justify-content-end">좋아요</p>
-                        <p class="d-inline justify-content-end">{{ sentence.total_likes }}</p>
-                    </div>
-                    <div class="hits">
+                <div class="sub-title d-block">
+                    <p class="user-id d-inline">{{ sentence.writer }}</p>
+                    <p class="part d-inline">|</p>
+                    <p class="date d-inline">{{ sentence.write_dttm }}</p>
+                    <div class="hits d-inline">
                         <p class="d-inline justify-content-end">조회수</p> 
                         <p class="d-inline justify-content-end">{{ sentence.hits }}</p> 
-                    </div>
+                    </div>               
                 </div>
             </div>                 
             
@@ -172,12 +170,12 @@
         <!--댓글 리스트-->
         {% for comment in comments %}
         <div class="row">
-          <div class="comment col-10">
+          <div class="comment col-11">
             <b>{{ comment.user }}&nbsp;&nbsp;&nbsp;</b>{{ comment.content }}
           </div>
         <!--댓글 삭제 버튼-->
           {% if user == comment.user %}
-          <form class="col-2 comment-delete" action="{% url 'sen_comments_delete' sentence.pk comment.pk %}" method="POST" class="d-inline">
+          <form class="col-1 comment-delete" action="{% url 'sen_comments_delete' sentence.pk comment.pk %}" method="POST" class="d-inline">
             {% csrf_token %}
             <input class="comment-delete-input" type="submit" value="삭제">
           </form>
@@ -215,7 +213,10 @@
                         {% if error %} 
                         {{ error }}
                         {% endif %}
-                        <button type="submit" type="button" class="btn upload" style="background-color: #C0C53F;" >저장하기</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                            <button type="submit" class="btn upload" style="background-color: #C0C53F;">업로드 하기</button>
+                        </div>
                     </form>
                 </div>
             </div>

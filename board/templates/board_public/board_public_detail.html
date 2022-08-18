@@ -122,7 +122,7 @@
                 {% endif %}
                 <!-- 댓글생성 -->
                 {% if request.user.is_authenticated %}
-                <div class="commentdDiv">
+                <div class="d-block commentdDiv">
                   <form class="text-add" action="{% url 'board:comments_create' board.pk %}" method="POST">
                     {% csrf_token %}
                     {{ comment_form.content }}
