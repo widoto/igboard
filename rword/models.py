@@ -19,6 +19,7 @@ class SentenceList(models.Model):
     writer = models.ForeignKey(User, verbose_name='작성자', null=True, on_delete=models.CASCADE)
     write_dttm = models.DateTimeField(auto_now_add=True, null=True, verbose_name='글 작성일')
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='like_sentence')
+    hits = models.PositiveIntegerField(default=0, verbose_name='조회수')
 
     def __str__(self):
         return self.sentence

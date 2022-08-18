@@ -79,6 +79,8 @@ def rword_detail(request, pk):
     # 좋아요 수 띄우기
     #like = SBoardLikeUsers.objects.filter(sentence = sentence.id).annotate(Count('user'))
     #like_num = like.count()
+    #조회수 (쿠키 이용)
+    cookie_name = 'hit'
 
     context = {
         'sentence': sentence,
@@ -87,6 +89,23 @@ def rword_detail(request, pk):
         'comment_form' : comment_form,
         'comments' : comments
     }
+
+    response = render(request, 'rwordboard_detail.html', context)
+
+    if request.COOKIES.get(cookie_name) is not None:
+        cookies = request.COOKIES.get(cookie_name)
+        cookies_list = cookies.split('|')
+        if str(pk) not in cookies_list:
+            response.set_cookie(cookie_name, cookies + f'|{pk}', expires=None)
+            sentence.hits += 1
+            sentence.save()
+            return response
+    else:
+        response.set_cookie(cookie_name, pk, expires=None)
+        sentence.hits += 1
+        sentence.save()
+        return response
+
     return render(request, 'rwordboard_detail.html', context)
 
 #댓글 생성
