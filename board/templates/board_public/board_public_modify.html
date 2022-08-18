@@ -34,10 +34,10 @@
                         <a class="nav-link menu" href="{% url 'rwordboard' %}" data-mid="1">문장 공유하기</a>        
                     </li>        
                     <li class="nav-item mr-3" data-mid="2">            
-                        <a class="nav-link menu" href="{% url 'board:board_list' %}" data-mid="2">일반인 게시판</a>        
+                        <a class="nav-link menu" href="{% url 'board:board_public_list' %}" data-mid="2">일반인 게시판</a>        
                     </li>        
                     <li class="nav-item mr-3">            
-                        <a class="nav-link menu" href="{% url 'board:board_list' %}" data-mid="3">과학자 게시판</a>        
+                        <a class="nav-link menu" href="{% url 'board:board_science_list' %}" data-mid="3">과학자 게시판</a>        
                     </li>              
                     </li>        
                 </ul>    
@@ -65,13 +65,6 @@
                     </div>
                     <div class="col-10">
                         {{ forms.title }}
-                    </div>
-                    <!--문장-->
-                    <div class="col-2">
-                        <label for="recipient-name" class="col-form-label">문장:</label>
-                    </div>
-                    <div class="col-10">
-                        {{ forms.sentence }}
                     </div>
                     <!--썸네일-->
                     <div class="mb-3">
