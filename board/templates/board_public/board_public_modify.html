@@ -41,9 +41,22 @@
                     </li>              
                     </li>        
                 </ul>    
-            </div>    
+            </div>
         </div>
     </nav>
+    <style>
+        .content {
+            padding: 20px;
+            background-color: rgb(241, 241, 241);
+            margin: 0 auto;
+            border-radius: 5px;
+        }
+
+        .sec {
+            background-color: #0C090A;
+            padding-top: 130px;
+        }
+    </style>
 </head>
 <body>
     <section class="sec">
@@ -53,7 +66,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">게시글 수정</h5>
                 <a href="{% url 'board:board_public_list' %}"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></a>
                 </div>
-            </br></br></br>
+            </br></br>
                 <div class="modal-body">
                     <form action="" method="POST" enctype="multipart/form-data">
                         <input type="checkbox" id="imageChangeCheck" name="imageChange" style="display: none;">
