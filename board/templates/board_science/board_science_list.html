@@ -56,7 +56,7 @@
                                 <option value="writer">작성자</option>
                                 <option value="sentence">문장</option>
                             </select>
-                            <input id="search" type="search" name="" placeholder="Search" aria-label="Search" name="q" value="{{q}}">
+                            <input id="search" type="search" placeholder="Search" aria-label="Search" name="q" value="{{q}}">
                             <button type="submit" class="btn" style="background-color: #C0C53F;"><strong>검색</strong></button>
                         </div>
                     </form>
@@ -74,7 +74,8 @@
                 </div>
             </div>
             {% if not sc_boards%}
-            <p>작성된 게시글이 없습니다.</p>
+            <br>
+            <p style="color: white;">작성된 게시글이 없습니다.</p>
             {% else %}
             <!-- board list area -->
             <div id="board-list">

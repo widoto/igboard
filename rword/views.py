@@ -6,7 +6,7 @@ from .models import SBoardLikeUsers, SentenceListComment, WordList
 from .models import SentenceList
 from .forms import RSentencesWriteForm, SentencesCommentForm
 from board.models import Board
-from board.forms import PBoardWriteForm
+from board.forms import PBoardWriteForm, SBoardWriteForm
 from django.core.paginator import Paginator
 from django.db.models import Count
 from django.contrib import messages 
@@ -74,7 +74,18 @@ def rwordboard(request):
 def rword_detail(request, pk):
     sentence = get_object_or_404(SentenceList, id=pk)
     comments = SentenceListComment.objects.filter(Sentence=sentence.id).order_by('created_at')
-    write_form = PBoardWriteForm()
+    if request.GET.get('scbtn')=="1":
+        write_form = SBoardWriteForm()
+        context = {
+            'forms': write_form,
+        }
+    else:
+        write_form = PBoardWriteForm()
+    #if request.GET.get('pbbtn')=="1":
+        #write_form = PBoardWriteForm()
+        #context = {
+            #'forms': write_form,
+        #}
     comment_form = SentencesCommentForm()
     # 좋아요 수 띄우기
     #like = SBoardLikeUsers.objects.filter(sentence = sentence.id).annotate(Count('user'))

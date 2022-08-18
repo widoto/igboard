@@ -319,13 +319,7 @@ def board_science_list(request):
 
 #글 작성하기
 def board_science_write(request):
-    if request.method == 'GET':
-        write_form = SBoardWriteForm()
-        context = {
-            'forms': write_form,
-        }
-        return render(request, 'board_science/board_science_write.html', context)
-    elif request.method == 'POST' or request.method == 'FILES':
+    if request.method == 'POST':
         write_form = SBoardWriteForm(request.POST, request.FILES)
 
         if write_form.is_valid():

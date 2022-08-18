@@ -102,6 +102,16 @@ class SBoardWriteForm(forms.ModelForm):
         ),
         required=True,
     )
+    sentence = forms.CharField(
+        label='문장',
+        widget=forms.TextInput(
+            attrs={
+                'class': "form-control",
+                'placeholder': '문장'
+            }
+        ),
+        required=True,
+    )
 
     contents = SummernoteTextField()
 

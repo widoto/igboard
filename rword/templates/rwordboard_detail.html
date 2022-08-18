@@ -34,10 +34,10 @@
                         <a class="nav-link menu" href="{% url 'rwordboard' %}" data-mid="1">문장 공유하기</a>        
                     </li>        
                     <li class="nav-item mr-3" data-mid="2">            
-                        <a class="nav-link menu" href="{% url 'board:board_list' %}" data-mid="2">일반인 게시판</a>        
+                        <a class="nav-link menu" href="{% url 'board:board_public_list' %}" data-mid="2">일반인 게시판</a>        
                     </li>        
                     <li class="nav-item mr-3">            
-                        <a class="nav-link menu" href="{% url 'board:board_list' %}" data-mid="3">과학자 게시판</a>        
+                        <a class="nav-link menu" href="{% url 'board:board_science_list' %}" data-mid="3">과학자 게시판</a>        
                     </li>              
                     </li>        
                 </ul>    
@@ -133,7 +133,7 @@
             <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#personModal" style="background-color: #C0C53F;">
                 일반인 게시글 올리기
             </button>
-            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#scienceModal" style="background-color: #C0C53F;">
+            <button type="button" class="btn" name="scbtn" value="1" data-bs-toggle="modal" data-bs-target="#scienceModal" style="background-color: #C0C53F;">
                 과학자 게시글 올리기
             </button>
         </div>
@@ -229,30 +229,40 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                <!--1. 제목-->
-                <div class="mb-3 row" name="form">
-                    <div class="col-2">
-                        <label for="recipient-name" class="col-form-label">논문 제목:</label>
-                    </div>
-                    <div class="col-10">
-                        <input type="text" class="form-control" id="recipient-name" name="name">
-                    </div>
-                </div>
-                <!--<div class="input-group mb-3">
-                    <input type="file" class="form-control" id="inputGroupFile02">
-                    <label class="input-group-text" for="inputGroupFile02">Upload</label>
-                </div>-->
-                <!--file input-->
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">논문 원문 파일을 업로드하세요.</label>
-                    <input class="form-control" type="file" id="formFile">
-                </div>
-                <!--2. 글박스-->
-                <div id="summernote"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                    <button type="button" class="btn upload" style="background-color: #C0C53F;">업로드 하기</button>
+                    <form action="{% url 'board_science_write' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <!--1. 제목-->
+                        <div class="mb-3 row" name="form">
+                            <div class="col-2">
+                                <label for="recipient-name" class="col-form-label">논문 제목:</label>
+                            </div>
+                            <div class="col-10">
+                                {{ forms.title }}
+                            </div>
+                            <!--문장-->
+                            <div class="col-2">
+                                <label for="recipient-name" class="col-form-label">문장:</label>
+                            </div>
+                            <div class="col-10">
+                                {{ forms.sentence }}
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="file" class="form-control" id="inputGroupFile02">
+                                <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                            </div>
+                            <!--file input-->
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">논문 원문 파일을 업로드하세요.</label>
+                                {{ forms.file }}
+                            </div>
+                            <!--2. 글박스-->
+                            <div id="summernote">{{ forms.contents }}</div>
+                        </div>
+                        {% if error %} 
+                        {{ error }}
+                        {% endif %}
+                    </form>
+                    <button type="button" class="btn upload" style="background-color: #C0C53F;">저장하기</button>
                 </div>
             </div>
                 
