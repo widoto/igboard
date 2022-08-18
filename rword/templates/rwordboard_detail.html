@@ -169,7 +169,7 @@
           </div>
         <!--댓글 삭제 버튼-->
           {% if user == comment.user %}
-          <form class="col-2 comment-delete" action="{% url 'board:comments_delete' board.pk comment.pk %}" method="POST" class="d-inline">
+          <form class="col-2 comment-delete" action="{% url 'sen_comments_delete' sentence.pk comment.pk %}" method="POST" class="d-inline">
             {% csrf_token %}
             <input class="comment-delete-input" type="submit" value="삭제">
           </form>

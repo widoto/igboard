@@ -47,7 +47,7 @@ def rwordpage(request):
             s = SentenceList()
             s.sentence = form.cleaned_data['sentence']
             s.contents = form.cleaned_data['contents']
-            # s.writer = request.user "SentenceList.writer" must be a "User" instance.
+            s.writer = request.user
             s.save()
             return redirect('/rboard')
         else:
@@ -133,10 +133,10 @@ def sen_comments_create(request, pk):
 #댓글 삭제
 def sen_comments_delete(request, Sentence_pk, comment_pk):
     if request.user.is_authenticated:
-        comment = get_object_or_404(SentenceList, pk=comment_pk)
+        comment = get_object_or_404(SentenceListComment, pk=comment_pk)
         if request.user == comment.user:
             comment.delete()
-    return redirect('/' + 'rword/detail/' + str(Sentence_pk))
+    return redirect('/' + 'rboard/detail/' + str(Sentence_pk))
 
 #좋아요
 def likes(request, pk):

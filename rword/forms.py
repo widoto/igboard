@@ -12,7 +12,7 @@ class RSentencesWriteForm(forms.Form):
 class SentencesCommentForm(forms.ModelForm):
     class Meta:
         model = SentenceListComment
-        exclude = ('board', 'user',)
+        exclude = ('Sentence', 'user',)
         widgets = {
             'content': TextInput(attrs={
                 'class': "text",
