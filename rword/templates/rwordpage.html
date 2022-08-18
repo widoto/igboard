@@ -48,7 +48,8 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <!-- Login Form -->
-                    <form action="">
+                    <form method="POST" action="{% url 'login' %}">
+                        {% csrf_token %}
                         <div class="modal-header">
                             <h5 class="modal-title">Welcome to Ig Web!</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -66,7 +67,7 @@
                             </div>
                         </div>
                         <div class="modal-footer pt-4">                  
-                            <button type="button" class="btn btn-success mx-auto w-100 loginbtn logintext">로그인</button><!--로그인 버튼-->
+                            <button type="submit" class="btn btn-success mx-auto w-100 loginbtn logintext">로그인</button><!--로그인 버튼-->
                         </div>
                         <p class="text-center logintext">아직 회원이 아니라면? <a href="/accounts/signup" class="gsignup"><b>회원가입</b></a></p> <!--회원가입하러 이동-->
                     </form>
