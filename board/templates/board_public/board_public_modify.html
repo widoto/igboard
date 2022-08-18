@@ -46,39 +46,42 @@
     </nav>
 </head>
 <body>
-<div class="modal-fullsize modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">게시글 수정</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-    </br></br></br>
-        <div class="modal-body">
-            <form action="" method="POST" enctype="multipart/form-data">
-                <input type="checkbox" id="imageChangeCheck" name="imageChange" style="display: none;">
-                <input type="checkbox" id="fileChangeCheck" name="fileChange" style="display: none;">
-                {% csrf_token %}
-                <div class="mb-3 row" name="form">
-                    <!--제목-->
-                    <div class="col-2">
-                        <label for="recipient-name" class="col-form-label">글 제목:</label>
-                    </div>
-                    <div class="col-10">
-                        {{ forms.title }}
-                    </div>
-                    <!--썸네일-->
-                    <div class="mb-3">
-                        <label for="formFile" class="form-label">썸네일로 사용할 사진을 선택하세요.</label>
-                        {{ forms.image }}
-                    </div>
-                    <!--글박스-->
-                    <div>{{ forms.contents }}</div>
+    <section class="sec">
+        <div class="modal-fullsize modal-dialog-centered content">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">게시글 수정</h5>
+                <a href="{% url 'board:board_public_list' %}"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></a>
                 </div>
-                {% if error %} 
-                {{ error }}
-                {% endif %}
-                <button type="submit" type="submit" class="btn upload" style="background-color: #C0C53F;" >수정하기</button>
-            </form>
-        </div>
-    </div>
+            </br></br></br>
+                <div class="modal-body">
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        <input type="checkbox" id="imageChangeCheck" name="imageChange" style="display: none;">
+                        <input type="checkbox" id="fileChangeCheck" name="fileChange" style="display: none;">
+                        {% csrf_token %}
+                        <div class="mb-3 row" name="form">
+                            <!--제목-->
+                            <div class="col-2">
+                                <label for="recipient-name" class="col-form-label">글 제목:</label>
+                            </div>
+                            <div class="col-10">
+                                {{ forms.title }}
+                            </div>
+                            <!--썸네일-->
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">썸네일로 사용할 사진을 선택하세요.</label>
+                                {{ forms.image }}
+                            </div>
+                            <!--글박스-->
+                            <div>{{ forms.contents }}</div>
+                        </div>
+                        {% if error %} 
+                        {{ error }}
+                        {% endif %}
+                        <button type="submit" type="submit" class="btn upload" style="background-color: #C0C53F;" >수정하기</button>
+                    </form>
+                </div>
+            </div>
+    </section>
 </body>
+</html>

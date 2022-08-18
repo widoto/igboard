@@ -373,3 +373,15 @@ iframe {
 .video-size {
     margin: 0 auto;
 }
+
+.content {
+    padding: 20px;
+    background-color: rgb(241, 241, 241);
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.sec {
+    background-color: #0C090A;
+    padding-top: 130px;
+}
