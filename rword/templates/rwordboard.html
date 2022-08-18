@@ -45,18 +45,36 @@
         <div class="main">
           
             <!-- board seach area -->
-            <div id="board-search">
-                <div class="container">
-                    <div class="search-window">
-                        <form action="">
-                            <div class="search-wrap">
-                                <label for="search" class="blind">검색</label>
-                                <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." value="">
-                                <button type="submit" class="btn" style="background-color: #C0C53F;"><strong>검색</strong></button>
-                            </div>
-                        </form>
+            <div class="option-forms">
+                <!--검색 form-->
+                <form class="d-inline search-form" action="{% url 'board:board_public_search' %}" method="GET"> 
+                    <!--{% csrf_token %}-->
+                    <div class="d-inline">
+                        <div class="d-inline">
+                            <select class="form-select d-inline" aria-label="Default select example" style="width: 6em;" name="type">
+                                <option class="option" selected value="all">전체</option>
+                                <option class="option" value="title_contents">제목+내용</option>
+                                <option class="option" value="title">제목</option>
+                                <option class="option" value="contents">내용</option>
+                                <option class="option" value="writer">작성자</option>
+                                <option class="option" value="sentence">문장</option>
+                            </select>
+                            <input class="search-input" type="search" placeholder="Search" aria-label="Search" name="q" value="{{q}}">
+                            <button input type="submit">검색</button>
+                        </div>
                     </div>
-                </div>
+                </form>
+                <!--정렬 form-->
+                <form class="d-inline sort-form" method="GET" action="{% url 'board:board_public_list' %}">
+                    <div class="d-inline">
+                    <select class="form-select sort-select d-inline" style="width: 7em;" name="sort" id="sort">
+                        <option value="recently" id="recently">최신순</option>
+                        <option value="likes" id="likes">좋아요순</option>
+                        <option value="hits" id="hits">조회수순</option>
+                    </select>
+                    <button class="d-inline" type="submit" value="">정렬</button>
+                    </div>
+                </form>
             </div>
             
             <!-- board list area -->
