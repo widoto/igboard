@@ -163,8 +163,9 @@ class CommentForm(forms.ModelForm):
         exclude = ('board', 'user',)
         widgets = {
             'content': TextInput(attrs={
-                'class': "text",
-                'placeholder': '내 의견 달기..'
+                'class': "text-add",
+                'placeholder': '내 의견 달기..',
+                #'style' : ''
                 }),
     }
 

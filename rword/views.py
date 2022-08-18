@@ -87,16 +87,13 @@ def rword_detail(request, pk):
             #'forms': write_form,
         #}
     comment_form = SentencesCommentForm()
-    # 좋아요 수 띄우기
-    #like = SBoardLikeUsers.objects.filter(sentence = sentence.id).annotate(Count('user'))
-    #like_num = like.count()
+
     #조회수 (쿠키 이용)
     cookie_name = 'hit'
 
     context = {
         'sentence': sentence,
         'forms': write_form,
-        #'like_num' : like_num,
         'comment_form' : comment_form,
         'comments' : comments
     }
