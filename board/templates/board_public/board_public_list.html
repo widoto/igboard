@@ -175,8 +175,44 @@
                 </a>
             </div>
             {% endif %}
-            {% endfor %}  
+            {% endfor %} 
         </div>
+        <hr/>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+            {% if pb_boards.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1&sort={{sort}}" aria-label="First">
+                <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ pb_boards.previous_page_number }}&sort={{sort}}" aria-label="Previous">
+                <span aria-hidden="true">&lt;</span>
+                </a>
+            </li>
+            {% endif %}
+            {% for page_number in pb_boards.paginator.page_range %}
+            {% if page_number == pb_boards.number %}
+            <li class="page-item active" aria-current="page"><a class="page-link" href="?&page={{ page_number }}">{{ page_number }}</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?&page={{ page_number }}">{{ page_number }}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if pb_boards.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ pb_boards.next_page_number }}&sort={{sort}}" aria-label="Next">
+                <span aria-hidden="true">&gt;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ pb_boards.paginator.num_pages }}&sort={{sort}}" aria-label="Last">
+                <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+            </ul>
+        </nav> 
         {% endif %}
     </section>
     <section id="footer"> <!--footer-->

@@ -91,20 +91,37 @@
                     <hr/>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
-                            {% if rword_setences.has_previous %}
-                            <a href="?page=1">첫 페이지</a>
-                            <a href="?page={{ rword_setences.previous_page_number }}">이전 페이지</a>
-                            {% endif %}
-                        <li class="page-item"><a class="page-link" href="#">{{ rword_setences.number}}</a></li>
-                        <li class="page-item"><a class="page-link" href="#">..</a></li>
-                        <li class="page-item"><a class="page-link" href="#">{{ rword_setences.paginator.num_pages }}</a></li>
-                        
+                        {% if rword_setences.has_previous %}
                         <li class="page-item">
-                            {% if rword_setences.has_next %}
-                            <a href="?page={{ rword_setences.next_page_number }}">다음 페이지</a>
-                            <a href="?page={{ rword_setences.paginator.num_pages }}">마지막 페이지</a>
-                            {% endif %}
+                            <a class="page-link" href="?page=1&sort={{sort}}" aria-label="First">
+                            <span aria-hidden="true">&laquo;</span>
+                            </a>
                         </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ rword_setences.previous_page_number }}&sort={{sort}}" aria-label="Previous">
+                            <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% for page_number in rword_setences.paginator.page_range %}
+                        {% if page_number == rword_setences.number %}
+                        <li class="page-item active" aria-current="page"><a class="page-link" href="?&page={{ page_number }}">{{ page_number }}</a></li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href="?&page={{ page_number }}">{{ page_number }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if rword_setences.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ rword_setences.next_page_number }}&sort={{sort}}" aria-label="Next">
+                            <span aria-hidden="true">&gt;</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ rword_setences.paginator.num_pages }}&sort={{sort}}" aria-label="Last">
+                            <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
                         </ul>
                     </nav>
                 </div>
