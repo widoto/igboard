@@ -173,7 +173,8 @@ input[type=password]::placeholder {
 
 #random{
     text-align: center;
-    margin-top: 100px;
+    margin-top: 70px;
+    margin-bottom:70px;
     height: 100px;
 }
 

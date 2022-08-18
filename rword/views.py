@@ -16,12 +16,12 @@ from django.contrib import messages
 
 def rwordpage(request):
     if request.method == 'GET':
-        if request.GET.get('button3')=="3":
+        if request.GET.get('button2')=="2":
+            rwordlist = WordList.objects.order_by('?')[:2]
+        elif request.GET.get('button3')=="3":
             rwordlist = WordList.objects.order_by('?')[:3]
         elif request.GET.get('button4')=="4":
             rwordlist = WordList.objects.order_by('?')[:4]
-        elif request.GET.get('button5')=="5":
-            rwordlist = WordList.objects.order_by('?')[:5]
         else:
             rwordlist = ''
         form = RSentencesWriteForm()
@@ -32,12 +32,12 @@ def rwordpage(request):
         return render(request, 'rwordpage.html', context)
 
     elif request.method == 'POST':
-        if request.GET.get('button3')=="3":
+        if request.GET.get('button2')=="2":
+            rwordlist = WordList.objects.order_by('?')[:2]
+        elif request.GET.get('button3')=="3":
             rwordlist = WordList.objects.order_by('?')[:3]
-        elif request.GET.get('button4')=="4":
+        elif request.GET.get('button4')=="5":
             rwordlist = WordList.objects.order_by('?')[:4]
-        elif request.GET.get('button5')=="5":
-            rwordlist = WordList.objects.order_by('?')[:5]
         else:
             rwordlist = 'click button'
 
