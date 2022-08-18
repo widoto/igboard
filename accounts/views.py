@@ -14,7 +14,9 @@ def login(request):
 
         if user is not None:
             auth.login(request, user)
-            return redirect('rwordpage')
+            return render(request, 'good_login.html')
+
+            #return redirect('rwordpage')
         else:
             return render(request, 'bad_login.html')
            
