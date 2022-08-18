@@ -145,12 +145,12 @@
         -->
         <!-- Button trigger modal -->
         <div class="button-box">
-            <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal" style="background-color: #C0C53F;">
+            <a type="button" class="btn" style="background-color: #C0C53F;" href="{% url 'board_public_write' sentence.pk %}">
                 일반인 게시글 올리기
-            </button>
-            <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal2" style="background-color: #C0C53F;">
+            </a>
+            <a type="button" class="btn" style="background-color: #C0C53F;" href="{% url 'board_science_write' sentence.pk %}">
                 과학자 게시글 올리기
-            </button>
+            </a>
         </div>
         <hr class="first-line">
         <!--댓글창-->
@@ -193,87 +193,6 @@
         {% endfor %}  
     </div>
 
-    <!-- 일반인 글쓰기 팝업창 -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  >
-        <div class="modal-fullsize modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">게시글 작성</h5></br></br>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{% url 'board_public_write' sentence.pk %}" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="mb-3 row" name="form">
-                            <!--제목-->
-                            <div class="col-2">
-                                <label for="recipient-name" class="col-form-label">글 제목:</label>
-                            </div>
-                            <div class="col-10">
-                                {{ forms.title }}
-                            </div>
-                            <!--썸네일-->
-                            <div class="mb-3">
-                                <label for="formFile" class="form-label">썸네일로 사용할 사진을 선택하세요.</label>
-                                {{ forms.image }}
-                            </div>
-                            <!--글박스-->
-                            <div>{{ forms.contents }}</div>
-                        </div>
-                        {% if error %} 
-                        {{ error }}
-                        {% endif %}
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                            <button type="submit" class="btn upload" style="background-color: #C0C53F;">업로드 하기</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-        
-    <!-- 과학자 글쓰기 팝업창 -->
-    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  >
-        <div class="modal-fullsize modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">게시글 작성</h5></br></br>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{% url 'board_science_write' sentence.pk %}" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <!--1. 제목-->
-                        <div class="mb-3 row" name="form">
-                            <div class="col-2">
-                                <label for="recipient-name" class="col-form-label">논문 제목:</label>
-                            </div>
-                            <div class="col-10">
-                                {{ forms.title }}
-                            </div>
-                            <!--file input-->
-                            <div class="mb-3">
-                                <label for="formFile" class="form-label">논문 원문 파일을 업로드하세요.</label>
-                                {{ forms.file }}
-                            </div>
-                            <!--2. 글박스-->
-                            <div>{{ forms.contents }}</div>
-                        </div>
-                        {% if error %} 
-                        {{ error }}
-                        {% endif %}
-                    </form>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                        <button type="submit" class="btn upload" style="background-color: #C0C53F;">업로드 하기</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-        
     </section>
     <section id="footer"> <!--footer-->
         <div class="container-fluid">

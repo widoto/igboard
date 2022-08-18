@@ -82,18 +82,7 @@ def rwordboard(request):
 def rword_detail(request, pk):
     sentence = get_object_or_404(SentenceList, id=pk)
     comments = SentenceListComment.objects.filter(Sentence=sentence.id).order_by('created_at')
-    if request.GET.get('scbtn')=="1":
-        write_form = SBoardWriteForm()
-        context = {
-            'forms': write_form,
-        }
-    else:
-        write_form = PBoardWriteForm()
-    #if request.GET.get('pbbtn')=="1":
-        #write_form = PBoardWriteForm()
-        #context = {
-            #'forms': write_form,
-        #}
+
     comment_form = SentencesCommentForm()
 
     #조회수 (쿠키 이용)
@@ -101,7 +90,6 @@ def rword_detail(request, pk):
 
     context = {
         'sentence': sentence,
-        'forms': write_form,
         'comment_form' : comment_form,
         'comments' : comments
     }
@@ -123,6 +111,73 @@ def rword_detail(request, pk):
         return response
 
     return render(request, 'rwordboard_detail.html', context)
+
+#글 작성하기
+def board_public_write(request, pk):
+    sentence = get_object_or_404(SentenceList, id=pk)
+    write_form = PBoardWriteForm()
+
+    context = {
+        'sentence': sentence,
+        'forms': write_form,
+    }
+
+    if request.method == 'POST':
+        write_form = PBoardWriteForm(request.POST, request.FILES)
+        sentenceObj = get_object_or_404(SentenceList, id=pk)
+
+        if write_form.is_valid():
+            board = Board(
+                title=write_form.title,
+                contents=write_form.contents,
+                writer=request.user,
+                sentence=sentenceObj,
+                image=write_form.image,
+                #file=write_form.file
+            )
+            board.save()
+            return redirect('/board/public')
+        else:
+            context = {
+                'forms': write_form,
+            }
+            if write_form.errors:
+                for value in write_form.errors.values():
+                    context['error'] = value
+            return render(request, 'board_public/board_public_write.html', context)
+
+def board_science_write(request, pk):
+    sentence = get_object_or_404(SentenceList, id=pk)
+    write_form = PBoardWriteForm()
+
+    context = {
+        'sentence': sentence,
+        'forms': write_form,
+    }
+
+    if request.method == 'POST':
+        write_form = SBoardWriteForm(request.POST, request.FILES)
+        sentenceObj = get_object_or_404(SentenceList, id=pk)
+
+        if write_form.is_valid():
+            board = Board(
+                title=write_form.title,
+                contents=write_form.contents,
+                writer=request.user,
+                sentence=sentenceObj,
+                file=write_form.file,
+                board_name="Science"
+            )
+            board.save()
+            return redirect('/board/science')
+        else:
+            context = {
+                'forms': write_form,
+            }
+            if write_form.errors:
+                for value in write_form.errors.values():
+                    context['error'] = value
+            return render(request, 'board_science/board_science_write.html', context)
 
 #댓글 생성
 def sen_comments_create(request, pk):
