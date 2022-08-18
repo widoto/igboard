@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.rwordpage, name='rwordpage'),
     path('rboard/', views.rwordboard, name='rwordboard'),
     path('rboard/detail/<int:pk>', views.rword_detail, name='rword_detail'),
+    path('rboard/search/', views.rwordboard_search, name='rwordboard_search'),
     path('rboard/public/<int:pk>/write/', view_board.board_public_write, name='board_public_write'),
     path('rboard/science/<int:pk>/write/', view_board.board_science_write, name='board_science_write'),
     #댓글

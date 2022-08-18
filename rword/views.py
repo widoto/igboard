@@ -10,6 +10,7 @@ from board.forms import PBoardWriteForm, SBoardWriteForm
 from django.core.paginator import Paginator
 from django.db.models import Count
 from django.contrib import messages 
+from django.db.models import Q
 
 
 # Create your views here.
@@ -59,7 +60,14 @@ def rwordpage(request):
 
     
 def rwordboard(request):
-    rword_setences = SentenceList.objects.filter().order_by('-id')
+    sort = request.GET.get('sort','')
+
+    if sort == 'likes':
+        rword_setences = SentenceList.objects.filter().annotate(like_count=Count('like_users')).order_by('-like_count', '-write_dttm')
+    elif sort == 'hits':
+        rword_setences = SentenceList.objects.filter().order_by('-hits', '-write_dttm')
+    else:
+        rword_setences = SentenceList.objects.filter().order_by('-id')
 
     paginator = Paginator(rword_setences, 10)
     pagenum = request.GET.get('page')
@@ -154,3 +162,42 @@ def likes(request, pk):
             'messages' : messages.info(request, '로그인 해주세요.')
         }
         return redirect('/' + 'rboard/detail/' + str(pk), context)
+
+#검색
+def rwordboard_search(request):
+    sort = request.GET.get('sort','')
+    if sort == 'likes':
+        rword_setences = SentenceList.objects.filter().annotate(like_count=Count('like_users')).order_by('-like_count', '-write_dttm')
+    elif sort == 'hits':
+        rword_setences = SentenceList.objects.filter().order_by('-hits', '-write_dttm')
+    else:
+        rword_setences = SentenceList.objects.filter().order_by('-id')
+
+    q = request.GET.get('q', '')
+    search_type = request.GET.get('type', '')
+
+    if q:
+        if search_type == "all":
+            rword_setences = rword_setences.filter(Q (contents__icontains=q)| Q (writer__username__icontains=q)| Q (sentence__icontains=q))
+        elif search_type == "sentence_contents":
+            rword_setences = rword_setences.filter(Q (sentence__icontains=q)| Q (contents__icontains=q))
+        elif search_type == "contents":
+            rword_setences = rword_setences.filter(contents__icontains=q)
+        elif search_type == "writer":
+            rword_setences = rword_setences.filter(writer__username__icontains=q)
+        elif search_type == "sentence":
+            rword_setences = rword_setences.filter(sentence__icontains=q)
+        paginator = Paginator(rword_setences, 10)
+        pagenum = request.GET.get('page')
+        rword_setences = paginator.get_page(pagenum)
+
+        context = {
+            'rword_setences' : rword_setences,
+            'q' : q,
+            'type' : search_type,
+            'sort' : sort
+        }
+        return render(request, 'rwordboard_search.html', context)
+    
+    else:
+        return render(request, 'rwordboard_search.html')

@@ -62,16 +62,16 @@
                             <button input type="submit">검색</button>
                         </div>
                     </div>
-                </form>
-                <!--정렬 form-->
-                <form class="d-inline sort-form" method="GET" action="{% url 'rwordboard' %}">
-                    <div class="d-inline">
-                    <select class="form-select sort-select d-inline" style="width: 7em;" name="sort" id="sort">
-                        <option value="recently" id="recently">최신순</option>
-                        <option value="likes" id="likes">좋아요순</option>
-                        <option value="hits" id="hits">조회수순</option>
-                    </select>
-                    <button class="d-inline" type="submit" value="">정렬</button>
+                    <!--정렬 form-->
+                    <div class="d-inline sort-form">
+                        <div class="d-inline">
+                        <select class="form-select sort-select d-inline" style="width: 7em;" name="sort" id="sort">
+                            <option value="recently" id="recently">최신순</option>
+                            <option value="likes" id="likes">좋아요순</option>
+                            <option value="hits" id="hits">조회수순</option>
+                        </select>
+                        <button class="d-inline" type="submit" value="">정렬</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -79,7 +79,8 @@
             <!-- board list area -->
             <div id="board-list">
                 {% if not rword_setences%}
-                <p>작성된 문장이 없습니다.</p>
+                <br>
+                <p style="color: white;">검색 결과가 없습니다.</p>
                 {% else %}
                 <div class="container">
                     <table class="board-table table">
@@ -110,12 +111,12 @@
                         <ul class="pagination justify-content-center">
                         {% if rword_setences.has_previous %}
                         <li class="page-item">
-                            <a class="page-link" href="?page=1&sort={{sort}}" aria-label="First">
+                            <a class="page-link" href="?page=1&sort={{sort}}&q={{q}}&type={{type}}" aria-label="First">
                             <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ rword_setences.previous_page_number }}&sort={{sort}}" aria-label="Previous">
+                            <a class="page-link" href="?page={{ rword_setences.previous_page_number }}&sort={{sort}}&q={{q}}&type={{type}}" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                             </a>
                         </li>
@@ -129,12 +130,12 @@
                         {% endfor %}
                         {% if rword_setences.has_next %}
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ rword_setences.next_page_number }}&sort={{sort}}" aria-label="Next">
+                            <a class="page-link" href="?page={{ rword_setences.next_page_number }}&sort={{sort}}&q={{q}}&type={{type}}" aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                             </a>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ rword_setences.paginator.num_pages }}&sort={{sort}}" aria-label="Last">
+                            <a class="page-link" href="?page={{ rword_setences.paginator.num_pages }}&sort={{sort}}&q={{q}}&type={{type}}" aria-label="Last">
                             <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
