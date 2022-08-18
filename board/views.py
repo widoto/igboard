@@ -196,7 +196,6 @@ def board_public_modify(request, pk):
         if write_form.is_valid():
             board.title=write_form.title
             board.contents=write_form.contents
-            board.sentence=write_form.sentence
             if write_form.image:
                 if board.image:
                     os.remove(os.path.join(settings.MEDIA_ROOT, board.image.path))
@@ -409,7 +408,6 @@ def board_science_modify(request, pk):
         if write_form.is_valid():
             board.title=write_form.title
             board.contents=write_form.contents
-            board.sentence=write_form.sentence
             if write_form.file:
                 if board.file:
                     os.remove(os.path.join(settings.MEDIA_ROOT, board.file.path))
