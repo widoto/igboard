@@ -17,16 +17,16 @@ class PBoardWriteForm(forms.ModelForm):
         ),
         required=True,
     )
-    sentence = forms.CharField(
-        label='문장',
-        widget=forms.TextInput(
-            attrs={
-                'class': "form-control",
-                'placeholder': '문장'
-            }
-        ),
-        required=True,
-    )
+    # sentence = forms.CharField(
+    #     label='문장',
+    #     widget=forms.TextInput(
+    #         attrs={
+    #             'class': "form-control",
+    #             'placeholder': '문장'
+    #         }
+    #     ),
+    #     required=True,
+    # )
     image = forms.ImageField(
         label='썸네일',
         widget=forms.FileInput(
@@ -44,7 +44,7 @@ class PBoardWriteForm(forms.ModelForm):
     field_order = [
         'title',
         #'writer',
-        'sentence',
+        #'sentence',
         'image',
         'contents',
         'file',
@@ -56,7 +56,7 @@ class PBoardWriteForm(forms.ModelForm):
         fields = [
             'title',
             'contents',
-            'sentence',
+            #'sentence',
             #'writer',
             'image',
             'file'
@@ -71,7 +71,7 @@ class PBoardWriteForm(forms.ModelForm):
         title = cleaned_data.get('title', '')
         contents = cleaned_data.get('contents', '')
         # writer = cleaned_data.get('writer', '')
-        sentence = cleaned_data.get('sentence', '')
+        #sentence = cleaned_data.get('sentence', '')
         image = cleaned_data.get('image', '')
         file = cleaned_data.get('file', '')
 
@@ -85,7 +85,7 @@ class PBoardWriteForm(forms.ModelForm):
             self.title = title
             self.contents = contents
             #self.writer = writer
-            self.sentence = sentence
+            #self.sentence = sentence
             self.image = image
             self.file = file
 
@@ -102,23 +102,23 @@ class SBoardWriteForm(forms.ModelForm):
         ),
         required=True,
     )
-    sentence = forms.CharField(
-        label='문장',
-        widget=forms.TextInput(
-            attrs={
-                'class': "form-control",
-                'placeholder': '문장'
-            }
-        ),
-        required=True,
-    )
+    # sentence = forms.CharField(
+    #     label='문장',
+    #     widget=forms.TextInput(
+    #         attrs={
+    #             'class': "form-control",
+    #             'placeholder': '문장'
+    #         }
+    #     ),
+    #     required=True,
+    # )
 
     contents = SummernoteTextField()
 
     field_order = [
         'title',
         #'writer',
-        'sentence',
+        #'sentence',
         'contents',
         'file',
     ]
@@ -128,7 +128,7 @@ class SBoardWriteForm(forms.ModelForm):
         fields = [
             'title',
             'contents',
-            'sentence',
+            #'sentence',
             #'writer',
             'file'
         ]
@@ -142,7 +142,7 @@ class SBoardWriteForm(forms.ModelForm):
         title = cleaned_data.get('title', '')
         contents = cleaned_data.get('contents', '')
         #writer = cleaned_data.get('writer', '')
-        sentence = cleaned_data.get('sentence', '')
+        #sentence = cleaned_data.get('sentence', '')
         file = cleaned_data.get('file', '')
 
         if title == '':
@@ -153,7 +153,7 @@ class SBoardWriteForm(forms.ModelForm):
             self.title = title
             self.contents = contents
             #self.writer = writer
-            self.sentence = sentence
+            #self.sentence = sentence
             self.file = file
 
 #댓글

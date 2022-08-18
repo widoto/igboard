@@ -10,6 +10,7 @@ from django.http import HttpResponse
 from django.db.models import Q
 from django.db.models import Count
 from django.contrib import messages 
+from rword.models import SentenceList
 
 #### 전체 게시판 ####
 def board_list(request):
@@ -97,16 +98,17 @@ def board_public_list(request):
     return render(request, 'board_public/board_public_list.html', context)
 
 #글 작성하기
-def board_public_write(request):
+def board_public_write(request, pk):
     if request.method == 'POST':
         write_form = PBoardWriteForm(request.POST, request.FILES)
+        sentenceObj = get_object_or_404(SentenceList, id=pk)
 
         if write_form.is_valid():
             board = Board(
                 title=write_form.title,
                 contents=write_form.contents,
                 writer=request.user,
-                sentence=write_form.sentence,
+                sentence=sentenceObj,
                 image=write_form.image,
                 #file=write_form.file
             )
@@ -318,16 +320,17 @@ def board_science_list(request):
     return render(request, 'board_science/board_science_list.html', context)
 
 #글 작성하기
-def board_science_write(request):
+def board_science_write(request, pk):
     if request.method == 'POST':
         write_form = SBoardWriteForm(request.POST, request.FILES)
+        sentenceObj = get_object_or_404(SentenceList, id=pk)
 
         if write_form.is_valid():
             board = Board(
                 title=write_form.title,
                 contents=write_form.contents,
                 writer=request.user,
-                sentence=write_form.sentence,
+                sentence=sentenceObj,
                 file=write_form.file,
                 board_name="Science"
             )
