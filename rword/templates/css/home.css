@@ -126,11 +126,14 @@ input[type=password]::placeholder {
     text-align: center;
     margin:0px;
     padding-top: 5px;
-    display:none;
-    background-color: #e9ecef ;
-    background-image: url("https://img.icons8.com/tiny-color/16/000000/experimental-error-tiny-color.png");
+    display:block;
+    background-color: #fac6c6;
+    background-image: url("./../img/alert.png");
+    font-family: 'nanumsquare';
+    font-weight: bold;
     background-repeat: no-repeat;
-    background-position: 18% 45%;
+    background-position: 5% 45%;
+    background-size: 10%;
 }
 
 .modal{
