@@ -116,8 +116,10 @@
                 </table>
             </div>
             
+            {% if board.file %}
             <hr>
             <button type="button" class="btn btn-color" style="background-color: #C0C53F;"><a href="/board/science/download?path={{ board.file }}" download="file_name.pdf"><strong>파일 다운로드</strong></a></button>
+            {% endif %} 
 
             <h4 id="title2">내용</h4>
             <hr class="bold-line">
