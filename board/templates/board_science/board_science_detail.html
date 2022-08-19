@@ -45,6 +45,7 @@
                 <div class="row">
                     <h3 id="title" class="col-11">{{ board.title }}</h3>
                     <div class="like-button-div col-1">
+                        {% if request.user.is_authenticated %}
                         <form class="d-inline like-button" action="{% url 'board:board_science_likes' board.pk %}" method='POST'>
                             {% csrf_token %}
                             {% if user in board.like_users.all %}
@@ -61,6 +62,7 @@
                             </button>
                             {% endif %}
                         </form>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="row nums">
