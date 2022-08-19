@@ -15,7 +15,7 @@ class Board(models.Model):
     update_dttm = models.DateTimeField(auto_now=True, verbose_name='최종 수정일')
     hits = models.PositiveIntegerField(default=0, verbose_name='조회수')
 
-    image = models.ImageField(blank=True, null=True, verbose_name='썸네일 이미지', upload_to = "Images/") 
+    image = models.ImageField(blank=True, null=True, default='Images/favicon.png', verbose_name='썸네일 이미지', upload_to = "Images/") 
     file = models.FileField(blank=True, null=True, verbose_name='첨부 파일', upload_to = "Files")
 
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='like_borads')
@@ -35,7 +35,8 @@ class Board(models.Model):
     def delete(self, *args, **kargs):
         super(Board, self).delete(*args, **kargs)
         if self.image:
-            os.remove(os.path.join(settings.MEDIA_ROOT, self.image.path))
+            if self.image != 'Images/favicon.png':
+                os.remove(os.path.join(settings.MEDIA_ROOT, self.image.path))
         if self.file:  
             os.remove(os.path.join(settings.MEDIA_ROOT, self.file.path))
 
