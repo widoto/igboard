@@ -37,6 +37,11 @@
             </div>    
         </div>
     </nav>
+    <style>
+      .notice:hover {
+        color:#8e912e;
+      }
+    </style>
 </head>
 <body>
     <section class="main-section">
@@ -116,15 +121,17 @@
                 <hr class="first-line">
                 <!--댓글창-->
                 {% if comments %}
-                <div class="d-block comment-div">
+                <div class="d-block comment-div" style="float: left;">
                     <h5 class="comment-num"><strong>댓글&nbsp;</strong></h5>
                     <h5 class="comment-num"><strong>{{ comments|length }} 개</strong></h5>
                 </div>
                 {% endif %}
+                <div class="d-blcok" style="float: left;">
                 {% if not comments %}
                   <h5 class="comment-num"><strong>댓글&nbsp;</strong></h5>
                   <h5 class="comment-num"><strong>0 개</strong></h5>
                 {% endif %}
+                </div>
                 <!-- 댓글생성 -->
                 {% if request.user.is_authenticated %}
                 <div class="d-block commentdDiv">
@@ -135,7 +142,9 @@
                   </form>
                 </div>                
                 {% else %}
-                  <a href="/accounts/login">댓글을 작성하려면 로그인하세요.</a>
+                <div class="d-block" style="float: left; margin: 10px; padding-top: 60px; padding-bottom: 20px; margin-left: -55px; font-family:'nanumsquare';">
+                  <a class="notice" style="color: white; text-align: left;" href="/">댓글을 작성하려면 로그인하세요.</a>
+                </div>
                 {% endif %}    
                 <!--댓글 리스트-->
                 {% for comment in comments %}
