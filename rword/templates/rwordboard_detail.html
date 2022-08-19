@@ -54,6 +54,17 @@
             </div>    
         </div>
     </nav>
+    <style>
+        .notice:hover {
+            color: #f9ffaa;
+            text-decoration: underline;
+                
+        }
+        .notice {
+            color: #C0C53F;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
     <section>
@@ -144,6 +155,7 @@
         </table>
         -->
         <!-- Button trigger modal -->
+        {% if request.user.is_authenticated %}
         <div class="button-box">
             <a type="button" class="btn" style="background-color: #C0C53F;" href="{% url 'board:board_public_write' sentence.pk %}">
                 일반인 게시글 올리기
@@ -153,46 +165,50 @@
             </a>
         </div>
         <hr class="first-line">
+        {% endif %}
+        
+        <div style="padding-bottom: 80px; margin-left: 20px; margin-right: 20px;">
         <!--댓글창-->
-        {% if comments %}
-        <div class="d-block comment-div">
+            {% if comments %}
+            <div class="d-block comment-div">
+                <h5 class="comment-num"><strong>댓글&nbsp;</strong></h5>
+                <h5 class="comment-num"><strong>{{ comments|length }} 개</strong></h5>
+            </div>
+            {% endif %}
+            {% if not comments %}
             <h5 class="comment-num"><strong>댓글&nbsp;</strong></h5>
-            <h5 class="comment-num"><strong>{{ comments|length }} 개</strong></h5>
+            <h5 class="comment-num"><strong>0 개</strong></h5>
+            {% endif %}
+            <!-- 댓글생성 -->
+            {% if request.user.is_authenticated %}
+            <div class="d-block commentdDiv">
+                <form class="text-add" action="{% url 'sen_comments_create' sentence.pk %}" method="POST">
+                    {% csrf_token %}
+                    {{ comment_form.content }}
+                    <input class="comment-input-button" type="submit" value="댓글 입력">
+                </form>
+            </div>                
+            {% else %}
+            <div class="d-block" style="float: left; margin: 10px; padding-top: 50px; padding-bottom: 20px; margin-left: -55px;">
+                <a class="notice" style="text-align: left; font-family:'nanumsquare';" href="/">댓글을 작성하려면 로그인하세요.</a>
+            </div>
+            {% endif %}    
+            <!--댓글 리스트-->
+            {% for comment in comments %}
+            <div class="row">
+                <div class="comment col-11">
+                    <b>{{ comment.user }}&nbsp;&nbsp;&nbsp;</b>{{ comment.content }}
+                </div>
+                <!--댓글 삭제 버튼-->
+                {% if user == comment.user %}
+                <form class="col-1 comment-delete" action="{% url 'sen_comments_delete' sentence.pk comment.pk %}" method="POST" class="d-inline">
+                    {% csrf_token %}
+                    <input class="comment-delete-input" type="submit" value="삭제">
+                </form>
+            {% endif %}                                           
+            </div>                                                                                                                                                                                                                                                                                            
+            {% endfor %}  
         </div>
-        {% endif %}
-        {% if not comments %}
-          <h5 class="comment-num"><strong>댓글&nbsp;</strong></h5>
-          <h5 class="comment-num"><strong>0 개</strong></h5>
-        {% endif %}
-        <!-- 댓글생성 -->
-        {% if request.user.is_authenticated %}
-        <div class="d-block commentdDiv">
-          <form class="text-add" action="{% url 'sen_comments_create' sentence.pk %}" method="POST">
-            {% csrf_token %}
-            {{ comment_form.content }}
-            <input class="comment-input-button" type="submit" value="댓글 입력">
-          </form>
-        </div>                
-        {% else %}
-          <a href="/accounts/login">댓글을 작성하려면 로그인하세요.</a>
-        {% endif %}    
-        <!--댓글 리스트-->
-        {% for comment in comments %}
-        <div class="row">
-          <div class="comment col-11">
-            <b>{{ comment.user }}&nbsp;&nbsp;&nbsp;</b>{{ comment.content }}
-          </div>
-        <!--댓글 삭제 버튼-->
-          {% if user == comment.user %}
-          <form class="col-1 comment-delete" action="{% url 'sen_comments_delete' sentence.pk comment.pk %}" method="POST" class="d-inline">
-            {% csrf_token %}
-            <input class="comment-delete-input" type="submit" value="삭제">
-          </form>
-          {% endif %}                                           
-        </div>                                                                                                                                                                                                                                                                                            
-        {% endfor %}  
-    </div>
-
     </section>
     <section id="footer"> <!--footer-->
         <div class="container-fluid">
