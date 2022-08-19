@@ -169,7 +169,7 @@ html {
 
     content: attr(data-content);
     position: absolute;
-    left: 42.2%;
+    left: -2px;
     text-shadow: 3px 0 #f00;
     top: 0;
     color: #fff;
@@ -183,7 +183,7 @@ html {
 
     content: attr(data-content);
     position: absolute;
-    left: 42.2%;
+    left: -2px;
     text-shadow: -3px 0 #C0C53F;
     top: 0;
     color: #fff;
