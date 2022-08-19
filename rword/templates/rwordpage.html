@@ -178,16 +178,18 @@
                     </form>
                 </div>
             </div>
-
-            <div id="random" class="row mx-5"><!--단어 개수를 선택한 결과가 나오는 부분-->
-                <div class="row">
-                    {% if rwordlist %}
-                    {% for rword in rwordlist %}
-                        <p class="wordspan"> {{rword}}</p><br>
-                    {% endfor %}
-                    {% endif %}
+            <div class="row justify-content-md-center">
+                <div id="random" class="row mx-5"><!--단어 개수를 선택한 결과가 나오는 부분-->
+                    <div class="col ">
+                        {% if rwordlist %}
+                        {% for rword in rwordlist %}
+                            <p class="wordspan"> {{rword}}</p><br>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
                 </div>
             </div>
+            
             <div class="row mb-5">
                 <div>
                     <img src="/static/img/thinking.png" class="thinking">
