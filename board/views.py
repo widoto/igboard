@@ -196,8 +196,11 @@ def board_public_modify(request, pk):
             os.remove(os.path.join(settings.MEDIA_ROOT, board.file.path))
             board.file = ''
         if image_check:
-            os.remove(os.path.join(settings.MEDIA_ROOT, board.image.path))
-            board.image = ''
+            if board.image == 'Images/favicon.png':
+                board.image = 'Images/favicon.png'
+            else:
+                os.remove(os.path.join(settings.MEDIA_ROOT, board.image.path))
+                board.image = 'Images/favicon.png'
 
         write_form = PBoardWriteForm(request.POST, request.FILES)
 
@@ -206,7 +209,10 @@ def board_public_modify(request, pk):
             board.contents=write_form.contents
             if write_form.image:
                 if board.image:
-                    os.remove(os.path.join(settings.MEDIA_ROOT, board.image.path))
+                    if board.image == 'Images/favicon.png':
+                        pass
+                    else:
+                        os.remove(os.path.join(settings.MEDIA_ROOT, board.image.path))
                 board.image=write_form.image
             if write_form.file:
                 if board.file:
