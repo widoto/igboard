@@ -16,11 +16,15 @@
             </button>     
             <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">        
                 <ul class="navbar-nav mt-2 menugroup">
-                    {% if request.user.is_authenticated %}
-                    <li class="nav-item mr-3">            
-                        <a class="nav-link menu randommenu" href="{% url 'logout' %}" data-mid="0">로그아웃</a>        
-                    </li>
-                    {% endif %}           
+                  {% if request.user.is_authenticated %}
+                  <li class="nav-item mr-3">            
+                      <a class="nav-link menu randommenu" href="{% url 'logout' %}" data-mid="0">로그아웃</a>        
+                  </li>
+                  {% else %}
+                  <li class="nav-item mr-3">            
+                      <a class="nav-link menu randommenu" href="{% url 'rwordpage' %}" data-mid="0">로그인</a>        
+                  </li>
+                  {% endif %}           
                     <li class="nav-item mr-3" data-mid="0">            
                         <a class="nav-link menu randommenu" href="{% url 'rwordpage' %}" data-mid="0">랜덤 단어 생성하기</a>        
                     </li>        
