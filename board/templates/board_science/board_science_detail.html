@@ -71,12 +71,14 @@
                         <p class="d-inline hit-name">조회수</p>
                         <p class="d-inline hits-num text-light">{{ board.hits }}</p>
                     </div>
-                    <div class="col">
-                        {% if user == board.writer %}
-                        <a class="smaller-gray user-func d-inline" href="/board/science/detail/{{ board.id }}/modify/">수정</a>
-                        <p class="d-inline button-hr">|</p>
-                        <a class="smaller-gray user-func d-inline" href="/board/science/detail/{{ board.id }}/delete/">삭제</a>
-                        {% endif %}
+                    <div class="col" style="float: right;">
+                        <div style="float: right; width: 83px">
+                            {% if user == board.writer %}
+                            <a class="smaller-gray user-func d-inline" href="/board/science/detail/{{ board.id }}/modify/">수정</a>
+                            <p class="d-inline button-hr" style="float: left;">|</p>
+                            <a class="smaller-gray user-func d-inline" href="/board/science/detail/{{ board.id }}/delete/">삭제</a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
