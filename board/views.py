@@ -99,9 +99,17 @@ def board_public_list(request):
 
 #글 작성하기
 def board_public_write(request, pk):
-    if request.method == 'POST':
-        write_form = PBoardWriteForm(request.POST, request.FILES)
+    if request.method == 'GET':
         sentenceObj = get_object_or_404(SentenceList, id=pk)
+        write_form = PBoardWriteForm()
+        context = {
+            'forms': write_form,
+        }
+        return render(request, 'board_public/board_public_write.html', context)
+
+    elif request.method == 'POST':
+        sentenceObj = get_object_or_404(SentenceList, id=pk)
+        write_form = PBoardWriteForm(request.POST, request.FILES)
 
         if write_form.is_valid():
             board = Board(
@@ -320,9 +328,17 @@ def board_science_list(request):
 
 #글 작성하기
 def board_science_write(request, pk):
-    if request.method == 'POST':
-        write_form = SBoardWriteForm(request.POST, request.FILES)
+    if request.method == 'GET':
         sentenceObj = get_object_or_404(SentenceList, id=pk)
+        write_form = SBoardWriteForm()
+        context = {
+            'forms': write_form,
+        }
+        return render(request, 'board_science/board_science_write.html', context)
+
+    elif request.method == 'POST':
+        sentenceObj = get_object_or_404(SentenceList, id=pk)
+        write_form = SBoardWriteForm(request.POST, request.FILES)
 
         if write_form.is_valid():
             board = Board(

@@ -8,7 +8,7 @@ urlpatterns = [
     path('search/', views.board_search, name='board_search'),
     #일반인 페이지
     path('public/', views.board_public_list, name='board_public_list'),
-    path('public/write/', views.board_public_write, name='board_public_write'),
+    path('public/write/<int:pk>', views.board_public_write, name='board_public_write'),
     path('public/detail/<int:pk>/', views.board_public_detail, name='board_public_detail'),
     path('public/download/', views.file_download, name='file_download'),
     path('public/detail/<int:pk>/delete/', views.board_public_delete, name='board_public_delete'),
@@ -22,7 +22,7 @@ urlpatterns = [
 
     #과학자 페이지
     path('science/', views.board_science_list, name='board_science_list'),
-    path('science/write/', views.board_science_write, name='board_science_write'),
+    path('science/write/<int:pk>', views.board_science_write, name='board_science_write'),
     path('science/detail/<int:pk>/', views.board_science_detail, name='board_science_detail'),
     path('science/download/', views.file_download, name='file_download'),
     path('science/detail/<int:pk>/delete/', views.board_science_delete, name='board_science_delete'),

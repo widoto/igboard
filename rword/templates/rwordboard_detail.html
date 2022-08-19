@@ -145,10 +145,10 @@
         -->
         <!-- Button trigger modal -->
         <div class="button-box">
-            <a type="button" class="btn" style="background-color: #C0C53F;" href="{% url 'board_public_write' sentence.pk %}">
+            <a type="button" class="btn" style="background-color: #C0C53F;" href="{% url 'board:board_public_write' sentence.pk %}">
                 일반인 게시글 올리기
             </a>
-            <a type="button" class="btn" style="background-color: #C0C53F;" href="{% url 'board_science_write' sentence.pk %}">
+            <a type="button" class="btn" style="background-color: #C0C53F;" href="{% url 'board:board_science_write' sentence.pk %}">
                 과학자 게시글 올리기
             </a>
         </div>

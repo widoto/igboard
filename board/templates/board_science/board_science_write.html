@@ -56,9 +56,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">게시글 작성</h5>
-                <a href="{% url 'board:board_science_list' %}"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></a>
+                <a href="/rboard"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></a>
                 </div>
-            </br></br></br>
+            </br></br>
                 <div class="modal-body">
                     <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
@@ -69,10 +69,6 @@
                             </div>
                             <div class="col-10">
                                 {{ forms.title }}
-                            </div>
-                            <div class="input-group mb-3">
-                                <input type="file" class="form-control" id="inputGroupFile02">
-                                <label class="input-group-text" for="inputGroupFile02">Upload</label>
                             </div>
                             <!--file input-->
                             <div class="mb-3">
