@@ -78,6 +78,7 @@
                 <div class="like d-inline">
                     <!--좋아요 버튼-->
                     <div class="like-button-div d-inline">
+                        {% if request.user.is_authenticated %}
                         <form class="d-inline like-button" action="{% url 'likes' sentence.pk %}" method='POST'>
                         {% csrf_token %}
                         {% if user in sentence.like_users.all %}
@@ -94,6 +95,7 @@
                             </button>
                         {% endif %}
                         </form>
+                        {% endif %}
                     </div>
                 </div>
                 
