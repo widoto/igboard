@@ -13,8 +13,8 @@
 
 #### :two_men_holding_hands: 팀원 
 김민혜: 팀장, 프론트엔드(메인 홈 페이지, 랜덤 단어 생성 페이지, 로그인 및 회원가입 페이지)<br/>
-:link: 홈페이지 코드 : <https://github.com/widoto/igboard/tree/main/igwebapp/templates>
-:link: 로그인/회원가입 코드 : <https://github.com/widoto/igboard/tree/main/accounts/templates>
+:link: 홈페이지 코드 : <https://github.com/widoto/igboard/tree/main/igwebapp/templates><br/>
+:link: 로그인/회원가입 코드 : <https://github.com/widoto/igboard/tree/main/accounts/templates><br/>
 김하연: 프론트엔드(게시판 페이지, 게시판 글쓰기 페이지)<br/>
 이하진: 백엔드 파트<br/>
 오샘: 백엔드 파트<br/>
