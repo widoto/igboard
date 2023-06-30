@@ -1,4 +1,4 @@
-# igboard 프로젝트
+# igboard 프로젝트_
 
 # 실행방법
 
