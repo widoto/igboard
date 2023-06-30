@@ -12,16 +12,55 @@
 :link: <https://port-0-igboard-g0424l70mpcr1.gksl1.cloudtype.app/>
 
 #### :two_men_holding_hands: 팀원 
-김민혜: 팀장, 프론트엔드(메인 홈 페이지, 랜덤 단어 생성 페이지, 로그인 및 회원가입 페이지)
-김하연: 프론트엔드(게시판 페이지, 게시판 글쓰기 페이지)
-이하진: 백엔드 파트
-오샘: 백엔드 파트
-한재영: 백엔드 파트 
-이서연: 백엔드 파트
-정서린: 디자인
+김민혜: 팀장, 프론트엔드(메인 홈 페이지, 랜덤 단어 생성 페이지, 로그인 및 회원가입 페이지)<br/>
+김하연: 프론트엔드(게시판 페이지, 게시판 글쓰기 페이지)<br/>
+이하진: 백엔드 파트<br/>
+오샘: 백엔드 파트<br/>
+한재영: 백엔드 파트 <br/>
+이서연: 백엔드 파트<br/>
+정서린: 디자인<br/>
 
 ### :camera: View
-
+<details>
+    <summary>기획</summary>
+    <img src="https://github.com/widoto/SYDashboard/assets/85910625/0b00d75e-e460-4bce-a69e-e1979240e413" width="600px" title="HomePage" alt="HomePage"></img><br/>
+</details>
+<details>
+    <summary>로그인</summary>
+    <img src="https://github.com/widoto/SYDashboard/assets/85910625/9703a7f0-85b0-4350-840d-f794de5cb5e6" width="600px" title="HomePage" alt="HomePage"></img><br/>
+</details>
+<details>
+    <summary>회원가입</summary>
+    <img src="https://github.com/widoto/SYDashboard/assets/85910625/189bfb37-ba97-4661-9a97-8f526c15f651" width="600px" title="HomePage" alt="HomePage"></img><br/>
+</details>
+<details>
+    <summary>메인홈페이지</summary>
+    <img src="https://github.com/widoto/SYDashboard/assets/85910625/372c217c-3d1e-4aa2-8427-d5157684f627" width="600px" title="HomePage" alt="HomePage"></img><br/>
+</details>
+<details>
+    <summary>랜덤단어 생성 페이지</summary>
+    데이터베이스에서 랜덤 단어를 뽑아옴.<br>
+    * 랜덤단어 2개 생성<br/>
+    <img src="https://github.com/widoto/SYDashboard/assets/85910625/32b3bcc7-fcde-4ed3-9a0c-deddce52997b" width="600px" title="HomePage" alt="HomePage"></img><br/>
+    * 랜덤단어 3개 생성<br/>
+    <img src="https://github.com/widoto/SYDashboard/assets/85910625/46634d32-4611-452e-b988-6882dba3dc0f" width="600px" title="HomePage" alt="HomePage"></img><br/>
+    * 랜덤단어 4개 생성<br/>
+    <img src="https://github.com/widoto/SYDashboard/assets/85910625/2700ba73-cee8-410c-8aee-68d3b2dbb5e7" width="600px" title="HomePage" alt="HomePage"></img><br/>
+</details>
+<details>
+    <summary>일반인 게시판</summary>
+    유튜브 쇼츠, 틱톡 영상, 핀터레스트와 같은 배치로 구성함.<br>
+    <img src="https://github.com/widoto/SYDashboard/assets/85910625/eb94931f-84ec-49fd-b268-b6f8bc462200" width="600px" title="HomePage" alt="HomePage"></img><br/>
+</details>
+<details>
+    <summary>과학자 게시판</summary>
+    포멀한 형식의 게시판을 구성함.
+    <img src="https://github.com/widoto/SYDashboard/assets/85910625/54aa12ea-92bc-47f1-99ac-5d9c8c52e7cb" width="600px" title="HomePage" alt="HomePage"></img><br/>
+</details>
+<details>
+    <summary>글쓰기 페이지</summary>
+    <img src="https://github.com/widoto/SYDashboard/assets/85910625/61c29305-c33b-4e93-8a13-0c8bff4d70ee" width="600px" title="HomePage" alt="HomePage"></img><br/>
+</details>
 
 # 실행방법
 
