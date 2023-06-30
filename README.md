@@ -43,9 +43,10 @@
     * 랜덤단어 2개 생성<br/>
     <img src="https://github.com/widoto/SYDashboard/assets/85910625/32b3bcc7-fcde-4ed3-9a0c-deddce52997b" width="600px" title="HomePage" alt="HomePage"></img><br/>
     * 랜덤단어 3개 생성<br/>
-    <img src="https://github.com/widoto/SYDashboard/assets/85910625/46634d32-4611-452e-b988-6882dba3dc0f" width="600px" title="HomePage" alt="HomePage"></img><br/>
-    * 랜덤단어 4개 생성<br/>
     <img src="https://github.com/widoto/SYDashboard/assets/85910625/2700ba73-cee8-410c-8aee-68d3b2dbb5e7" width="600px" title="HomePage" alt="HomePage"></img><br/>
+    * 랜덤단어 4개 생성<br/>
+    <img src="https://github.com/widoto/SYDashboard/assets/85910625/46634d32-4611-452e-b988-6882dba3dc0f" width="600px" title="HomePage" alt="HomePage"></img><br/>
+    
 </details>
 <details>
     <summary>일반인 게시판</summary>
@@ -54,7 +55,7 @@
 </details>
 <details>
     <summary>과학자 게시판</summary>
-    포멀한 형식의 게시판을 구성함.
+    포멀한 형식의 게시판을 구성함.<br>
     <img src="https://github.com/widoto/SYDashboard/assets/85910625/54aa12ea-92bc-47f1-99ac-5d9c8c52e7cb" width="600px" title="HomePage" alt="HomePage"></img><br/>
 </details>
 <details>
