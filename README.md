@@ -25,7 +25,7 @@
 ### :camera: View
 <details>
     <summary>기획</summary>
-    <img src="https://github.com/widoto/SYDashboard/assets/85910625/0b00d75e-e460-4bce-a69e-e1979240e413" width="600px" title="HomePage" alt="HomePage"></img><br/>
+    <img src="1.png" width="600px" title="HomePage" alt="HomePage"></img><br/>
 </details>
 <details>
     <summary>로그인</summary>
